@@ -722,7 +722,7 @@
             {
               name: "Views",
               data: allData.timestamps.map((t, i) => [
-                t.getTime(),
+                t.getTime() - 4 * 3600 * 1000,
                 allData.views[i],
               ]),
               color: {
@@ -746,7 +746,7 @@
             {
               name: "Likes",
               data: allData.timestamps.map((t, i) => [
-                t.getTime(),
+                t.getTime() - 4 * 3600 * 1000,
                 allData.likes[i],
               ]),
               color: {
@@ -770,7 +770,7 @@
             {
               name: "Comments",
               data: allData.timestamps.map((t, i) => [
-                t.getTime(),
+                t.getTime() - 4 * 3600 * 1000,
                 allData.comments[i],
               ]),
               color: {
@@ -821,9 +821,7 @@
               type: "datetime",
               labels: {
                 formatter: function () {
-                  const date = Highcharts.dateFormat("%Y-%m-%d", this.value);
-                  const time = Highcharts.dateFormat("%H:%M", this.value);
-                  return `${date}<br>${time}`;
+                  return Highcharts.dateFormat("%Y-%m-%d<br>%H:%M", this.value);
                 },
                 style: {
                   color: "var(--text-color)",
@@ -835,10 +833,15 @@
               tickPositioner: function () {
                 const positions = [];
                 const min = this.dataMin;
-                const max = this.max;
-                const interval = (max - min) / 7;
+                const max = this.dataMax;
+                const range = max - min;
 
-                for (let i = 0; i <= 7; i++) {
+                const isMobile = this.chart.chartWidth <= 600;
+                const maxPoints = isMobile ? 6 : 10;
+
+                const interval = range / (maxPoints - 1);
+
+                for (let i = 0; i < maxPoints; i++) {
                   positions.push(min + i * interval);
                 }
 
@@ -875,41 +878,14 @@
                 fontSize: "14px",
               },
               formatter: function () {
-                let date = new Date(this.x);
-                let formattedDate = `${date.getFullYear()}-${(
-                  date.getMonth() + 1
-                )
-                  .toString()
-                  .padStart(2, "0")}-${date
-                  .getDate()
-                  .toString()
-                  .padStart(2, "0")}`;
-                let formattedTime = `${date
-                  .getHours()
-                  .toString()
-                  .padStart(2, "0")}:${date
-                  .getMinutes()
-                  .toString()
-                  .padStart(2, "0")}:00`;
+                let formattedDate = Highcharts.dateFormat("%Y-%m-%d", this.x);
+                let formattedTime =
+                  Highcharts.dateFormat("%H:%M", this.x) + ":00";
 
                 let tooltipText = `<b>${formattedDate} ${formattedTime}</b><br>`;
 
                 this.points.forEach((point) => {
-                  let label = "";
-                  switch (point.series.name) {
-                    case "Views":
-                      label = "Views";
-                      break;
-                    case "Likes":
-                      label = "Likes";
-                      break;
-                    case "Comments":
-                      label = "Comments";
-                      break;
-                    default:
-                      label = "Value";
-                  }
-
+                  let label = point.series.name;
                   tooltipText += `${label}: ${point.y.toLocaleString()}<br>`;
                 });
 
