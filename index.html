@@ -842,9 +842,24 @@
                 fontSize: "14px",
               },
               formatter: function () {
-                let tooltipText = `<b>${new Date(
-                  this.x
-                ).toLocaleString()}</b><br>`;
+                let date = new Date(this.x);
+                let formattedDate = `${date.getFullYear()}-${(
+                  date.getMonth() + 1
+                )
+                  .toString()
+                  .padStart(2, "0")}-${date
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")}`;
+                let formattedTime = `${date
+                  .getHours()
+                  .toString()
+                  .padStart(2, "0")}:${date
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, "0")}:00`;
+
+                let tooltipText = `<b>${formattedDate} ${formattedTime}</b><br>`;
 
                 this.points.forEach((point) => {
                   let label = "";
