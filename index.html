@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Analytics</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -69,155 +69,67 @@
         background-color: var(--background-color);
         color: var(--text-color);
         line-height: 1.5;
-        padding: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         min-height: 100vh;
+        padding: 1rem;
       }
 
       header {
         width: 100%;
         max-width: 1200px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 2rem;
-        padding: 1rem 0;
+        padding: 1rem;
       }
 
       header h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
         color: var(--primary-color);
         font-weight: 700;
         font-family: "Poppins", sans-serif;
         transition: color 0.3s;
       }
 
-      .video-info-card {
+      .header-controls {
         display: flex;
         align-items: center;
-        background-color: var(--card-background-color);
-        border-radius: 12px;
-        padding: 1rem;
-        margin: 0 auto 2rem auto;
-        border: 2px solid var(--highlight-border-color);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 1200px;
-      }
-
-      .video-thumbnail {
-        width: 150px;
-        height: auto;
-        border-radius: 8px;
-        margin-right: 1rem;
-      }
-
-      .video-details {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-      }
-
-      #videoInfoCard {
-        display: none;
-      }
-
-      .video-title a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s, text-decoration 0.3s;
-      }
-
-      .video-title a:hover {
-        color: var(--hover-text-color);
-        text-decoration: underline;
-      }
-
-      .video-title {
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: 0.5rem;
-      }
-
-      .video-upload-date,
-      .video-duration {
-        font-size: 1rem;
-        color: var(--muted-text-color);
-      }
-
-      .theme-toggle {
-        background-color: var(--accent-color);
-        border: none;
-        padding: 0.75rem;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 8px var(--hover-shadow-color);
-      }
-
-      .theme-toggle img {
-        width: 24px;
-        height: 24px;
-        transition: filter 0.3s;
-      }
-
-      body[data-theme="dark"] .theme-toggle {
-        background-color: var(--card-background-color);
-        border: 1px solid var(--border-color);
-      }
-
-      .theme-toggle:hover {
-        background-color: var(--button-hover-color);
-        transform: scale(1.1);
-        box-shadow: 0 8px 16px var(--hover-shadow-color);
-      }
-
-      .theme-toggle:active {
-        background-color: var(--active-button-color);
+        justify-content: space-between;
+        position: relative;
       }
 
       .search-bar {
-        width: 100%;
-        max-width: 600px;
-        display: flex;
+        flex-grow: 1;
+        max-width: none;
+        margin-right: 1rem;
         position: relative;
-        transition: transform 0.3s;
-        border-radius: 8px;
-        padding: 0.5rem;
       }
 
       .search-bar input {
         width: 100%;
         padding: 0.75rem 1rem;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border: none;
+        border-radius: 30px;
         background-color: var(--card-background-color);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         color: var(--text-color);
         font-size: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s, border-color 0.3s;
-      }
-
-      .search-bar input:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      .search-bar input:focus {
-        border-color: var(--hover-border-color);
         outline: none;
-        box-shadow: 0 4px 12px var(--hover-shadow-color);
+      }
+
+      .search-bar input::placeholder {
+        color: var(--muted-text-color);
       }
 
       .dropdown-list {
         width: 100%;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 0.5rem);
         left: 0;
         background-color: var(--card-background-color);
         border-radius: 8px;
@@ -249,7 +161,113 @@
       .dropdown-list-item:hover {
         background-color: var(--hover-card-background);
         color: var(--hover-text-color);
-        transform: scale(1.02);
+      }
+
+      .theme-toggle,
+      .export-button {
+        background-color: var(--accent-color);
+        border: none;
+        margin-left: 1rem;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px var(--hover-shadow-color);
+        width: 48px;
+        height: 48px;
+      }
+
+      .theme-toggle img,
+      .export-button img {
+        width: 24px;
+        height: 24px;
+        transition: filter 0.3s;
+      }
+
+      body[data-theme="dark"] .theme-toggle,
+      body[data-theme="dark"] .export-button {
+        background-color: var(--card-background-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .theme-toggle:hover,
+      .export-button:hover {
+        background-color: var(--button-hover-color);
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px var(--hover-shadow-color);
+      }
+
+      .theme-toggle:active,
+      .export-button:active {
+        background-color: var(--active-button-color);
+      }
+
+      .video-info-card {
+        display: flex;
+        align-items: center;
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        padding: 1rem;
+        margin: -1.5rem auto 1.5rem auto;
+        border: 2px solid var(--highlight-border-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .video-thumbnail {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+        margin-right: 1rem;
+      }
+
+      .video-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .video-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .video-title a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s, text-decoration 0.3s;
+      }
+
+      .video-title a:hover {
+        color: var(--hover-text-color);
+        text-decoration: underline;
+      }
+
+      .video-duration {
+        font-size: 1rem;
+        color: var(--muted-text-color);
+      }
+
+      .video-upload-date .last-updated {
+        font-size: 0.85rem;
+        color: var(--muted-text-color);
+        margin-left: 10px;
+      }
+
+      .chart-container {
+        width: 100%;
+        max-width: 1200px;
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        padding: 1rem;
+        border: 2px solid var(--highlight-border-color);
+        height: 450px;
       }
 
       .stats-grid {
@@ -287,7 +305,6 @@
         color: var(--primary-color);
         margin-bottom: 1rem;
         font-weight: 600;
-        transition: color 0.3s;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -305,69 +322,108 @@
         color: var(--text-color);
       }
 
-      .chart-container {
+      .dropdown-list {
         width: 100%;
-        max-width: 1200px;
+        position: absolute;
+        top: 100%;
+        left: 0;
         background-color: var(--card-background-color);
-        border-radius: 12px;
-        padding: 2rem;
-        border: 2px solid var(--highlight-border-color);
-        height: 450px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .dropdown-list.show {
+        display: flex;
+        transform: scaleY(1);
+      }
+
+      .dropdown-list-item {
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 100;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .dropdown-list-item:last-child {
+        border-bottom: none;
       }
 
       .dropdown-list-item.bold {
-        font-weight: bold;
+        font-weight: 900;
+      }
+
+      .dropdown-list-item:hover {
+        background-color: var(--hover-card-background);
+        color: var(--hover-text-color);
       }
 
       @media (max-width: 768px) {
-        .stats-grid {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-
-        header h1 {
-          font-size: 1.75rem;
-        }
-
-        .stat-card h3 {
-          font-size: 1.25rem;
-        }
-
-        .stat-card .odometer {
-          font-size: 2rem;
-        }
-
-        .chart-container {
-          padding: 1.5rem;
-        }
-      }
-
-      @media (max-width: 480px) {
-        body {
-          padding: 1rem;
-        }
-
         header {
           flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
+          padding: 1rem 0;
         }
 
-        .chart-container {
-          height: 450px;
+        .header-controls {
+          gap: 1rem;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-bar {
+          max-width: 100%;
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+
+        .search-bar input {
+          padding: 0.6rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .dropdown-list {
+          max-width: 100%;
+          overflow-x: hidden;
+          left: 0;
+          transform-origin: top;
+        }
+
+        .theme-toggle,
+        .export-button {
+          width: 48px;
+          height: 48px;
+          position: fixed;
+          bottom: 1rem;
+          right: 1rem;
+          margin-left: 0;
+          margin-bottom: 0;
+          z-index: 1000;
+        }
+
+        .theme-toggle {
+          right: 1rem;
+        }
+
+        .export-button {
+          right: 4.5rem;
+        }
+
+        .theme-toggle img,
+        .export-button img {
+          width: 24px;
+          height: 24px;
         }
 
         header h1 {
           font-size: 1.5rem;
-          margin-bottom: 1rem;
         }
-
-        .search-bar {
-          width: 70%;
-        }
-      }
-
-      .highcharts-area {
-        fill-opacity: 0.5;
       }
     </style>
   </head>
@@ -375,23 +431,32 @@
   <body>
     <header>
       <h1>Video Analytics</h1>
-      <div class="search-bar">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search and select a video..."
-          autocomplete="off"
-          autocorrect="off"
-        />
-        <div class="dropdown-list" id="dropdownList"></div>
+      <div class="header-controls">
+        <div class="search-bar">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search and select a video..."
+            autocomplete="off"
+            autocorrect="off"
+          />
+          <div class="dropdown-list" id="dropdownList"></div>
+        </div>
+        <button class="theme-toggle" id="themeToggle">
+          <img
+            src="https://img.icons8.com/material-outlined/24/ffffff/contrast.png"
+            alt="Toggle Dark Mode"
+            id="themeIcon"
+          />
+        </button>
+        <button class="export-button" id="exportButton">
+          <img
+            src="https://img.icons8.com/material-outlined/24/ffffff/download.png"
+            alt="Export Data"
+            id="exportIcon"
+          />
+        </button>
       </div>
-      <button class="theme-toggle" id="themeToggle">
-        <img
-          src="https://img.icons8.com/material-outlined/24/ffffff/contrast.png"
-          alt="Toggle Dark Mode"
-          id="themeIcon"
-        />
-      </button>
     </header>
 
     <div id="videoInfoCard" class="video-info-card" style="display: none">
@@ -407,19 +472,21 @@
         </h2>
         <p id="uploadDate" class="video-upload-date"></p>
         <p id="videoDuration" class="video-duration"></p>
+        <p id="lastUpdated" class="video-last-updated"></p>
       </div>
     </div>
+
     <div class="stats-grid">
       <div class="stat-card">
-        <h3><i class="fas fa-eye"></i> Total Views</h3>
+        <h3><i class="fas fa-eye"></i> Views</h3>
         <div id="totalViews" class="odometer">0</div>
       </div>
       <div class="stat-card">
-        <h3><i class="fas fa-thumbs-up"></i> Total Likes</h3>
+        <h3><i class="fas fa-thumbs-up"></i> Likes</h3>
         <div id="totalLikes" class="odometer">0</div>
       </div>
       <div class="stat-card">
-        <h3><i class="fas fa-comments"></i> Total Comments</h3>
+        <h3><i class="fas fa-comments"></i> Comments</h3>
         <div id="totalComments" class="odometer">0</div>
       </div>
     </div>
@@ -435,8 +502,10 @@
           "https://api.communitrics.com/combined-history";
         const searchInput = document.getElementById("searchInput");
         const dropdownList = document.getElementById("dropdownList");
+        const exportButton = document.getElementById("exportButton");
         let videoChart;
         let allData = {};
+        let currentVideoId = "combined";
         let selectedSeriesIndex = 0;
 
         const storedTheme = localStorage.getItem("theme") || "light";
@@ -514,6 +583,7 @@
           });
 
         function fetchCombinedStats() {
+          currentVideoId = "combined";
           document.getElementById("videoInfoCard").style.display = "none";
 
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=combined`;
@@ -526,13 +596,13 @@
                 (entry) => new Date(entry.time)
               );
               const views = filterSpikes(
-                combinedData.map((entry) => entry.views)
+                combinedData.map((entry) => Math.round(entry.views))
               );
               const likes = filterSpikes(
-                combinedData.map((entry) => entry.likes)
+                combinedData.map((entry) => Math.round(entry.likes))
               );
               const comments = filterSpikes(
-                combinedData.map((entry) => entry.comments)
+                combinedData.map((entry) => Math.round(entry.comments))
               );
 
               allData = { timestamps, views, likes, comments };
@@ -543,6 +613,7 @@
         }
 
         function fetchVideoStats(videoId) {
+          currentVideoId = videoId;
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
 
@@ -564,6 +635,14 @@
 
               const uploadDate = new Date(video.uploadTime);
               uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
+
+              const lastUpdatedDate = new Date(video.lastUpdated);
+              const lastUpdatedSpan = document.createElement("span");
+              lastUpdatedSpan.classList.add("last-updated");
+              lastUpdatedSpan.textContent = `(Stats last updated: ${lastUpdatedDate.toLocaleDateString()} at ${lastUpdatedDate.toLocaleTimeString()})`;
+
+              uploadDateElement.appendChild(lastUpdatedSpan);
+
               durationElement.textContent = `Duration: ${video.stats[0].duration}`;
 
               videoInfoCard.style.display = "flex";
@@ -580,10 +659,10 @@
               const timestamps = filteredStats.map(
                 (stat) => new Date(stat.timestamp)
               );
-              const views = filteredStats.map((stat) => parseInt(stat.views));
-              const likes = filteredStats.map((stat) => parseInt(stat.likes));
+              const views = filteredStats.map((stat) => Math.round(stat.views));
+              const likes = filteredStats.map((stat) => Math.round(stat.likes));
               const comments = filteredStats.map((stat) =>
-                parseInt(stat.comments)
+                Math.round(stat.comments)
               );
 
               allData = { timestamps, views, likes, comments };
@@ -826,18 +905,20 @@
         }
 
         function updateStats(views, likes, comments) {
-          const totalViews = views[views.length - 1];
-          const totalLikes = likes[likes.length - 1];
-          const totalComments = comments[comments.length - 1];
+          const totalViews = views[views.length - 1] || 0;
+          const totalLikes = likes[likes.length - 1] || 0;
+          const totalComments = comments[comments.length - 1] || 0;
 
           new Odometer({
             el: document.getElementById("totalViews"),
             value: totalViews,
           }).update(totalViews);
+
           new Odometer({
             el: document.getElementById("totalLikes"),
             value: totalLikes,
           }).update(totalLikes);
+
           new Odometer({
             el: document.getElementById("totalComments"),
             value: totalComments,
@@ -860,6 +941,34 @@
             showOnlySelectedSeries(index);
           });
         });
+
+        exportButton.addEventListener("click", () => {
+          if (!allData || !allData.timestamps) {
+            console.error("No data available to export.");
+            return;
+          }
+
+          const csvContent =
+            "data:text/csv;charset=utf-8," +
+            "Timestamp,Views,Likes,Comments\n" +
+            allData.timestamps
+              .map((t, i) => {
+                return `${t.toISOString()},${Math.round(
+                  allData.views[i]
+                )},${Math.round(allData.likes[i])},${Math.round(
+                  allData.comments[i]
+                )}`;
+              })
+              .join("\n");
+
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", `${currentVideoId}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
       });
 
       function filterSpikes(data) {
@@ -872,9 +981,9 @@
                 value < array[index - 1] &&
                 value < array[index + 1])
             ) {
-              return (array[index - 1] + array[index + 1]) / 2;
+              return Math.round((array[index - 1] + array[index + 1]) / 2);
             }
-            return value;
+            return Math.round(value);
           })
           .filter((value) => value != null);
       }
