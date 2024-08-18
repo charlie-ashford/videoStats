@@ -582,6 +582,9 @@
           fetchCombinedStats();
         });
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoIdFromUrl = urlParams.get("video");
+
         fetch(apiEndpoint)
           .then((response) => response.json())
           .then((data) => {
@@ -606,7 +609,22 @@
               });
             });
 
-            if (videos.length > 0) {
+            if (videoIdFromUrl === "combined") {
+              searchInput.value = "Combined";
+              fetchCombinedStats();
+            } else if (videoIdFromUrl) {
+              const matchingVideo = videos.find(
+                (video) => video.videoId === videoIdFromUrl
+              );
+              if (matchingVideo) {
+                searchInput.value = addCommasToTitle(matchingVideo.title);
+                fetchVideoStats(matchingVideo.videoId);
+              } else {
+                console.error(
+                  "Video ID from URL not found in the list of videos."
+                );
+              }
+            } else if (videos.length > 0) {
               const mostRecentVideo = videos.sort(
                 (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
               )[0];
