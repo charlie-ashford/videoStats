@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Analytics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link
+      rel="icon"
+      href="https://yt3.ggpht.com/eg_5N8cvTJjQMnu4wvVoUy4ES2t0HbuFitpQBJJk24M4CQLfV5aps1qy9BCvhNUGUea5i4Vk=s800-c-k-c0x00ffffff-no-rj"
+      type="image/png"
+    />
+    <style>
+      :root {
+        --primary-color: #d32f2f;
+        --accent-color: #1976d2;
+        --background-color: #f9f9f9;
+        --card-background-color: #ffffff;
+        --text-color: #212121;
+        --muted-text-color: #757575;
+        --border-color: #e0e0e0;
+        --hover-background-color: #e3f2fd;
+        --hover-card-background: #f7f7f7;
+        --hover-text-color: #d32f2f;
+        --button-hover-color: #ff7043;
+        --hover-shadow-color: rgba(0, 0, 0, 0.2);
+        --hover-border-color: #d32f2f;
+        --active-button-color: #d32f2f;
+        --highlight-border-color: #1976d2;
+      }
+
+      [data-theme="dark"] {
+        --background-color: #121212;
+        --card-background-color: #1e1e1e;
+        --text-color: #e0e0e0;
+        --muted-text-color: #bdbdbd;
+        --border-color: #333333;
+        --hover-background-color: #333366;
+        --hover-card-background: #2c2c2c;
+        --hover-text-color: #ffab91;
+        --button-hover-color: #ffab91;
+        --hover-shadow-color: rgba(255, 255, 255, 0.2);
+        --hover-border-color: #ffab91;
+        --active-button-color: #ff6f00;
+        --highlight-border-color: #ffab91;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", "Roboto", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.5;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      header {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        font-weight: 700;
+        font-family: "Poppins", sans-serif;
+        transition: color 0.3s;
+      }
+
+      .video-info-card {
+        display: flex;
+        align-items: center;
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 0 auto 2rem auto;
+        border: 2px solid var(--highlight-border-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .video-thumbnail {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+        margin-right: 1rem;
+      }
+
+      .video-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      #videoInfoCard {
+        display: none;
+      }
+
+      .video-title a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s, text-decoration 0.3s;
+      }
+
+      .video-title a:hover {
+        color: var(--hover-text-color);
+        text-decoration: underline;
+      }
+
+      .video-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .video-upload-date,
+      .video-duration {
+        font-size: 1rem;
+        color: var(--muted-text-color);
+      }
+
+      .theme-toggle {
+        background-color: var(--accent-color);
+        border: none;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px var(--hover-shadow-color);
+      }
+
+      .theme-toggle img {
+        width: 24px;
+        height: 24px;
+        transition: filter 0.3s;
+      }
+
+      body[data-theme="dark"] .theme-toggle {
+        background-color: var(--card-background-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .theme-toggle:hover {
+        background-color: var(--button-hover-color);
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px var(--hover-shadow-color);
+      }
+
+      .theme-toggle:active {
+        background-color: var(--active-button-color);
+      }
+
+      .search-bar {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        position: relative;
+        transition: transform 0.3s;
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--card-background-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s, border-color 0.3s;
+      }
+
+      .search-bar input:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .search-bar input:focus {
+        border-color: var(--hover-border-color);
+        outline: none;
+        box-shadow: 0 4px 12px var(--hover-shadow-color);
+      }
+
+      .dropdown-list {
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: var(--card-background-color);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .dropdown-list.show {
+        display: flex;
+        transform: scaleY(1);
+      }
+
+      .dropdown-list-item {
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .dropdown-list-item:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-list-item:hover {
+        background-color: var(--hover-card-background);
+        color: var(--hover-text-color);
+        transform: scale(1.02);
+      }
+
+      .stats-grid {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .stat-card {
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 2px solid var(--highlight-border-color);
+        text-align: center;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s,
+          border-color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-card:hover {
+        background-color: var(--hover-card-background);
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        border-color: var(--hover-border-color);
+      }
+
+      .stat-card h3 {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 600;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .stat-card h3 i {
+        margin-right: 0.5rem;
+        color: var(--primary-color);
+        font-size: 1.4rem;
+      }
+
+      .stat-card .odometer {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .chart-container {
+        width: 100%;
+        max-width: 1200px;
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 2px solid var(--highlight-border-color);
+        height: 450px;
+      }
+
+      .dropdown-list-item.bold {
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        header h1 {
+          font-size: 1.75rem;
+        }
+
+        .stat-card h3 {
+          font-size: 1.25rem;
+        }
+
+        .stat-card .odometer {
+          font-size: 2rem;
+        }
+
+        .chart-container {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 1rem;
+        }
+
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .chart-container {
+          height: 400px;
+        }
+
+        header h1 {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .search-bar {
+          width: 100%;
+        }
+      }
+
+      .highcharts-area {
+        fill-opacity: 0.5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Video Analytics</h1>
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search and select a video..."
+          autocomplete="off"
+          autocorrect="off"
+        />
+        <div class="dropdown-list" id="dropdownList"></div>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <img
+          src="https://img.icons8.com/material-outlined/24/ffffff/contrast.png"
+          alt="Toggle Dark Mode"
+          id="themeIcon"
+        />
+      </button>
+    </header>
+
+    <div id="videoInfoCard" class="video-info-card" style="display: none">
+      <img
+        id="videoThumbnail"
+        class="video-thumbnail"
+        src=""
+        alt="Video Thumbnail"
+      />
+      <div class="video-details">
+        <h2 id="videoTitle" class="video-title">
+          <a id="videoLink" href="#" target="_blank"></a>
+        </h2>
+        <p id="uploadDate" class="video-upload-date"></p>
+        <p id="videoDuration" class="video-duration"></p>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3><i class="fas fa-eye"></i> Total Views</h3>
+        <div id="totalViews" class="odometer">0</div>
+      </div>
+      <div class="stat-card">
+        <h3><i class="fas fa-thumbs-up"></i> Total Likes</h3>
+        <div id="totalLikes" class="odometer">0</div>
+      </div>
+      <div class="stat-card">
+        <h3><i class="fas fa-comments"></i> Total Comments</h3>
+        <div id="totalComments" class="odometer">0</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div id="videoChart" style="width: 100%; height: 100%"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const apiEndpoint = "https://api.communitrics.com/videos/all";
+        const combinedEndpoint =
+          "https://api.communitrics.com/combined-history";
+        const searchInput = document.getElementById("searchInput");
+        const dropdownList = document.getElementById("dropdownList");
+        let videoChart;
+        let allData = {};
+        let selectedSeriesIndex = 0;
+
+        const storedTheme = localStorage.getItem("theme") || "light";
+        document.body.setAttribute("data-theme", storedTheme);
+
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.addEventListener("click", () => {
+          const body = document.body;
+          const currentTheme = body.getAttribute("data-theme");
+          const newTheme = currentTheme === "light" ? "dark" : "light";
+          body.setAttribute("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
+        });
+
+        searchInput.addEventListener("focus", () => {
+          dropdownList.classList.add("show");
+        });
+
+        searchInput.addEventListener("input", (e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          document.querySelectorAll(".dropdown-list-item").forEach((item) => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? "" : "none";
+          });
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".search-bar")) {
+            dropdownList.classList.remove("show");
+          }
+        });
+
+        const combinedOption = document.createElement("div");
+        combinedOption.classList.add("dropdown-list-item", "bold");
+        combinedOption.textContent = "Combined";
+        dropdownList.appendChild(combinedOption);
+
+        combinedOption.addEventListener("click", () => {
+          searchInput.value = "Combined";
+          dropdownList.classList.remove("show");
+          fetchCombinedStats();
+        });
+
+        fetch(apiEndpoint)
+          .then((response) => response.json())
+          .then((data) => {
+            const videos = data.videos;
+
+            function addCommasToTitle(title) {
+              return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            }
+
+            videos.forEach((video) => {
+              const item = document.createElement("div");
+              item.classList.add("dropdown-list-item");
+              item.textContent = addCommasToTitle(video.title);
+              item.dataset.videoId = video.videoId;
+              dropdownList.appendChild(item);
+
+              item.addEventListener("click", (e) => {
+                const selectedVideoId = e.target.dataset.videoId;
+                searchInput.value = e.target.textContent;
+                dropdownList.classList.remove("show");
+                fetchVideoStats(selectedVideoId);
+              });
+            });
+
+            if (videos.length > 0) {
+              const mostRecentVideo = videos.sort(
+                (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
+              )[0];
+              searchInput.value = mostRecentVideo.title;
+              fetchVideoStats(mostRecentVideo.videoId);
+            }
+          });
+
+        function fetchCombinedStats() {
+          document.getElementById("videoInfoCard").style.display = "none";
+
+          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=combined`;
+          window.history.pushState({ path: newUrl }, "", newUrl);
+
+          fetch(combinedEndpoint)
+            .then((response) => response.json())
+            .then((combinedData) => {
+              const timestamps = combinedData.map(
+                (entry) => new Date(entry.time)
+              );
+              const views = filterSpikes(
+                combinedData.map((entry) => entry.views)
+              );
+              const likes = filterSpikes(
+                combinedData.map((entry) => entry.likes)
+              );
+              const comments = filterSpikes(
+                combinedData.map((entry) => entry.comments)
+              );
+
+              allData = { timestamps, views, likes, comments };
+
+              drawChart();
+              updateStats(allData.views, allData.likes, allData.comments);
+            });
+        }
+
+        function fetchVideoStats(videoId) {
+          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
+          window.history.pushState({ path: newUrl }, "", newUrl);
+
+          const videoStatsEndpoint = `https://api.communitrics.com/videostats/${videoId}`;
+
+          fetch(videoStatsEndpoint)
+            .then((response) => response.json())
+            .then((video) => {
+              const videoInfoCard = document.getElementById("videoInfoCard");
+              const thumbnailElement =
+                document.getElementById("videoThumbnail");
+              const videoLinkElement = document.getElementById("videoLink");
+              const uploadDateElement = document.getElementById("uploadDate");
+              const durationElement = document.getElementById("videoDuration");
+
+              thumbnailElement.src = video.thumbnail;
+              videoLinkElement.href = `https://www.youtube.com/watch?v=${video.videoId}`;
+              videoLinkElement.textContent = video.title;
+
+              const uploadDate = new Date(video.uploadTime);
+              uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
+              durationElement.textContent = `Duration: ${video.stats[0].duration}`;
+
+              videoInfoCard.style.display = "flex";
+              const filteredStats = video.stats.filter(
+                (stat) =>
+                  stat.views != null &&
+                  stat.views !== 0 &&
+                  stat.likes != null &&
+                  stat.likes !== 0 &&
+                  stat.comments != null &&
+                  stat.comments !== 0
+              );
+
+              const timestamps = filteredStats.map(
+                (stat) => new Date(stat.timestamp)
+              );
+              const views = filteredStats.map((stat) => parseInt(stat.views));
+              const likes = filteredStats.map((stat) => parseInt(stat.likes));
+              const comments = filteredStats.map((stat) =>
+                parseInt(stat.comments)
+              );
+
+              allData = { timestamps, views, likes, comments };
+              drawChart();
+              updateStats(views, likes, comments);
+            });
+        }
+
+        function drawChart() {
+          if (
+            !allData ||
+            !allData.timestamps ||
+            allData.timestamps.length === 0
+          ) {
+            console.error("No data available to draw the chart.");
+            return;
+          }
+
+          if (videoChart) {
+            videoChart.destroy();
+          }
+
+          const seriesData = [
+            {
+              name: "Views",
+              data: allData.timestamps.map((t, i) => [
+                t.getTime(),
+                allData.views[i],
+              ]),
+              color: {
+                linearGradient: {
+                  x1: 0,
+                  x2: 0,
+                  y1: 0,
+                  y2: 1,
+                },
+                stops: [
+                  [0, "#0d9488"],
+                  [1, "rgba(13, 148, 136, 0.3)"],
+                ],
+              },
+              visible: selectedSeriesIndex === 0,
+              marker: {
+                enabled: false,
+              },
+              lineWidth: 3,
+            },
+            {
+              name: "Likes",
+              data: allData.timestamps.map((t, i) => [
+                t.getTime(),
+                allData.likes[i],
+              ]),
+              color: {
+                linearGradient: {
+                  x1: 0,
+                  x2: 0,
+                  y1: 0,
+                  y2: 1,
+                },
+                stops: [
+                  [0, "#1976d2"],
+                  [1, "rgba(25, 118, 210, 0.3)"],
+                ],
+              },
+              visible: selectedSeriesIndex === 1,
+              marker: {
+                enabled: false,
+              },
+              lineWidth: 3,
+            },
+            {
+              name: "Comments",
+              data: allData.timestamps.map((t, i) => [
+                t.getTime(),
+                allData.comments[i],
+              ]),
+              color: {
+                linearGradient: {
+                  x1: 0,
+                  x2: 0,
+                  y1: 0,
+                  y2: 1,
+                },
+                stops: [
+                  [0, "#ef4444"],
+                  [1, "rgba(239, 68, 68, 0.3)"],
+                ],
+              },
+              visible: selectedSeriesIndex === 2,
+              marker: {
+                enabled: false,
+              },
+              lineWidth: 3,
+            },
+          ];
+
+          const minValue = Math.min(
+            ...seriesData[selectedSeriesIndex].data.map((d) => d[1])
+          );
+
+          videoChart = Highcharts.chart("videoChart", {
+            chart: {
+              type: "area",
+              backgroundColor: "var(--card-background-color)",
+              style: {
+                fontFamily: "'Poppins', 'Roboto', sans-serif",
+              },
+              plotBorderColor: "var(--border-color)",
+            },
+            title: {
+              text: "Video Analytics Over Time",
+              style: {
+                color: "var(--text-color)",
+                fontWeight: "bold",
+                fontSize: "20px",
+              },
+            },
+            credits: {
+              enabled: false,
+            },
+            xAxis: {
+              type: "datetime",
+              labels: {
+                formatter: function () {
+                  const date = Highcharts.dateFormat("%Y-%m-%d", this.value);
+                  const time = Highcharts.dateFormat("%H:%M", this.value);
+                  return `${date}<br>${time}`;
+                },
+                style: {
+                  color: "var(--text-color)",
+                  fontSize: "12px",
+                },
+              },
+              gridLineColor: "var(--border-color)",
+              gridLineWidth: 1,
+              tickPositioner: function () {
+                const positions = [];
+                const min = this.dataMin;
+                const max = this.max;
+                const interval = (max - min) / 7;
+
+                for (let i = 0; i <= 7; i++) {
+                  positions.push(min + i * interval);
+                }
+
+                return positions;
+              },
+            },
+            yAxis: {
+              title: {
+                text: "Count",
+                style: {
+                  color: "var(--text-color)",
+                  fontSize: "14px",
+                },
+              },
+              labels: {
+                style: {
+                  color: "var(--text-color)",
+                  fontSize: "12px",
+                },
+              },
+              gridLineColor: "var(--border-color)",
+              gridLineWidth: 1,
+              min: minValue,
+            },
+            series: seriesData,
+            legend: {
+              enabled: false,
+            },
+            tooltip: {
+              backgroundColor: "var(--card-background-color)",
+              borderColor: "var(--border-color)",
+              style: {
+                color: "var(--text-color)",
+                fontSize: "14px",
+              },
+              formatter: function () {
+                let tooltipText = `<b>${new Date(
+                  this.x
+                ).toLocaleString()}</b><br>`;
+
+                this.points.forEach((point) => {
+                  let label = "";
+                  switch (point.series.name) {
+                    case "Views":
+                      label = "Views";
+                      break;
+                    case "Likes":
+                      label = "Likes";
+                      break;
+                    case "Comments":
+                      label = "Comments";
+                      break;
+                    default:
+                      label = "Value";
+                  }
+
+                  tooltipText += `${label}: ${point.y.toLocaleString()}<br>`;
+                });
+
+                return tooltipText;
+              },
+              shared: true,
+              useHTML: true,
+              borderRadius: 10,
+              shadow: true,
+            },
+            plotOptions: {
+              series: {
+                marker: {
+                  symbol: "circle",
+                },
+                events: {
+                  hide: function () {
+                    updateSelectedSeriesIndex();
+                  },
+                  show: function () {
+                    updateSelectedSeriesIndex();
+                  },
+                },
+                states: {
+                  hover: {
+                    lineWidthPlus: 0,
+                  },
+                },
+              },
+            },
+            responsive: {
+              rules: [
+                {
+                  condition: {
+                    maxWidth: 600,
+                  },
+                },
+              ],
+            },
+          });
+        }
+
+        function updateStats(views, likes, comments) {
+          const totalViews = views[views.length - 1];
+          const totalLikes = likes[likes.length - 1];
+          const totalComments = comments[comments.length - 1];
+
+          new Odometer({
+            el: document.getElementById("totalViews"),
+            value: totalViews,
+          }).update(totalViews);
+          new Odometer({
+            el: document.getElementById("totalLikes"),
+            value: totalLikes,
+          }).update(totalLikes);
+          new Odometer({
+            el: document.getElementById("totalComments"),
+            value: totalComments,
+          }).update(totalComments);
+        }
+
+        function updateSelectedSeriesIndex() {
+          selectedSeriesIndex = videoChart.series.findIndex(
+            (series) => series.visible
+          );
+        }
+
+        function showOnlySelectedSeries(index) {
+          selectedSeriesIndex = index;
+          drawChart();
+        }
+
+        document.querySelectorAll(".stat-card").forEach((card, index) => {
+          card.addEventListener("click", () => {
+            showOnlySelectedSeries(index);
+          });
+        });
+      });
+
+      function filterSpikes(data) {
+        return data
+          .map((value, index, array) => {
+            if (
+              value == null ||
+              (index > 0 &&
+                index < array.length - 1 &&
+                value < array[index - 1] &&
+                value < array[index + 1])
+            ) {
+              return (array[index - 1] + array[index + 1]) / 2;
+            }
+            return value;
+          })
+          .filter((value) => value != null);
+      }
+    </script>
+  </body>
+</html>
