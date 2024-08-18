@@ -825,7 +825,12 @@
               plotBorderColor: "var(--border-color)",
             },
             title: {
-              text: "Video Analytics Over Time",
+              text:
+                selectedSeriesIndex === 0
+                  ? "Views"
+                  : selectedSeriesIndex === 1
+                  ? "Likes"
+                  : "Comments",
               style: {
                 color: "var(--text-color)",
                 fontWeight: "bold",
