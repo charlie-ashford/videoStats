@@ -350,7 +350,7 @@
       }
 
       .stat-card .odometer {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 700;
         color: var(--text-color);
       }
@@ -635,7 +635,7 @@
               <th
                 style="border: 1px solid var(--border-color); padding: 0.5rem"
               >
-                Date (EST)
+                Date
               </th>
               <th
                 style="border: 1px solid var(--border-color); padding: 0.5rem"
@@ -957,7 +957,7 @@
             currentRow.innerHTML = `
 <td>${currentDate.toLocaleDateString("en-US", { weekday: "short" })}, ${
               currentDate.toISOString().split("T")[0]
-            }, ${timeString}</td>
+            }, ${timeString} US Eastern</td>
   <td>${Math.round(
     currentDayData.views
   ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
@@ -1222,6 +1222,13 @@
               enabled: false,
             },
             xAxis: {
+              title: {
+                text: "Time (EST)",
+                style: {
+                  color: "var(--text-color)",
+                  fontSize: "14px",
+                },
+              },
               type: "datetime",
               labels: {
                 formatter: function () {
