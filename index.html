@@ -462,12 +462,12 @@
         margin-left: 0.5rem;
       }
 
-      #dailyStatsTable .change[data-change^="+"] {
+      #dailyStatsTable .change.positive {
         color: #4caf50;
         font-weight: 700;
       }
 
-      #dailyStatsTable .change[data-change^="-"] {
+      #dailyStatsTable .change.negative {
         color: #f44336;
         font-weight: 700;
       }
@@ -854,7 +854,9 @@
               updateStats(allData.views, allData.likes, allData.comments);
 
               const dailyData = processDailyData(combinedData);
-              createDailyTable(dailyData);
+              const currentDayData = combinedData[combinedData.length - 1];
+
+              createDailyTable(dailyData, currentDayData);
 
               document.getElementById("dailyStatsTable").style.display =
                 "block";
@@ -895,21 +897,84 @@
           return dailyData;
         }
 
-        function createDailyTable(dailyData) {
+        function createDailyTable(dailyData, currentDayData) {
           const tableBody = document.getElementById("dailyStatsBody");
           tableBody.innerHTML = "";
 
-          dailyData.forEach((entry, index) => {
+          const calculateChange = (current, previous) => {
+            const change = current - previous;
+            const arrow = change < 0 ? "↓" : "";
+            const changeString =
+              change >= 0
+                ? `+${change.toLocaleString()}`
+                : change.toLocaleString();
+            return `${changeString} ${arrow}`.trim();
+          };
+
+          const determineClass = (currentChange, previousChange) => {
+            return currentChange > previousChange ? "positive" : "negative";
+          };
+
+          if (currentDayData) {
+            const currentRow = document.createElement("tr");
+            const currentDate = new Date(currentDayData.time);
+
+            const estTimeOffset = 4 * 60 * 60 * 1000;
+            currentDate.setTime(currentDate.getTime() - estTimeOffset);
+
+            const timeString = currentDate
+              .toISOString()
+              .split("T")[1]
+              .slice(0, 5);
+
+            const previousDayData = dailyData[dailyData.length - 1];
+            const viewsChange = calculateChange(
+              currentDayData.views,
+              previousDayData.views
+            );
+            const likesChange = calculateChange(
+              currentDayData.likes,
+              previousDayData.likes
+            );
+            const commentsChange = calculateChange(
+              currentDayData.comments,
+              previousDayData.comments
+            );
+
+            const viewsClass = determineClass(
+              currentDayData.views,
+              previousDayData.views
+            );
+            const likesClass = determineClass(
+              currentDayData.likes,
+              previousDayData.likes
+            );
+            const commentsClass = determineClass(
+              currentDayData.comments,
+              previousDayData.comments
+            );
+
+            currentRow.innerHTML = `
+  <td>${currentDate.toISOString().split("T")[0]}, ${timeString} US Eastern</td>
+  <td>${Math.round(
+    currentDayData.views
+  ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+  <td>${Math.round(
+    currentDayData.likes
+  ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+  <td>${Math.round(
+    currentDayData.comments
+  ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+`;
+
+            tableBody.insertBefore(currentRow, tableBody.firstChild);
+          }
+
+          for (let index = dailyData.length - 1; index >= 0; index--) {
+            const entry = dailyData[index];
             const row = document.createElement("tr");
             const date = new Date(entry.time);
             date.setUTCDate(date.getUTCDate() - 1);
-
-            const calculateChange = (current, previous) => {
-              const change = current - previous;
-              return change >= 0
-                ? `+${change.toLocaleString()}`
-                : change.toLocaleString();
-            };
 
             const viewsChange =
               index > 0
@@ -924,21 +989,44 @@
                 ? calculateChange(entry.comments, dailyData[index - 1].comments)
                 : "";
 
+            const viewsClass =
+              index > 1
+                ? determineClass(
+                    entry.views - dailyData[index - 1].views,
+                    dailyData[index - 1].views - dailyData[index - 2].views
+                  )
+                : "";
+            const likesClass =
+              index > 1
+                ? determineClass(
+                    entry.likes - dailyData[index - 1].likes,
+                    dailyData[index - 1].likes - dailyData[index - 2].likes
+                  )
+                : "";
+            const commentsClass =
+              index > 1
+                ? determineClass(
+                    entry.comments - dailyData[index - 1].comments,
+                    dailyData[index - 1].comments -
+                      dailyData[index - 2].comments
+                  )
+                : "";
+
             row.innerHTML = `
       <td>${date.toISOString().split("T")[0]}</td>
       <td>${Math.round(
         entry.views
-      ).toLocaleString()} <span class="change" data-change="${viewsChange}">(${viewsChange})</span></td>
+      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
       <td>${Math.round(
         entry.likes
-      ).toLocaleString()} <span class="change" data-change="${likesChange}">(${likesChange})</span></td>
+      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
       <td>${Math.round(
         entry.comments
-      ).toLocaleString()} <span class="change" data-change="${commentsChange}">(${commentsChange})</span></td>
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
     `;
 
             tableBody.appendChild(row);
-          });
+          }
         }
 
         function fetchVideoStats(videoId) {
