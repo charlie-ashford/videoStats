@@ -476,6 +476,11 @@
           font-size: 0.85rem;
         }
 
+        .table-responsive {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
         #dailyStatsTable th,
         #dailyStatsTable td {
           padding: 0.75rem;
@@ -622,25 +627,35 @@
       style="display: none; margin-top: 2rem; width: 100%; max-width: 1200px"
     >
       <h3 style="text-align: center; margin-bottom: 1rem">Daily Statistics</h3>
-      <table style="width: 100%; border-collapse: collapse">
-        <thead>
-          <tr>
-            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
-              Date
-            </th>
-            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
-              Views
-            </th>
-            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
-              Likes
-            </th>
-            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
-              Comments
-            </th>
-          </tr>
-        </thead>
-        <tbody id="dailyStatsBody"></tbody>
-      </table>
+      <div class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse">
+          <thead>
+            <tr>
+              <th
+                style="border: 1px solid var(--border-color); padding: 0.5rem"
+              >
+                Date
+              </th>
+              <th
+                style="border: 1px solid var(--border-color); padding: 0.5rem"
+              >
+                Views
+              </th>
+              <th
+                style="border: 1px solid var(--border-color); padding: 0.5rem"
+              >
+                Likes
+              </th>
+              <th
+                style="border: 1px solid var(--border-color); padding: 0.5rem"
+              >
+                Comments
+              </th>
+            </tr>
+          </thead>
+          <tbody id="dailyStatsBody"></tbody>
+        </table>
+      </div>
     </div>
 
     <script>
