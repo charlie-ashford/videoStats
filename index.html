@@ -1151,7 +1151,11 @@
                 const interval = range / (maxPoints - 1);
 
                 for (let i = 0; i < maxPoints; i++) {
-                  positions.push(min + i * interval);
+                  const rawPosition = min + i * interval;
+                  const roundedPosition =
+                    Math.round(rawPosition / (15 * 60 * 1000)) *
+                    (15 * 60 * 1000);
+                  positions.push(roundedPosition);
                 }
 
                 return positions;
