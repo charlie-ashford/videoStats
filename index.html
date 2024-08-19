@@ -397,7 +397,96 @@
         color: var(--hover-text-color);
       }
 
+      #dailyStatsTable {
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 1200px;
+        background-color: var(--card-background-color);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      #dailyStatsTable h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      #dailyStatsTable table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+      }
+
+      #dailyStatsTable th,
+      #dailyStatsTable td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-color);
+        text-align: left;
+      }
+
+      #dailyStatsTable th {
+        background-color: var(--accent-color);
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      #dailyStatsTable tr {
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      #dailyStatsTable tr:nth-child(even) {
+        background-color: var(--hover-card-background);
+      }
+
+      #dailyStatsTable tr:hover {
+        background-color: var(--hover-background-color);
+        transform: scale(1.02);
+      }
+
+      #dailyStatsTable .change {
+        font-size: 0.9rem;
+        color: var(--muted-text-color);
+        margin-left: 0.5rem;
+      }
+
+      #dailyStatsTable .change[data-change^="+"] {
+        color: #4caf50;
+        font-weight: 700;
+      }
+
+      #dailyStatsTable .change[data-change^="-"] {
+        color: #f44336;
+        font-weight: 700;
+      }
+
       @media (max-width: 768px) {
+        #dailyStatsTable {
+          font-size: 0.85rem;
+        }
+
+        #dailyStatsTable th,
+        #dailyStatsTable td {
+          padding: 0.75rem;
+        }
+
+        #dailyStatsTable .change {
+          display: block;
+          margin-left: 0;
+          margin-top: 0.25rem;
+        }
+
         header {
           flex-direction: column;
           align-items: center;
@@ -528,11 +617,39 @@
       <div id="videoChart" style="width: 100%; height: 100%"></div>
     </div>
 
+    <div
+      id="dailyStatsTable"
+      style="display: none; margin-top: 2rem; width: 100%; max-width: 1200px"
+    >
+      <h3 style="text-align: center; margin-bottom: 1rem">Daily Statistics</h3>
+      <table style="width: 100%; border-collapse: collapse">
+        <thead>
+          <tr>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Date
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Views
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Likes
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Comments
+            </th>
+          </tr>
+        </thead>
+        <tbody id="dailyStatsBody"></tbody>
+      </table>
+    </div>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const apiEndpoint = "https://api.communitrics.com/videos/all";
         const combinedEndpoint =
           "https://api.communitrics.com/combined-history";
+        const cocomelonEndpoint =
+          "https://api.communitrics.com/combined-history-cocomelon";
         const searchInput = document.getElementById("searchInput");
         const dropdownList = document.getElementById("dropdownList");
         const exportButton = document.getElementById("exportButton");
@@ -573,13 +690,42 @@
 
         const combinedOption = document.createElement("div");
         combinedOption.classList.add("dropdown-list-item", "bold");
-        combinedOption.textContent = "Combined";
+        combinedOption.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="https://yt3.ggpht.com/fxGKYucJAVme-Yz4fsdCroCFCrANWqw0ql4GYuvx8Uq4l_euNJHgE-w9MTkLQA805vWCi-kE0g=s800-c-k-c0x00ffffff-no-rj" alt="Combined" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 10px;">
+      Combined
+    </div>
+  `;
         dropdownList.appendChild(combinedOption);
 
         combinedOption.addEventListener("click", () => {
           searchInput.value = "Combined";
           dropdownList.classList.remove("show");
-          fetchCombinedStats();
+          fetchCombinedStats(
+            combinedEndpoint,
+            "https://yt3.ggpht.com/fxGKYucJAVme-Yz4fsdCroCFCrANWqw0ql4GYuvx8Uq4l_euNJHgE-w9MTkLQA805vWCi-kE0g=s800-c-k-c0x00ffffff-no-rj",
+            "combined"
+          );
+        });
+
+        const cocomelonOption = document.createElement("div");
+        cocomelonOption.classList.add("dropdown-list-item", "bold");
+        cocomelonOption.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="https://yt3.ggpht.com/ytc/AIdro_m_9r5XDMjVGrjdZm4A0qHb8D6FH8rehXDbaM9rlDeaNz0=s800-c-k-c0x00ffffff-no-rj" alt="Cocomelon" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 10px;">
+      Cocomelon Combined
+    </div>
+  `;
+        dropdownList.appendChild(cocomelonOption);
+
+        cocomelonOption.addEventListener("click", () => {
+          searchInput.value = "Cocomelon Combined";
+          dropdownList.classList.remove("show");
+          fetchCombinedStats(
+            cocomelonEndpoint,
+            "https://yt3.ggpht.com/ytc/AIdro_m_9r5XDMjVGrjdZm4A0qHb8D6FH8rehXDbaM9rlDeaNz0=s800-c-k-c0x00ffffff-no-rj",
+            "cocomelon_combined"
+          );
         });
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -602,8 +748,8 @@
               dropdownList.appendChild(item);
 
               item.addEventListener("click", (e) => {
-                const selectedVideoId = e.target.dataset.videoId;
-                searchInput.value = e.target.textContent;
+                const selectedVideoId = e.currentTarget.dataset.videoId;
+                searchInput.value = e.currentTarget.textContent;
                 dropdownList.classList.remove("show");
                 fetchVideoStats(selectedVideoId);
               });
@@ -611,7 +757,18 @@
 
             if (videoIdFromUrl === "combined") {
               searchInput.value = "Combined";
-              fetchCombinedStats();
+              fetchCombinedStats(
+                combinedEndpoint,
+                "https://yt3.ggpht.com/fxGKYucJAVme-Yz4fsdCroCFCrANWqw0ql4GYuvx8Uq4l_euNJHgE-w9MTkLQA805vWCi-kE0g=s800-c-k-c0x00ffffff-no-rj",
+                "combined"
+              );
+            } else if (videoIdFromUrl === "cocomelon_combined") {
+              searchInput.value = "Cocomelon Combined";
+              fetchCombinedStats(
+                cocomelonEndpoint,
+                "https://yt3.ggpht.com/ytc/AIdro_m_9r5XDMjVGrjdZm4A0qHb8D6FH8rehXDbaM9rlDeaNz0=s800-c-k-c0x00ffffff-no-rj",
+                "cocomelon_combined"
+              );
             } else if (videoIdFromUrl) {
               const matchingVideo = videos.find(
                 (video) => video.videoId === videoIdFromUrl
@@ -633,14 +790,33 @@
             }
           });
 
-        function fetchCombinedStats() {
-          currentVideoId = "combined";
+        function fetchCombinedStats(endpoint, profileImageUrl, urlPath) {
+          currentVideoId = urlPath;
           document.getElementById("videoInfoCard").style.display = "none";
 
-          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=combined`;
+          const existingProfileImage = document.querySelector(
+            "header img.profile-image"
+          );
+          if (existingProfileImage) {
+            existingProfileImage.remove();
+          }
+
+          const combinedProfileImage = document.createElement("img");
+          combinedProfileImage.src = profileImageUrl;
+          combinedProfileImage.alt = "Profile Image";
+          combinedProfileImage.style.width = "56px";
+          combinedProfileImage.style.height = "56px";
+          combinedProfileImage.style.borderRadius = "50%";
+          combinedProfileImage.style.marginRight = "10px";
+          combinedProfileImage.classList.add("profile-image");
+
+          const header = document.querySelector("header");
+          header.insertBefore(combinedProfileImage, header.firstChild);
+
+          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${urlPath}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
 
-          fetch(combinedEndpoint)
+          fetch(endpoint)
             .then((response) => response.json())
             .then((combinedData) => {
               const timestamps = combinedData.map(
@@ -660,13 +836,108 @@
 
               drawChart();
               updateStats(allData.views, allData.likes, allData.comments);
+
+              const dailyData = processDailyData(combinedData);
+              createDailyTable(dailyData);
+
+              document.getElementById("dailyStatsTable").style.display =
+                "block";
             });
+        }
+
+        function processDailyData(data) {
+          const dailyData = [];
+          let currentDate = null;
+          let closestTo4am = null;
+
+          data.forEach((entry) => {
+            const entryDate = new Date(entry.time);
+            const entryDateString = entryDate.toISOString().split("T")[0];
+
+            if (entryDateString !== currentDate) {
+              if (closestTo4am) {
+                dailyData.push(closestTo4am);
+              }
+              currentDate = entryDateString;
+              closestTo4am = entry;
+            } else {
+              const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+              const closest4amDiff = Math.abs(
+                new Date(closestTo4am.time).getUTCHours() - 4
+              );
+
+              if (current4amDiff < closest4amDiff) {
+                closestTo4am = entry;
+              }
+            }
+          });
+
+          if (closestTo4am) {
+            dailyData.push(closestTo4am);
+          }
+
+          return dailyData;
+        }
+
+        function createDailyTable(dailyData) {
+          const tableBody = document.getElementById("dailyStatsBody");
+          tableBody.innerHTML = "";
+
+          dailyData.forEach((entry, index) => {
+            const row = document.createElement("tr");
+            const date = new Date(entry.time);
+            date.setUTCDate(date.getUTCDate() - 1);
+
+            const calculateChange = (current, previous) => {
+              const change = current - previous;
+              return change >= 0
+                ? `+${change.toLocaleString()}`
+                : change.toLocaleString();
+            };
+
+            const viewsChange =
+              index > 0
+                ? calculateChange(entry.views, dailyData[index - 1].views)
+                : "";
+            const likesChange =
+              index > 0
+                ? calculateChange(entry.likes, dailyData[index - 1].likes)
+                : "";
+            const commentsChange =
+              index > 0
+                ? calculateChange(entry.comments, dailyData[index - 1].comments)
+                : "";
+
+            row.innerHTML = `
+      <td>${date.toISOString().split("T")[0]}</td>
+      <td>${Math.round(
+        entry.views
+      ).toLocaleString()} <span class="change" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+        entry.likes
+      ).toLocaleString()} <span class="change" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+        entry.comments
+      ).toLocaleString()} <span class="change" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+            tableBody.appendChild(row);
+          });
         }
 
         function fetchVideoStats(videoId) {
           currentVideoId = videoId;
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
+
+          document.getElementById("dailyStatsTable").style.display = "none";
+
+          const existingProfileImage = document.querySelector(
+            "header img.profile-image"
+          );
+          if (existingProfileImage) {
+            existingProfileImage.remove();
+          }
 
           const videoStatsEndpoint = `https://api.communitrics.com/videostats/${videoId}`;
 
