@@ -955,7 +955,9 @@
             );
 
             currentRow.innerHTML = `
-  <td>${currentDate.toISOString().split("T")[0]}, ${timeString} US Eastern</td>
+              <td>${
+                currentDate.toISOString().split("T")[0]
+              }, ${timeString} US Eastern</td>
   <td>${Math.round(
     currentDayData.views
   ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
@@ -1013,7 +1015,11 @@
                 : "";
 
             row.innerHTML = `
-      <td>${date.toISOString().split("T")[0]}</td>
+<td>${
+              date.toLocaleDateString("en-US", { weekday: "short" }) +
+              ", " +
+              date.toISOString().split("T")[0]
+            }</td>
       <td>${Math.round(
         entry.views
       ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
