@@ -1111,7 +1111,9 @@
 
           document.getElementById("uploadCountCard").style.display = "none";
 
-          selectedSeriesIndex = 0;
+          if (selectedSeriesIndex === 3) {
+            selectedSeriesIndex = 0;
+          }
 
           const existingProfileImage = document.querySelector(
             "header img.profile-image"
