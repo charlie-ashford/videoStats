@@ -1016,6 +1016,7 @@
             const row = document.createElement("tr");
             const date = new Date(entry.time);
 
+            date.setDate(date.getDate() - 1);
             const dateString = date.toLocaleDateString("en-US", {
               weekday: "short",
               month: "short",
