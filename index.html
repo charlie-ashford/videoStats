@@ -953,13 +953,20 @@
             const currentRow = document.createElement("tr");
             const currentDate = new Date(currentDayData.time);
 
-            const estTimeOffset = 4 * 60 * 60 * 1000;
-            currentDate.setTime(currentDate.getTime() - estTimeOffset);
+            const timeString = currentDate.toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false, 
+              timeZone: "America/New_York",
+            });
 
-            const timeString = currentDate
-              .toISOString()
-              .split("T")[1]
-              .slice(0, 5);
+            const dateString = currentDate.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
 
             const previousDayData = dailyData[dailyData.length - 1];
             const viewsChange = calculateChange(
@@ -989,25 +996,17 @@
             );
 
             currentRow.innerHTML = `
-<td>${currentDate.toLocaleDateString("en-US", {
-              weekday: "short",
-              timeZone: "America/New_York",
-            })}, ${currentDate.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
-            })}, ${timeString}</td>
-  <td>${Math.round(
-    currentDayData.views
-  ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
-  <td>${Math.round(
-    currentDayData.likes
-  ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-  <td>${Math.round(
-    currentDayData.comments
-  ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
-`;
+      <td>${dateString}, ${timeString}</td>
+      <td>${Math.round(
+        currentDayData.views
+      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+        currentDayData.likes
+      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+        currentDayData.comments
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
 
             tableBody.insertBefore(currentRow, tableBody.firstChild);
           }
@@ -1016,7 +1015,14 @@
             const entry = dailyData[index];
             const row = document.createElement("tr");
             const date = new Date(entry.time);
-            date.setUTCDate(date.getUTCDate() - 1);
+
+            const dateString = date.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
 
             const viewsChange =
               index > 0
@@ -1055,19 +1061,7 @@
                 : "";
 
             row.innerHTML = `
-            <td>${
-              date.toLocaleDateString("en-US", {
-                weekday: "short",
-                timeZone: "America/New_York",
-              }) +
-              ", " +
-              date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-                timeZone: "America/New_York",
-              })
-            }</td>
+      <td>${dateString}</td>
       <td>${Math.round(
         entry.views
       ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
