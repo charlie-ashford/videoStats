@@ -307,8 +307,8 @@
         width: 100%;
         max-width: 1250px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.2rem;
         margin-bottom: 3rem;
       }
 
@@ -356,15 +356,18 @@
       }
 
       .stat-card .odometer {
-        font-size: 2rem;
+        font-size: 1.8rem;
         font-weight: 700;
         color: var(--text-color);
         line-height: 1.2;
         max-width: 100%;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .dropdown-list {
@@ -484,7 +487,7 @@
         font-weight: 700;
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 800px) {
         #dailyStatsTable {
           font-size: 0.85rem;
         }
@@ -1449,19 +1452,6 @@
           });
         }
 
-        function adjustOdometerFontSize(odometerElement) {
-          let currentFontSize = 2;
-
-          while (
-            (odometerElement.scrollWidth > odometerElement.clientWidth ||
-              odometerElement.scrollHeight > odometerElement.clientHeight) &&
-            currentFontSize > 0.5
-          ) {
-            currentFontSize -= 0.2;
-            odometerElement.style.fontSize = `${currentFontSize}rem`;
-          }
-        }
-
         function updateStats(views, likes, comments, uploads) {
           const totalViews = views[views.length - 1] || 0;
           const totalLikes = likes[likes.length - 1] || 0;
@@ -1486,10 +1476,6 @@
             value: totalComments,
           }).update(totalComments);
 
-          adjustOdometerFontSize(viewsElement);
-          adjustOdometerFontSize(likesElement);
-          adjustOdometerFontSize(commentsElement);
-
           if (uploads) {
             const totalUploads = uploads[uploads.length - 1] || 0;
             const uploadsElement = document.getElementById("totalUploads");
@@ -1498,8 +1484,6 @@
               el: uploadsElement,
               value: totalUploads,
             }).update(totalUploads);
-
-            adjustOdometerFontSize(uploadsElement);
           }
         }
 
