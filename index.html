@@ -412,6 +412,11 @@
         color: var(--hover-text-color);
       }
 
+      .table-responsive {
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
       #dailyStatsTable {
         margin-top: 2rem;
         width: 100%;
@@ -495,6 +500,8 @@
         .table-responsive {
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
+          max-height: 600px;
+          overflow-y: auto;
         }
 
         #dailyStatsTable th,
@@ -690,6 +697,7 @@
         const searchInput = document.getElementById("searchInput");
         const dropdownList = document.getElementById("dropdownList");
         const exportButton = document.getElementById("exportButton");
+        const tableContainer = document.querySelector(".table-responsive");
         let videoChart;
         let allData = {};
         let currentVideoId = "combined";
@@ -722,6 +730,13 @@
         document.addEventListener("click", (e) => {
           if (!e.target.closest(".search-bar")) {
             dropdownList.classList.remove("show");
+          }
+        });
+
+        tableContainer.addEventListener("wheel", function (e) {
+          if (tableContainer.scrollHeight > tableContainer.clientHeight) {
+            e.preventDefault();
+            tableContainer.scrollTop += e.deltaY;
           }
         });
 
@@ -958,6 +973,202 @@
           return dailyData;
         }
 
+        function processDailyDataForVideo(data) {
+          const dailyData = [];
+          let currentDate = null;
+          let closestTo4am = null;
+          let firstEntryOfDay = null;
+
+          data.forEach((entry) => {
+            const entryDate = new Date(entry.timestamp);
+            const entryDateString = entryDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
+
+            if (entryDateString !== currentDate) {
+              if (firstEntryOfDay) {
+                if (firstEntryOfDay.views < 1000) {
+                  dailyData.push(firstEntryOfDay);
+                } else if (closestTo4am) {
+                  dailyData.push(closestTo4am);
+                }
+              }
+              currentDate = entryDateString;
+              firstEntryOfDay = entry;
+              closestTo4am = entry;
+            } else {
+              const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+              const closest4amDiff = Math.abs(
+                new Date(closestTo4am.timestamp).getUTCHours() - 4
+              );
+
+              if (current4amDiff < closest4amDiff) {
+                closestTo4am = entry;
+              }
+            }
+          });
+
+          if (firstEntryOfDay) {
+            if (firstEntryOfDay.views < 1000) {
+              dailyData.push(firstEntryOfDay);
+            } else if (closestTo4am) {
+              dailyData.push(closestTo4am);
+            }
+          }
+
+          return dailyData;
+        }
+
+        function createDailyTableForVideo(dailyData, currentDayData) {
+          const tableBody = document.getElementById("dailyStatsBody");
+          tableBody.innerHTML = "";
+
+          const calculateChange = (current, previous) => {
+            const change = current - previous;
+            const arrow = change < 0 ? "↓" : "";
+            const changeString =
+              change >= 0
+                ? `+${change.toLocaleString()}`
+                : change.toLocaleString();
+            return `${changeString} ${arrow}`.trim();
+          };
+
+          const determineClass = (currentChange, previousChange) => {
+            return currentChange > previousChange ? "positive" : "negative";
+          };
+
+          if (currentDayData) {
+            const currentRow = document.createElement("tr");
+            const currentDate = new Date(currentDayData.timestamp);
+
+            const timeString = currentDate.toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+              timeZone: "America/New_York",
+            });
+
+            const dateString = currentDate.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
+
+            const previousDayData = dailyData[dailyData.length - 1];
+            const viewsChange = calculateChange(
+              currentDayData.views,
+              previousDayData.views
+            );
+            const likesChange = calculateChange(
+              currentDayData.likes,
+              previousDayData.likes
+            );
+            const commentsChange = calculateChange(
+              currentDayData.comments,
+              previousDayData.comments
+            );
+
+            const viewsClass = determineClass(
+              currentDayData.views,
+              previousDayData.views
+            );
+            const likesClass = determineClass(
+              currentDayData.likes,
+              previousDayData.likes
+            );
+            const commentsClass = determineClass(
+              currentDayData.comments,
+              previousDayData.comments
+            );
+
+            currentRow.innerHTML = `
+      <td>${dateString}, ${timeString}</td>
+      <td>${Math.round(
+        currentDayData.views
+      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+        currentDayData.likes
+      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+        currentDayData.comments
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+            tableBody.insertBefore(currentRow, tableBody.firstChild);
+          }
+
+          for (let index = dailyData.length - 1; index >= 0; index--) {
+            const entry = dailyData[index];
+            const row = document.createElement("tr");
+            const date = new Date(entry.timestamp);
+
+            date.setDate(date.getDate() - 1);
+            const dateString = date.toLocaleDateString("en-US", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
+
+            const viewsChange =
+              index > 0
+                ? calculateChange(entry.views, dailyData[index - 1].views)
+                : "";
+            const likesChange =
+              index > 0
+                ? calculateChange(entry.likes, dailyData[index - 1].likes)
+                : "";
+            const commentsChange =
+              index > 0
+                ? calculateChange(entry.comments, dailyData[index - 1].comments)
+                : "";
+
+            const viewsClass =
+              index > 1
+                ? determineClass(
+                    entry.views - dailyData[index - 1].views,
+                    dailyData[index - 1].views - dailyData[index - 2].views
+                  )
+                : "";
+            const likesClass =
+              index > 1
+                ? determineClass(
+                    entry.likes - dailyData[index - 1].likes,
+                    dailyData[index - 1].likes - dailyData[index - 2].likes
+                  )
+                : "";
+            const commentsClass =
+              index > 1
+                ? determineClass(
+                    entry.comments - dailyData[index - 1].comments,
+                    dailyData[index - 1].comments -
+                      dailyData[index - 2].comments
+                  )
+                : "";
+
+            row.innerHTML = `
+      <td>${dateString}</td>
+      <td>${Math.round(
+        entry.views
+      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+        entry.likes
+      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+        entry.comments
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+            tableBody.appendChild(row);
+          }
+        }
+
         function createDailyTable(dailyData, currentDayData) {
           const tableBody = document.getElementById("dailyStatsBody");
           tableBody.innerHTML = "";
@@ -1110,8 +1321,6 @@
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
 
-          document.getElementById("dailyStatsTable").style.display = "none";
-
           document.getElementById("uploadCountCard").style.display = "none";
 
           if (selectedSeriesIndex === 3) {
@@ -1176,9 +1385,15 @@
               allData = { timestamps, views, likes, comments };
               drawChart();
               updateStats(views, likes, comments);
+
+              const dailyData = processDailyDataForVideo(filteredStats);
+              const currentDayData = filteredStats[filteredStats.length - 1];
+
+              createDailyTableForVideo(dailyData, currentDayData);
+              document.getElementById("dailyStatsTable").style.display =
+                "block";
             });
         }
-
         function drawChart() {
           if (
             !allData ||
