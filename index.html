@@ -922,10 +922,10 @@
         function processDailyData(data) {
           const dailyData = [];
           let currentDate = null;
-          let closestTo4am = null;
+          let firstEntryOfDay = null;
 
-          data.forEach((entry) => {
-            const entryDate = new Date(entry.time);
+          data.forEach((entry, index) => {
+            const entryDate = new Date(entry.timestamp);
             const entryDateString = entryDate.toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -934,25 +934,16 @@
             });
 
             if (entryDateString !== currentDate) {
-              if (closestTo4am) {
-                dailyData.push(closestTo4am);
+              if (firstEntryOfDay) {
+                dailyData.push(firstEntryOfDay);
               }
               currentDate = entryDateString;
-              closestTo4am = entry;
-            } else {
-              const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
-              const closest4amDiff = Math.abs(
-                new Date(closestTo4am.time).getUTCHours() - 4
-              );
-
-              if (current4amDiff < closest4amDiff) {
-                closestTo4am = entry;
-              }
+              firstEntryOfDay = entry;
             }
           });
 
-          if (closestTo4am) {
-            dailyData.push(closestTo4am);
+          if (firstEntryOfDay) {
+            dailyData.push(firstEntryOfDay);
           }
 
           return dailyData;
@@ -978,7 +969,7 @@
 
           if (currentDayData) {
             const currentRow = document.createElement("tr");
-            const currentDate = new Date(currentDayData.time);
+            const currentDate = new Date(currentDayData.timestamp);
 
             const timeString = currentDate.toLocaleTimeString("en-US", {
               hour: "2-digit",
@@ -1032,7 +1023,7 @@
       ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
       <td>${Math.round(
         currentDayData.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange})">(${commentsChange})</span></td>
     `;
 
             tableBody.insertBefore(currentRow, tableBody.firstChild);
@@ -1041,7 +1032,7 @@
           for (let index = dailyData.length - 1; index >= 0; index--) {
             const entry = dailyData[index];
             const row = document.createElement("tr");
-            const date = new Date(entry.time);
+            const date = new Date(entry.timestamp);
 
             date.setDate(date.getDate() - 1);
             const dateString = date.toLocaleDateString("en-US", {
@@ -1092,13 +1083,13 @@
       <td>${dateString}</td>
       <td>${Math.round(
         entry.views
-      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange})">(${viewsChange})</span></td>
       <td>${Math.round(
         entry.likes
-      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange})">(${likesChange})</span></td>
       <td>${Math.round(
         entry.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange})">(${commentsChange})</span></td>
     `;
 
             tableBody.appendChild(row);
@@ -1176,6 +1167,14 @@
               allData = { timestamps, views, likes, comments };
               drawChart();
               updateStats(views, likes, comments);
+
+              const dailyData = processDailyData(filteredStats);
+              const currentDayData = filteredStats[filteredStats.length - 1];
+
+              createDailyTable(dailyData, currentDayData);
+
+              document.getElementById("dailyStatsTable").style.display =
+                "block";
             });
         }
 
