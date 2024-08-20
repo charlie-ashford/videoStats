@@ -899,7 +899,12 @@
 
           data.forEach((entry) => {
             const entryDate = new Date(entry.time);
-            const entryDateString = entryDate.toISOString().split("T")[0];
+            const entryDateString = entryDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            });
 
             if (entryDateString !== currentDate) {
               if (closestTo4am) {
@@ -984,9 +989,15 @@
             );
 
             currentRow.innerHTML = `
-<td>${currentDate.toLocaleDateString("en-US", { weekday: "short" })}, ${
-              currentDate.toISOString().split("T")[0]
-            }, ${timeString}</td>
+<td>${currentDate.toLocaleDateString("en-US", {
+              weekday: "short",
+              timeZone: "America/New_York",
+            })}, ${currentDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "America/New_York",
+            })}, ${timeString} EST</td>
   <td>${Math.round(
     currentDayData.views
   ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
@@ -1045,9 +1056,17 @@
 
             row.innerHTML = `
             <td>${
-              date.toLocaleDateString("en-US", { weekday: "short" }) +
+              date.toLocaleDateString("en-US", {
+                weekday: "short",
+                timeZone: "America/New_York",
+              }) +
               ", " +
-              date.toISOString().split("T")[0]
+              date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                timeZone: "America/New_York",
+              })
             }</td>
       <td>${Math.round(
         entry.views
