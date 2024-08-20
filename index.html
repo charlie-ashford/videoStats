@@ -315,7 +315,7 @@
       .stat-card {
         background-color: var(--card-background-color);
         border-radius: 12px;
-        padding: 2rem;
+        padding: 1rem;
         border: 1px solid var(--highlight-border-color);
         text-align: center;
         transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s,
@@ -324,6 +324,8 @@
         flex-direction: column;
         align-items: center;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        overflow: hidden;
       }
 
       .stat-card:hover {
@@ -336,11 +338,15 @@
       .stat-card h3 {
         font-size: 1.2rem;
         color: var(--primary-color);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
       }
 
       .stat-card h3 i {
@@ -350,9 +356,15 @@
       }
 
       .stat-card .odometer {
-        font-size: 1.9rem;
+        font-size: 2rem;
         font-weight: 700;
         color: var(--text-color);
+        line-height: 1.2;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
       }
 
       .dropdown-list {
@@ -1435,32 +1447,57 @@
           });
         }
 
+        function adjustOdometerFontSize(odometerElement) {
+          let currentFontSize = 2;
+
+          while (
+            (odometerElement.scrollWidth > odometerElement.clientWidth ||
+              odometerElement.scrollHeight > odometerElement.clientHeight) &&
+            currentFontSize > 0.5
+          ) {
+            currentFontSize -= 0.2;
+            odometerElement.style.fontSize = `${currentFontSize}rem`;
+          }
+        }
+
         function updateStats(views, likes, comments, uploads) {
           const totalViews = views[views.length - 1] || 0;
           const totalLikes = likes[likes.length - 1] || 0;
           const totalComments = comments[comments.length - 1] || 0;
 
+          const viewsElement = document.getElementById("totalViews");
+          const likesElement = document.getElementById("totalLikes");
+          const commentsElement = document.getElementById("totalComments");
+
           new Odometer({
-            el: document.getElementById("totalViews"),
+            el: viewsElement,
             value: totalViews,
           }).update(totalViews);
 
           new Odometer({
-            el: document.getElementById("totalLikes"),
+            el: likesElement,
             value: totalLikes,
           }).update(totalLikes);
 
           new Odometer({
-            el: document.getElementById("totalComments"),
+            el: commentsElement,
             value: totalComments,
           }).update(totalComments);
 
+          adjustOdometerFontSize(viewsElement);
+          adjustOdometerFontSize(likesElement);
+          adjustOdometerFontSize(commentsElement);
+
           if (uploads) {
             const totalUploads = uploads[uploads.length - 1] || 0;
+            const uploadsElement = document.getElementById("totalUploads");
+
             new Odometer({
-              el: document.getElementById("totalUploads"),
+              el: uploadsElement,
               value: totalUploads,
             }).update(totalUploads);
+
+            adjustOdometerFontSize(uploadsElement);
           }
         }
 
@@ -1477,7 +1514,8 @@
 
         document.querySelectorAll(".stat-card").forEach((card, index) => {
           card.addEventListener("click", () => {
-            showOnlySelectedSeries(index);
+            selectedSeriesIndex = index;
+            drawChart();
           });
         });
 
