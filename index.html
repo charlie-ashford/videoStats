@@ -111,7 +111,7 @@
 
       header {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1250px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -248,7 +248,7 @@
         border: 1px solid var(--highlight-border-color);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 1200px;
+        max-width: 1250px;
       }
 
       .video-thumbnail {
@@ -295,7 +295,7 @@
 
       .chart-container {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1250px;
         background-color: var(--card-background-color);
         border-radius: 12px;
         padding: 1rem;
@@ -305,10 +305,10 @@
 
       .stats-grid {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1250px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
         margin-bottom: 3rem;
       }
 
@@ -334,7 +334,7 @@
       }
 
       .stat-card h3 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         color: var(--primary-color);
         margin-bottom: 1rem;
         font-weight: 600;
@@ -350,7 +350,7 @@
       }
 
       .stat-card .odometer {
-        font-size: 2rem;
+        font-size: 1.9rem;
         font-weight: 700;
         color: var(--text-color);
       }
@@ -400,7 +400,7 @@
       #dailyStatsTable {
         margin-top: 2rem;
         width: 100%;
-        max-width: 1200px;
+        max-width: 1250px;
         background-color: var(--card-background-color);
         border-radius: 12px;
         overflow: hidden;
@@ -617,6 +617,10 @@
         <h3><i class="fas fa-comments"></i> Comments</h3>
         <div id="totalComments" class="odometer">0</div>
       </div>
+      <div class="stat-card" id="uploadCountCard" style="display: none">
+        <h3><i class="fas fa-upload"></i> Uploads</h3>
+        <div id="totalUploads" class="odometer">0</div>
+      </div>
     </div>
 
     <div class="chart-container">
@@ -625,7 +629,7 @@
 
     <div
       id="dailyStatsTable"
-      style="display: none; margin-top: 2rem; width: 100%; max-width: 1200px"
+      style="display: none; margin-top: 2rem; width: 100%; max-width: 1250px"
     >
       <h3 style="text-align: center; margin-bottom: 1rem">Daily Statistics</h3>
       <div class="table-responsive">
@@ -861,6 +865,8 @@
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${urlPath}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
 
+          document.getElementById("uploadCountCard").style.display = "flex";
+
           fetch(endpoint)
             .then((response) => response.json())
             .then((combinedData) => {
@@ -876,11 +882,17 @@
               const comments = filterSpikes(
                 combinedData.map((entry) => Math.round(entry.comments))
               );
+              const uploads = combinedData.map((entry) => entry.uploadCount);
 
-              allData = { timestamps, views, likes, comments };
+              allData = { timestamps, views, likes, comments, uploads };
 
               drawChart();
-              updateStats(allData.views, allData.likes, allData.comments);
+              updateStats(
+                allData.views,
+                allData.likes,
+                allData.comments,
+                allData.uploads
+              );
 
               const dailyData = processDailyData(combinedData);
               const currentDayData = combinedData[combinedData.length - 1];
@@ -956,7 +968,7 @@
             const timeString = currentDate.toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
-              hour12: false, 
+              hour12: false,
               timeZone: "America/New_York",
             });
 
@@ -1084,6 +1096,10 @@
           window.history.pushState({ path: newUrl }, "", newUrl);
 
           document.getElementById("dailyStatsTable").style.display = "none";
+
+          document.getElementById("uploadCountCard").style.display = "none";
+
+          selectedSeriesIndex = 0;
 
           const existingProfileImage = document.querySelector(
             "header img.profile-image"
@@ -1235,6 +1251,37 @@
             },
           ];
 
+          if (allData.uploads) {
+            seriesData.push({
+              name: "Uploads",
+              data: allData.timestamps.map((t, i) => [
+                t.getTime() - 4 * 3600 * 1000,
+                allData.uploads[i],
+              ]),
+              color: {
+                linearGradient: {
+                  x1: 0,
+                  x2: 0,
+                  y1: 0,
+                  y2: 1,
+                },
+                stops: [
+                  [0, "#8e44ad"],
+                  [1, "rgba(142, 68, 173, 0.3)"],
+                ],
+              },
+              visible: selectedSeriesIndex === 3,
+              marker: {
+                enabled: false,
+              },
+              lineWidth: 3,
+            });
+          }
+
+          if (selectedSeriesIndex >= seriesData.length) {
+            selectedSeriesIndex = 0;
+          }
+
           const minValue = Math.min(
             ...seriesData[selectedSeriesIndex].data.map((d) => d[1])
           );
@@ -1254,7 +1301,9 @@
                   ? "Views"
                   : selectedSeriesIndex === 1
                   ? "Likes"
-                  : "Comments",
+                  : selectedSeriesIndex === 2
+                  ? "Comments"
+                  : "Uploads",
               style: {
                 color: "var(--text-color)",
                 fontWeight: "bold",
@@ -1386,7 +1435,7 @@
           });
         }
 
-        function updateStats(views, likes, comments) {
+        function updateStats(views, likes, comments, uploads) {
           const totalViews = views[views.length - 1] || 0;
           const totalLikes = likes[likes.length - 1] || 0;
           const totalComments = comments[comments.length - 1] || 0;
@@ -1405,6 +1454,14 @@
             el: document.getElementById("totalComments"),
             value: totalComments,
           }).update(totalComments);
+
+          if (uploads) {
+            const totalUploads = uploads[uploads.length - 1] || 0;
+            new Odometer({
+              el: document.getElementById("totalUploads"),
+              value: totalUploads,
+            }).update(totalUploads);
+          }
         }
 
         function updateSelectedSeriesIndex() {
