@@ -894,14 +894,25 @@
               const likes = filterSpikes(
                 combinedData.map((entry) => Math.round(entry.likes))
               );
-              const comments = filterSpikes(
-                combinedData.map((entry) => Math.round(entry.comments))
-              );
-              const uploads = combinedData.map((entry) => entry.uploadCount);
+
+              let comments = [];
+              let uploads = [];
+
+              if (urlPath !== "cocomelon_combined") {
+                comments = filterSpikes(
+                  combinedData.map((entry) => Math.round(entry.comments))
+                );
+                uploads = combinedData.map((entry) => entry.uploadCount);
+              } else {
+                uploads = combinedData.map((entry) => entry.uploadCount);
+                document.getElementById(
+                  "totalComments"
+                ).parentNode.style.display = "none";
+              }
 
               allData = { timestamps, views, likes, comments, uploads };
 
-              drawChart();
+              drawChart(urlPath);
               updateStats(
                 allData.views,
                 allData.likes,
@@ -912,7 +923,7 @@
               const dailyData = processDailyData(combinedData);
               const currentDayData = combinedData[combinedData.length - 1];
 
-              createDailyTable(dailyData, currentDayData);
+              createDailyTable(dailyData, currentDayData, urlPath);
 
               document.getElementById("dailyStatsTable").style.display =
                 "block";
@@ -958,8 +969,26 @@
           return dailyData;
         }
 
-        function createDailyTable(dailyData, currentDayData) {
+        function createDailyTable(dailyData, currentDayData, urlPath) {
           const tableBody = document.getElementById("dailyStatsBody");
+          const tableHeader = document.querySelector(
+            "#dailyStatsTable thead tr"
+          );
+
+          tableHeader.innerHTML = "";
+
+          tableHeader.innerHTML += `
+    <th style="border: 1px solid var(--border-color); padding: 0.5rem">Date (EST)</th>
+    <th style="border: 1px solid var(--border-color); padding: 0.5rem">Views</th>
+    <th style="border: 1px solid var(--border-color); padding: 0.5rem">Likes</th>
+  `;
+
+          if (urlPath !== "cocomelon_combined") {
+            tableHeader.innerHTML += `
+      <th style="border: 1px solid var(--border-color); padding: 0.5rem">Comments</th>
+    `;
+          }
+
           tableBody.innerHTML = "";
 
           const calculateChange = (current, previous) => {
@@ -1004,10 +1033,13 @@
               currentDayData.likes,
               previousDayData.likes
             );
-            const commentsChange = calculateChange(
-              currentDayData.comments,
-              previousDayData.comments
-            );
+            const commentsChange =
+              urlPath !== "cocomelon_combined"
+                ? calculateChange(
+                    currentDayData.comments,
+                    previousDayData.comments
+                  )
+                : "";
 
             const viewsClass = determineClass(
               currentDayData.views,
@@ -1017,10 +1049,13 @@
               currentDayData.likes,
               previousDayData.likes
             );
-            const commentsClass = determineClass(
-              currentDayData.comments,
-              previousDayData.comments
-            );
+            const commentsClass =
+              urlPath !== "cocomelon_combined"
+                ? determineClass(
+                    currentDayData.comments,
+                    previousDayData.comments
+                  )
+                : "";
 
             currentRow.innerHTML = `
       <td>${dateString}, ${timeString}</td>
@@ -1030,9 +1065,13 @@
       <td>${Math.round(
         currentDayData.likes
       ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        currentDayData.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+      ${
+        urlPath !== "cocomelon_combined"
+          ? `<td>${Math.round(
+              currentDayData.comments
+            ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>`
+          : ""
+      }
     `;
 
             tableBody.insertBefore(currentRow, tableBody.firstChild);
@@ -1061,8 +1100,13 @@
                 ? calculateChange(entry.likes, dailyData[index - 1].likes)
                 : "";
             const commentsChange =
-              index > 0
-                ? calculateChange(entry.comments, dailyData[index - 1].comments)
+              urlPath !== "cocomelon_combined"
+                ? index > 0
+                  ? calculateChange(
+                      entry.comments,
+                      dailyData[index - 1].comments
+                    )
+                  : ""
                 : "";
 
             const viewsClass =
@@ -1080,12 +1124,14 @@
                   )
                 : "";
             const commentsClass =
-              index > 1
-                ? determineClass(
-                    entry.comments - dailyData[index - 1].comments,
-                    dailyData[index - 1].comments -
-                      dailyData[index - 2].comments
-                  )
+              urlPath !== "cocomelon_combined"
+                ? index > 1
+                  ? determineClass(
+                      entry.comments - dailyData[index - 1].comments,
+                      dailyData[index - 1].comments -
+                        dailyData[index - 2].comments
+                    )
+                  : ""
                 : "";
 
             row.innerHTML = `
@@ -1096,15 +1142,18 @@
       <td>${Math.round(
         entry.likes
       ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        entry.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+      ${
+        urlPath !== "cocomelon_combined"
+          ? `<td>${Math.round(
+              entry.comments
+            ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>`
+          : ""
+      }
     `;
 
             tableBody.appendChild(row);
           }
         }
-
         function fetchVideoStats(videoId) {
           currentVideoId = videoId;
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
@@ -1179,7 +1228,7 @@
             });
         }
 
-        function drawChart() {
+        function drawChart(urlPath) {
           if (
             !allData ||
             !allData.timestamps ||
@@ -1242,7 +1291,10 @@
               },
               lineWidth: 3,
             },
-            {
+          ];
+
+          if (urlPath !== "cocomelon_combined") {
+            seriesData.push({
               name: "Comments",
               data: allData.timestamps.map((t, i) => [
                 t.getTime() - 4 * 3600 * 1000,
@@ -1265,8 +1317,8 @@
                 enabled: false,
               },
               lineWidth: 3,
-            },
-          ];
+            });
+          }
 
           if (allData.uploads) {
             seriesData.push({
@@ -1318,7 +1370,8 @@
                   ? "Views"
                   : selectedSeriesIndex === 1
                   ? "Likes"
-                  : selectedSeriesIndex === 2
+                  : selectedSeriesIndex === 2 &&
+                    urlPath !== "cocomelon_combined"
                   ? "Comments"
                   : "Uploads",
               style: {
@@ -1460,6 +1513,7 @@
           const viewsElement = document.getElementById("totalViews");
           const likesElement = document.getElementById("totalLikes");
           const commentsElement = document.getElementById("totalComments");
+          const commentsCard = commentsElement.parentNode;
 
           new Odometer({
             el: viewsElement,
@@ -1471,10 +1525,15 @@
             value: totalLikes,
           }).update(totalLikes);
 
-          new Odometer({
-            el: commentsElement,
-            value: totalComments,
-          }).update(totalComments);
+          if (currentVideoId === "cocomelon_combined") {
+            commentsCard.style.display = "none";
+          } else {
+            commentsCard.style.display = "flex";
+            new Odometer({
+              el: commentsElement,
+              value: totalComments,
+            }).update(totalComments);
+          }
 
           if (uploads) {
             const totalUploads = uploads[uploads.length - 1] || 0;
