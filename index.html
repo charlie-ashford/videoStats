@@ -1348,7 +1348,7 @@
 
               thumbnailElement.src = video.thumbnail;
               videoLinkElement.href = `https://www.youtube.com/watch?v=${video.videoId}`;
-              videoLinkElement.textContent = video.title;
+              videoLinkElement.textContent = addCommasToTitle(video.title);
 
               const uploadDate = new Date(video.uploadTime);
               uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
