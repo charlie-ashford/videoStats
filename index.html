@@ -1317,6 +1317,10 @@
         }
 
         function fetchVideoStats(videoId) {
+          function addCommasToTitle(title) {
+            return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+          }
+
           currentVideoId = videoId;
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
