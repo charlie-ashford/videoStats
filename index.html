@@ -746,7 +746,7 @@
         combinedOption.classList.add("dropdown-list-item", "bold");
         combinedOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=@mrbeast" alt="Combined" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast" alt="Combined" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Combined
     </div>
   `;
@@ -757,7 +757,7 @@
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             combinedEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=@mrbeast",
+            "https://api.communitrics.com/youtube/profile?channel=mrbeast",
             "combined"
           );
         });
@@ -766,7 +766,7 @@
         cocomelonOption.classList.add("dropdown-list-item", "bold");
         cocomelonOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=@cocomelon" alt="Cocomelon" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=cocomelon" alt="Cocomelon" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Cocomelon Combined
     </div>
   `;
@@ -777,7 +777,7 @@
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             cocomelonEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=@cocomelon",
+            "https://api.communitrics.com/youtube/profile?channel=cocomelon",
             "cocomelon_combined"
           );
         });
@@ -786,7 +786,7 @@
         stokesTwinsOption.classList.add("dropdown-list-item", "bold");
         stokesTwinsOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=@stokestwins" alt="Stokes Twins" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=stokestwins" alt="Stokes Twins" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Stokes Twins Combined
     </div>
   `;
@@ -797,7 +797,7 @@
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             stokesTwinsEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=@stokestwins",
+            "https://api.communitrics.com/youtube/profile?channel=stokestwins",
             "stokesTwins_combined"
           );
         });
@@ -806,7 +806,7 @@
         ronaldoOption.classList.add("dropdown-list-item", "bold");
         ronaldoOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=@cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Ronaldo Combined
     </div>
   `;
@@ -817,7 +817,7 @@
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             ronaldoEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=@cristiano",
+            "https://api.communitrics.com/youtube/profile?channel=cristiano",
             "ronaldo_combined"
           );
         });
@@ -853,28 +853,28 @@
               searchInput.value = "Combined";
               fetchCombinedStats(
                 combinedEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=@mrbeast",
+                "https://api.communitrics.com/youtube/profile?channel=mrbeast",
                 "combined"
               );
             } else if (videoIdFromUrl === "cocomelon_combined") {
               searchInput.value = "Cocomelon Combined";
               fetchCombinedStats(
                 cocomelonEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=@cocomelon",
+                "https://api.communitrics.com/youtube/profile?channel=cocomelon",
                 "cocomelon_combined"
               );
             } else if (videoIdFromUrl === "stokesTwins_combined") {
               searchInput.value = "Stokes Twins Combined";
               fetchCombinedStats(
                 stokesTwinsEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=@stokestwins",
+                "https://api.communitrics.com/youtube/profile?channel=stokestwins",
                 "stokesTwins_combined"
               );
             } else if (videoIdFromUrl === "ronaldo_combined") {
               searchInput.value = "Ronaldo Combined";
               fetchCombinedStats(
                 ronaldoEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=@cristiano",
+                "https://api.communitrics.com/youtube/profile?channel=cristiano",
                 "ronaldo_combined"
               );
             } else if (videoIdFromUrl) {
