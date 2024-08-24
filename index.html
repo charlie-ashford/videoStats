@@ -288,9 +288,15 @@
       }
 
       .video-upload-date .last-updated {
-        font-size: 0.85rem;
-        color: var(--muted-text-color);
-        margin-left: 10px;
+        font-size: 0.85rem !important;
+        color: var(--muted-text-color) !important;
+        margin-left: 10px !important;
+      }
+
+      .video-id {
+        font-size: 0.85rem !important;
+        color: var(--muted-text-color) !important;
+        margin-left: 10px !important;
       }
 
       .chart-container {
@@ -1390,10 +1396,13 @@
               const lastUpdatedSpan = document.createElement("span");
               lastUpdatedSpan.classList.add("last-updated");
               lastUpdatedSpan.textContent = `(Stats last updated: ${lastUpdatedDate.toLocaleDateString()} at ${lastUpdatedDate.toLocaleTimeString()})`;
-
               uploadDateElement.appendChild(lastUpdatedSpan);
 
               durationElement.textContent = `Duration: ${video.stats[0].duration}`;
+              const videoIdSpan = document.createElement("span");
+              videoIdSpan.classList.add("video-id");
+              videoIdSpan.textContent = `(Video ID: ${video.videoId})`;
+              durationElement.appendChild(videoIdSpan); 
 
               videoInfoCard.style.display = "flex";
               const filteredStats = video.stats.filter(
