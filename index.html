@@ -936,6 +936,7 @@
         function fetchCombinedStats(endpoint, profileImageUrl, urlPath) {
           currentVideoId = urlPath;
           document.getElementById("videoInfoCard").style.display = "none";
+          document.querySelector("header h1").textContent = "Channel Analytics";
 
           const existingProfileImage = document.querySelector(
             "header img.profile-image"
@@ -1398,6 +1399,7 @@
           window.history.pushState({ path: newUrl }, "", newUrl);
 
           document.getElementById("uploadCountCard").style.display = "none";
+          document.querySelector("header h1").textContent = "Video Analytics";
 
           if (selectedSeriesIndex === 3) {
             selectedSeriesIndex = 0;
