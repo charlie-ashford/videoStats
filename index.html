@@ -702,6 +702,8 @@
           "https://api.communitrics.com/combined-history-mbphilanthropy";
         const cocomelonEndpoint =
           "https://api.communitrics.com/combined-history-cocomelon";
+        const ronaldoEndpoint =
+          "https://api.communitrics.com/combined-history-ronaldo";
         const searchInput = document.getElementById("searchInput");
         const dropdownList = document.getElementById("dropdownList");
         const exportButton = document.getElementById("exportButton");
@@ -828,6 +830,26 @@
           );
         });
 
+        const ronaldoOption = document.createElement("div");
+        ronaldoOption.classList.add("dropdown-list-item", "bold");
+        ronaldoOption.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      Ronaldo Combined
+    </div>
+  `;
+        dropdownList.appendChild(ronaldoOption);
+
+        ronaldoOption.addEventListener("click", () => {
+          searchInput.value = "Ronaldo Combined";
+          dropdownList.classList.remove("show");
+          fetchCombinedStats(
+            ronaldoEndpoint,
+            "https://api.communitrics.com/youtube/profile?channel=cristiano",
+            "ronaldo_combined"
+          );
+        });
+
         const urlParams = new URLSearchParams(window.location.search);
         const videoIdFromUrl = urlParams.get("video");
 
@@ -882,6 +904,13 @@
                 cocomelonEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cocomelon",
                 "cocomelon_combined"
+              );
+            } else if (videoIdFromUrl === "ronaldo_combined") {
+              searchInput.value = "Ronaldo Combined";
+              fetchCombinedStats(
+                ronaldoEndpoint,
+                "https://api.communitrics.com/youtube/profile?channel=cristiano",
+                "ronaldo_combined"
               );
             } else if (videoIdFromUrl) {
               const matchingVideo = videos.find(
