@@ -1534,6 +1534,8 @@
             });
         }
         function drawChart() {
+          const MAX_POINTS = 1000;
+
           if (
             !allData ||
             !allData.timestamps ||
@@ -1547,13 +1549,30 @@
             videoChart.destroy();
           }
 
+          function downsampleData(timestamps, data) {
+            const length = timestamps.length;
+            if (length <= MAX_POINTS) {
+              return timestamps.map((t, i) => [
+                t.getTime() - 4 * 3600 * 1000,
+                data[i],
+              ]);
+            }
+
+            const step = Math.floor(length / MAX_POINTS);
+            const sampledData = [];
+            for (let i = 0; i < length; i += step) {
+              sampledData.push([
+                timestamps[i].getTime() - 4 * 3600 * 1000,
+                data[i],
+              ]);
+            }
+            return sampledData;
+          }
+
           const seriesData = [
             {
               name: "Views",
-              data: allData.timestamps.map((t, i) => [
-                t.getTime() - 4 * 3600 * 1000,
-                allData.views[i],
-              ]),
+              data: downsampleData(allData.timestamps, allData.views),
               color: {
                 linearGradient: {
                   x1: 0,
@@ -1574,10 +1593,7 @@
             },
             {
               name: "Likes",
-              data: allData.timestamps.map((t, i) => [
-                t.getTime() - 4 * 3600 * 1000,
-                allData.likes[i],
-              ]),
+              data: downsampleData(allData.timestamps, allData.likes),
               color: {
                 linearGradient: {
                   x1: 0,
@@ -1598,10 +1614,7 @@
             },
             {
               name: "Comments",
-              data: allData.timestamps.map((t, i) => [
-                t.getTime() - 4 * 3600 * 1000,
-                allData.comments[i],
-              ]),
+              data: downsampleData(allData.timestamps, allData.comments),
               color: {
                 linearGradient: {
                   x1: 0,
@@ -1625,10 +1638,7 @@
           if (allData.uploads) {
             seriesData.push({
               name: "Uploads",
-              data: allData.timestamps.map((t, i) => [
-                t.getTime() - 4 * 3600 * 1000,
-                allData.uploads[i],
-              ]),
+              data: downsampleData(allData.timestamps, allData.uploads),
               color: {
                 linearGradient: {
                   x1: 0,
