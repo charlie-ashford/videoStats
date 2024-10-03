@@ -839,13 +839,13 @@
         mrbeastReactsOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastreacts" alt="Beast Reacts" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      MrBeast Reacts Combined
+      Beast Reacts Combined
     </div>
   `;
         dropdownList.appendChild(mrbeastReactsOption);
 
         mrbeastReactsOption.addEventListener("click", () => {
-          searchInput.value = "MrBeast Reacts";
+          searchInput.value = "Beast Reacts";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             mrbeastReactsEndpoint,
@@ -943,7 +943,7 @@
                 "mbgaming_combined"
               );
             } else if (videoIdFromUrl === "mbreacts_combined") {
-              searchInput.value = "MrBeast Reacts";
+              searchInput.value = "Beast Reacts";
               fetchCombinedStats(
                 mrbeastReactsEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
