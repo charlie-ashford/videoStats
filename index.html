@@ -700,6 +700,10 @@
           "https://api.communitrics.com/combined-history-mb2";
         const mrbeastphilanthropyEndpoint =
           "https://api.communitrics.com/combined-history-mbphilanthropy";
+        const mrbeastGamingEndpoint =
+          "https://api.communitrics.com/combined-history-mbgaming";
+        const mrbeastReactsEndpoint =
+          "https://api.communitrics.com/combined-history-mbreacts";
         const cocomelonEndpoint =
           "https://api.communitrics.com/combined-history-cocomelon";
         const ronaldoEndpoint =
@@ -810,6 +814,46 @@
           );
         });
 
+        const mrbeastGamingOption = document.createElement("div");
+        mrbeastGamingOption.classList.add("dropdown-list-item", "bold");
+        mrbeastGamingOption.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastgaming" alt="MrBeast Gaming" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      MrBeast Gaming Combined
+    </div>
+  `;
+        dropdownList.appendChild(mrbeastGamingOption);
+
+        mrbeastGamingOption.addEventListener("click", () => {
+          searchInput.value = "MrBeast Gaming";
+          dropdownList.classList.remove("show");
+          fetchCombinedStats(
+            mrbeastGamingEndpoint,
+            "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
+            "mbgaming_combined"
+          );
+        });
+
+        const mrbeastReactsOption = document.createElement("div");
+        mrbeastReactsOption.classList.add("dropdown-list-item", "bold");
+        mrbeastReactsOption.innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastreacts" alt="Beast Reacts" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      MrBeast Reacts Combined
+    </div>
+  `;
+        dropdownList.appendChild(mrbeastReactsOption);
+
+        mrbeastReactsOption.addEventListener("click", () => {
+          searchInput.value = "MrBeast Reacts";
+          dropdownList.classList.remove("show");
+          fetchCombinedStats(
+            mrbeastReactsEndpoint,
+            "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
+            "mbreacts_combined"
+          );
+        });
+
         const cocomelonOption = document.createElement("div");
         cocomelonOption.classList.add("dropdown-list-item", "bold");
         cocomelonOption.innerHTML = `
@@ -890,6 +934,20 @@
                 mrbeast2Endpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
                 "mb2_combined"
+              );
+            } else if (videoIdFromUrl === "mbgaming_combined") {
+              searchInput.value = "MrBeast Gaming";
+              fetchCombinedStats(
+                mrbeastGamingEndpoint,
+                "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
+                "mbgaming_combined"
+              );
+            } else if (videoIdFromUrl === "mbreacts_combined") {
+              searchInput.value = "MrBeast Reacts";
+              fetchCombinedStats(
+                mrbeastReactsEndpoint,
+                "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
+                "mbreacts_combined"
               );
             } else if (videoIdFromUrl === "mbphilanthropy_combined") {
               searchInput.value = "MrBeast Philanthropy";
