@@ -75,7 +75,7 @@
         --highlight-border-color: #1976d2;
       }
 
-      [data-theme="dark"] {
+      [data-theme='dark'] {
         --background-color: #121212;
         --card-background-color: #1e1e1e;
         --text-color: #e0e0e0;
@@ -98,7 +98,7 @@
       }
 
       body {
-        font-family: "Poppins", "Roboto", sans-serif;
+        font-family: 'Poppins', 'Roboto', sans-serif;
         background-color: var(--background-color);
         color: var(--text-color);
         line-height: 1.5;
@@ -124,7 +124,7 @@
         font-size: 2rem;
         color: var(--primary-color);
         font-weight: 700;
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
         transition: color 0.3s;
       }
 
@@ -220,8 +220,8 @@
         transition: filter 0.3s;
       }
 
-      body[data-theme="dark"] .theme-toggle,
-      body[data-theme="dark"] .export-button {
+      body[data-theme='dark'] .theme-toggle,
+      body[data-theme='dark'] .export-button {
         background-color: var(--card-background-color);
         border: 1px solid var(--border-color);
       }
@@ -692,70 +692,70 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const apiEndpoint = "https://api.communitrics.com/videos/all";
+      document.addEventListener('DOMContentLoaded', () => {
+        const apiEndpoint = 'https://api.communitrics.com/videos/all';
         const combinedEndpoint =
-          "https://api.communitrics.com/combined-history";
+          'https://api.communitrics.com/combined-history';
         const mrbeast2Endpoint =
-          "https://api.communitrics.com/combined-history-mb2";
+          'https://api.communitrics.com/combined-history-mb2';
         const mrbeastphilanthropyEndpoint =
-          "https://api.communitrics.com/combined-history-mbphilanthropy";
+          'https://api.communitrics.com/combined-history-mbphilanthropy';
         const mrbeastGamingEndpoint =
-          "https://api.communitrics.com/combined-history-mbgaming";
+          'https://api.communitrics.com/combined-history-mbgaming';
         const mrbeastReactsEndpoint =
-          "https://api.communitrics.com/combined-history-mbreacts";
+          'https://api.communitrics.com/combined-history-mbreacts';
         const cocomelonEndpoint =
-          "https://api.communitrics.com/combined-history-cocomelon";
+          'https://api.communitrics.com/combined-history-cocomelon';
         const ronaldoEndpoint =
-          "https://api.communitrics.com/combined-history-ronaldo";
-        const searchInput = document.getElementById("searchInput");
-        const dropdownList = document.getElementById("dropdownList");
-        const exportButton = document.getElementById("exportButton");
-        const tableContainer = document.querySelector(".table-responsive");
+          'https://api.communitrics.com/combined-history-ronaldo';
+        const searchInput = document.getElementById('searchInput');
+        const dropdownList = document.getElementById('dropdownList');
+        const exportButton = document.getElementById('exportButton');
+        const tableContainer = document.querySelector('.table-responsive');
         let videoChart;
         let allData = {};
-        let currentVideoId = "combined";
+        let currentVideoId = 'combined';
         let selectedSeriesIndex = 0;
 
-        const storedTheme = localStorage.getItem("theme") || "dark";
-        document.body.setAttribute("data-theme", storedTheme);
+        const storedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', storedTheme);
 
-        const themeToggle = document.getElementById("themeToggle");
-        themeToggle.addEventListener("click", () => {
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
           const body = document.body;
-          const currentTheme = body.getAttribute("data-theme");
-          const newTheme = currentTheme === "light" ? "dark" : "light";
-          body.setAttribute("data-theme", newTheme);
-          localStorage.setItem("theme", newTheme);
+          const currentTheme = body.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          body.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
         });
 
-        searchInput.addEventListener("focus", () => {
-          dropdownList.classList.add("show");
+        searchInput.addEventListener('focus', () => {
+          dropdownList.classList.add('show');
         });
 
-        searchInput.addEventListener("input", (e) => {
+        searchInput.addEventListener('input', e => {
           const searchTerm = e.target.value.toLowerCase();
-          document.querySelectorAll(".dropdown-list-item").forEach((item) => {
+          document.querySelectorAll('.dropdown-list-item').forEach(item => {
             const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchTerm) ? "" : "none";
+            item.style.display = text.includes(searchTerm) ? '' : 'none';
           });
         });
 
-        document.addEventListener("click", (e) => {
-          if (!e.target.closest(".search-bar")) {
-            dropdownList.classList.remove("show");
+        document.addEventListener('click', e => {
+          if (!e.target.closest('.search-bar')) {
+            dropdownList.classList.remove('show');
           }
         });
 
-        tableContainer.addEventListener("wheel", function (e) {
+        tableContainer.addEventListener('wheel', function (e) {
           if (tableContainer.scrollHeight > tableContainer.clientHeight) {
             e.preventDefault();
             tableContainer.scrollTop += e.deltaY;
           }
         });
 
-        const combinedOption = document.createElement("div");
-        combinedOption.classList.add("dropdown-list-item", "bold");
+        const combinedOption = document.createElement('div');
+        combinedOption.classList.add('dropdown-list-item', 'bold');
         combinedOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast" alt="Combined" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -764,18 +764,18 @@
   `;
         dropdownList.appendChild(combinedOption);
 
-        combinedOption.addEventListener("click", () => {
-          searchInput.value = "Combined";
-          dropdownList.classList.remove("show");
+        combinedOption.addEventListener('click', () => {
+          searchInput.value = 'Combined';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             combinedEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=mrbeast",
-            "combined"
+            'https://api.communitrics.com/youtube/profile?channel=mrbeast',
+            'combined'
           );
         });
 
-        const mrbeast2Option = document.createElement("div");
-        mrbeast2Option.classList.add("dropdown-list-item", "bold");
+        const mrbeast2Option = document.createElement('div');
+        mrbeast2Option.classList.add('dropdown-list-item', 'bold');
         mrbeast2Option.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast2" alt="MrBeast 2" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -784,18 +784,18 @@
   `;
         dropdownList.appendChild(mrbeast2Option);
 
-        mrbeast2Option.addEventListener("click", () => {
-          searchInput.value = "MrBeast 2";
-          dropdownList.classList.remove("show");
+        mrbeast2Option.addEventListener('click', () => {
+          searchInput.value = 'MrBeast 2';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             mrbeast2Endpoint,
-            "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
-            "mb2_combined"
+            'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
+            'mb2_combined'
           );
         });
 
-        const mrbeastphilanthropyOption = document.createElement("div");
-        mrbeastphilanthropyOption.classList.add("dropdown-list-item", "bold");
+        const mrbeastphilanthropyOption = document.createElement('div');
+        mrbeastphilanthropyOption.classList.add('dropdown-list-item', 'bold');
         mrbeastphilanthropyOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy" alt="MrBeast Philanthropy" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -804,18 +804,18 @@
   `;
         dropdownList.appendChild(mrbeastphilanthropyOption);
 
-        mrbeastphilanthropyOption.addEventListener("click", () => {
-          searchInput.value = "MrBeast Philanthropy";
-          dropdownList.classList.remove("show");
+        mrbeastphilanthropyOption.addEventListener('click', () => {
+          searchInput.value = 'MrBeast Philanthropy';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             mrbeastphilanthropyEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
-            "mbphilanthropy_combined"
+            'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
+            'mbphilanthropy_combined'
           );
         });
 
-        const mrbeastGamingOption = document.createElement("div");
-        mrbeastGamingOption.classList.add("dropdown-list-item", "bold");
+        const mrbeastGamingOption = document.createElement('div');
+        mrbeastGamingOption.classList.add('dropdown-list-item', 'bold');
         mrbeastGamingOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastgaming" alt="MrBeast Gaming" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -824,18 +824,18 @@
   `;
         dropdownList.appendChild(mrbeastGamingOption);
 
-        mrbeastGamingOption.addEventListener("click", () => {
-          searchInput.value = "MrBeast Gaming";
-          dropdownList.classList.remove("show");
+        mrbeastGamingOption.addEventListener('click', () => {
+          searchInput.value = 'MrBeast Gaming';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             mrbeastGamingEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
-            "mbgaming_combined"
+            'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
+            'mbgaming_combined'
           );
         });
 
-        const mrbeastReactsOption = document.createElement("div");
-        mrbeastReactsOption.classList.add("dropdown-list-item", "bold");
+        const mrbeastReactsOption = document.createElement('div');
+        mrbeastReactsOption.classList.add('dropdown-list-item', 'bold');
         mrbeastReactsOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastreacts" alt="Beast Reacts" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -844,18 +844,18 @@
   `;
         dropdownList.appendChild(mrbeastReactsOption);
 
-        mrbeastReactsOption.addEventListener("click", () => {
-          searchInput.value = "Beast Reacts";
-          dropdownList.classList.remove("show");
+        mrbeastReactsOption.addEventListener('click', () => {
+          searchInput.value = 'Beast Reacts';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             mrbeastReactsEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
-            "mbreacts_combined"
+            'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
+            'mbreacts_combined'
           );
         });
 
-        const cocomelonOption = document.createElement("div");
-        cocomelonOption.classList.add("dropdown-list-item", "bold");
+        const cocomelonOption = document.createElement('div');
+        cocomelonOption.classList.add('dropdown-list-item', 'bold');
         cocomelonOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=cocomelon" alt="Cocomelon" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -864,18 +864,18 @@
   `;
         dropdownList.appendChild(cocomelonOption);
 
-        cocomelonOption.addEventListener("click", () => {
-          searchInput.value = "Cocomelon Combined";
-          dropdownList.classList.remove("show");
+        cocomelonOption.addEventListener('click', () => {
+          searchInput.value = 'Cocomelon Combined';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             cocomelonEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=cocomelon",
-            "cocomelon_combined"
+            'https://api.communitrics.com/youtube/profile?channel=cocomelon',
+            'cocomelon_combined'
           );
         });
 
-        const ronaldoOption = document.createElement("div");
-        ronaldoOption.classList.add("dropdown-list-item", "bold");
+        const ronaldoOption = document.createElement('div');
+        ronaldoOption.classList.add('dropdown-list-item', 'bold');
         ronaldoOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
@@ -884,102 +884,102 @@
   `;
         dropdownList.appendChild(ronaldoOption);
 
-        ronaldoOption.addEventListener("click", () => {
-          searchInput.value = "Ronaldo Combined";
-          dropdownList.classList.remove("show");
+        ronaldoOption.addEventListener('click', () => {
+          searchInput.value = 'Ronaldo Combined';
+          dropdownList.classList.remove('show');
           fetchCombinedStats(
             ronaldoEndpoint,
-            "https://api.communitrics.com/youtube/profile?channel=cristiano",
-            "ronaldo_combined"
+            'https://api.communitrics.com/youtube/profile?channel=cristiano',
+            'ronaldo_combined'
           );
         });
 
         const urlParams = new URLSearchParams(window.location.search);
-        const videoIdFromUrl = urlParams.get("video");
+        const videoIdFromUrl = urlParams.get('video');
 
         fetch(apiEndpoint)
-          .then((response) => response.json())
-          .then((data) => {
+          .then(response => response.json())
+          .then(data => {
             const videos = data.videos;
 
             function addCommasToTitle(title) {
-              return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+              return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
             }
 
-            videos.forEach((video) => {
-              const item = document.createElement("div");
-              item.classList.add("dropdown-list-item");
+            videos.forEach(video => {
+              const item = document.createElement('div');
+              item.classList.add('dropdown-list-item');
               item.textContent = addCommasToTitle(video.title);
               item.dataset.videoId = video.videoId;
               dropdownList.appendChild(item);
 
-              item.addEventListener("click", (e) => {
+              item.addEventListener('click', e => {
                 const selectedVideoId = e.currentTarget.dataset.videoId;
                 searchInput.value = e.currentTarget.textContent;
-                dropdownList.classList.remove("show");
+                dropdownList.classList.remove('show');
                 fetchVideoStats(selectedVideoId);
               });
             });
 
-            if (videoIdFromUrl === "combined") {
-              searchInput.value = "Combined";
+            if (videoIdFromUrl === 'combined') {
+              searchInput.value = 'Combined';
               fetchCombinedStats(
                 combinedEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=mrbeast",
-                "combined"
+                'https://api.communitrics.com/youtube/profile?channel=mrbeast',
+                'combined'
               );
-            } else if (videoIdFromUrl === "mb2_combined") {
-              searchInput.value = "MrBeast 2";
+            } else if (videoIdFromUrl === 'mb2_combined') {
+              searchInput.value = 'MrBeast 2';
               fetchCombinedStats(
                 mrbeast2Endpoint,
-                "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
-                "mb2_combined"
+                'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
+                'mb2_combined'
               );
-            } else if (videoIdFromUrl === "mbgaming_combined") {
-              searchInput.value = "MrBeast Gaming";
+            } else if (videoIdFromUrl === 'mbgaming_combined') {
+              searchInput.value = 'MrBeast Gaming';
               fetchCombinedStats(
                 mrbeastGamingEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
-                "mbgaming_combined"
+                'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
+                'mbgaming_combined'
               );
-            } else if (videoIdFromUrl === "mbreacts_combined") {
-              searchInput.value = "Beast Reacts";
+            } else if (videoIdFromUrl === 'mbreacts_combined') {
+              searchInput.value = 'Beast Reacts';
               fetchCombinedStats(
                 mrbeastReactsEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
-                "mbreacts_combined"
+                'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
+                'mbreacts_combined'
               );
-            } else if (videoIdFromUrl === "mbphilanthropy_combined") {
-              searchInput.value = "MrBeast Philanthropy";
+            } else if (videoIdFromUrl === 'mbphilanthropy_combined') {
+              searchInput.value = 'MrBeast Philanthropy';
               fetchCombinedStats(
                 mrbeastphilanthropyEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
-                "mbphilanthropy_combined"
+                'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
+                'mbphilanthropy_combined'
               );
-            } else if (videoIdFromUrl === "cocomelon_combined") {
-              searchInput.value = "Cocomelon Combined";
+            } else if (videoIdFromUrl === 'cocomelon_combined') {
+              searchInput.value = 'Cocomelon Combined';
               fetchCombinedStats(
                 cocomelonEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=cocomelon",
-                "cocomelon_combined"
+                'https://api.communitrics.com/youtube/profile?channel=cocomelon',
+                'cocomelon_combined'
               );
-            } else if (videoIdFromUrl === "ronaldo_combined") {
-              searchInput.value = "Ronaldo Combined";
+            } else if (videoIdFromUrl === 'ronaldo_combined') {
+              searchInput.value = 'Ronaldo Combined';
               fetchCombinedStats(
                 ronaldoEndpoint,
-                "https://api.communitrics.com/youtube/profile?channel=cristiano",
-                "ronaldo_combined"
+                'https://api.communitrics.com/youtube/profile?channel=cristiano',
+                'ronaldo_combined'
               );
             } else if (videoIdFromUrl) {
               const matchingVideo = videos.find(
-                (video) => video.videoId === videoIdFromUrl
+                video => video.videoId === videoIdFromUrl
               );
               if (matchingVideo) {
                 searchInput.value = addCommasToTitle(matchingVideo.title);
                 fetchVideoStats(matchingVideo.videoId);
               } else {
                 console.error(
-                  "Video ID from URL not found in the list of videos."
+                  'Video ID from URL not found in the list of videos.'
                 );
               }
             } else if (videos.length > 0) {
@@ -993,49 +993,49 @@
 
         function fetchCombinedStats(endpoint, profileImageUrl, urlPath) {
           currentVideoId = urlPath;
-          document.getElementById("videoInfoCard").style.display = "none";
-          document.querySelector("header h1").textContent = "Channel Analytics";
+          document.getElementById('videoInfoCard').style.display = 'none';
+          document.querySelector('header h1').textContent = 'Channel Analytics';
 
           const existingProfileImage = document.querySelector(
-            "header img.profile-image"
+            'header img.profile-image'
           );
           if (existingProfileImage) {
             existingProfileImage.remove();
           }
 
-          const combinedProfileImage = document.createElement("img");
+          const combinedProfileImage = document.createElement('img');
           combinedProfileImage.src = profileImageUrl;
-          combinedProfileImage.alt = "Profile Image";
-          combinedProfileImage.style.width = "60px";
-          combinedProfileImage.style.height = "60px";
-          combinedProfileImage.style.borderRadius = "50%";
-          combinedProfileImage.style.marginRight = "10px";
-          combinedProfileImage.classList.add("profile-image");
+          combinedProfileImage.alt = 'Profile Image';
+          combinedProfileImage.style.width = '60px';
+          combinedProfileImage.style.height = '60px';
+          combinedProfileImage.style.borderRadius = '50%';
+          combinedProfileImage.style.marginRight = '10px';
+          combinedProfileImage.classList.add('profile-image');
 
-          const header = document.querySelector("header");
+          const header = document.querySelector('header');
           header.insertBefore(combinedProfileImage, header.firstChild);
 
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${urlPath}`;
-          window.history.pushState({ path: newUrl }, "", newUrl);
+          window.history.pushState({ path: newUrl }, '', newUrl);
 
-          document.getElementById("uploadCountCard").style.display = "flex";
+          document.getElementById('uploadCountCard').style.display = 'flex';
 
           fetch(endpoint)
-            .then((response) => response.json())
-            .then((combinedData) => {
+            .then(response => response.json())
+            .then(combinedData => {
               const timestamps = combinedData.map(
-                (entry) => new Date(entry.time)
+                entry => new Date(entry.time)
               );
               const views = filterSpikes(
-                combinedData.map((entry) => Math.round(entry.views))
+                combinedData.map(entry => Math.round(entry.views))
               );
               const likes = filterSpikes(
-                combinedData.map((entry) => Math.round(entry.likes))
+                combinedData.map(entry => Math.round(entry.likes))
               );
               const comments = filterSpikes(
-                combinedData.map((entry) => Math.round(entry.comments))
+                combinedData.map(entry => Math.round(entry.comments))
               );
-              const uploads = combinedData.map((entry) => entry.uploadCount);
+              const uploads = combinedData.map(entry => entry.uploadCount);
 
               allData = { timestamps, views, likes, comments, uploads };
 
@@ -1052,8 +1052,8 @@
 
               createDailyTable(dailyData, currentDayData);
 
-              document.getElementById("dailyStatsTable").style.display =
-                "block";
+              document.getElementById('dailyStatsTable').style.display =
+                'block';
             });
         }
 
@@ -1064,11 +1064,11 @@
 
           data.forEach((entry, index) => {
             const entryDate = new Date(entry.time);
-            const entryDateString = entryDate.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const entryDateString = entryDate.toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             if (entryDateString !== currentDate) {
@@ -1104,13 +1104,13 @@
           let closestTo4am = null;
           let firstEntryOfDay = null;
 
-          data.forEach((entry) => {
+          data.forEach(entry => {
             const entryDate = new Date(entry.timestamp);
-            const entryDateString = entryDate.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const entryDateString = entryDate.toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             if (entryDateString !== currentDate) {
@@ -1148,12 +1148,12 @@
         }
 
         function createDailyTableForVideo(dailyData, currentDayData) {
-          const tableBody = document.getElementById("dailyStatsBody");
-          tableBody.innerHTML = "";
+          const tableBody = document.getElementById('dailyStatsBody');
+          tableBody.innerHTML = '';
 
           const calculateChange = (current, previous) => {
             const change = current - previous;
-            const arrow = change < 0 ? "↓" : "";
+            const arrow = change < 0 ? '↓' : '';
             const changeString =
               change >= 0
                 ? `+${change.toLocaleString()}`
@@ -1162,26 +1162,26 @@
           };
 
           const determineClass = (currentChange, previousChange) => {
-            return currentChange > previousChange ? "positive" : "negative";
+            return currentChange > previousChange ? 'positive' : 'negative';
           };
 
           if (currentDayData) {
-            const currentRow = document.createElement("tr");
+            const currentRow = document.createElement('tr');
             const currentDate = new Date(currentDayData.timestamp);
 
-            const timeString = currentDate.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
+            const timeString = currentDate.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
               hour12: false,
-              timeZone: "America/New_York",
+              timeZone: 'America/New_York',
             });
 
-            const dateString = currentDate.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const dateString = currentDate.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             const previousDayData = dailyData[dailyData.length - 1];
@@ -1232,30 +1232,30 @@
 
           for (let index = dailyData.length - 1; index >= 0; index--) {
             const entry = dailyData[index];
-            const row = document.createElement("tr");
+            const row = document.createElement('tr');
             const date = new Date(entry.timestamp);
 
             date.setDate(date.getDate() - 1);
-            const dateString = date.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const dateString = date.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             const viewsChange =
               index > 0
                 ? calculateChange(entry.views, dailyData[index - 1].views)
-                : "";
+                : '';
             const likesChange =
               index > 0
                 ? calculateChange(entry.likes, dailyData[index - 1].likes)
-                : "";
+                : '';
             const commentsChange =
               index > 0
                 ? calculateChange(entry.comments, dailyData[index - 1].comments)
-                : "";
+                : '';
 
             const viewsClass =
               index > 1
@@ -1263,14 +1263,14 @@
                     entry.views - dailyData[index - 1].views,
                     dailyData[index - 1].views - dailyData[index - 2].views
                   )
-                : "";
+                : '';
             const likesClass =
               index > 1
                 ? determineClass(
                     entry.likes - dailyData[index - 1].likes,
                     dailyData[index - 1].likes - dailyData[index - 2].likes
                   )
-                : "";
+                : '';
             const commentsClass =
               index > 1
                 ? determineClass(
@@ -1278,7 +1278,7 @@
                     dailyData[index - 1].comments -
                       dailyData[index - 2].comments
                   )
-                : "";
+                : '';
 
             row.innerHTML = `
       <td>${dateString}</td>
@@ -1298,12 +1298,12 @@
         }
 
         function createDailyTable(dailyData, currentDayData) {
-          const tableBody = document.getElementById("dailyStatsBody");
-          tableBody.innerHTML = "";
+          const tableBody = document.getElementById('dailyStatsBody');
+          tableBody.innerHTML = '';
 
           const calculateChange = (current, previous) => {
             const change = current - previous;
-            const arrow = change < 0 ? "↓" : "";
+            const arrow = change < 0 ? '↓' : '';
             const changeString =
               change >= 0
                 ? `+${change.toLocaleString()}`
@@ -1312,26 +1312,26 @@
           };
 
           const determineClass = (currentChange, previousChange) => {
-            return currentChange > previousChange ? "positive" : "negative";
+            return currentChange > previousChange ? 'positive' : 'negative';
           };
 
           if (currentDayData) {
-            const currentRow = document.createElement("tr");
+            const currentRow = document.createElement('tr');
             const currentDate = new Date(currentDayData.time);
 
-            const timeString = currentDate.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
+            const timeString = currentDate.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
               hour12: false,
-              timeZone: "America/New_York",
+              timeZone: 'America/New_York',
             });
 
-            const dateString = currentDate.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const dateString = currentDate.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             const previousDayData = dailyData[dailyData.length - 1];
@@ -1382,30 +1382,30 @@
 
           for (let index = dailyData.length - 1; index >= 0; index--) {
             const entry = dailyData[index];
-            const row = document.createElement("tr");
+            const row = document.createElement('tr');
             const date = new Date(entry.time);
 
             date.setDate(date.getDate() - 1);
-            const dateString = date.toLocaleDateString("en-US", {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              timeZone: "America/New_York",
+            const dateString = date.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'America/New_York',
             });
 
             const viewsChange =
               index > 0
                 ? calculateChange(entry.views, dailyData[index - 1].views)
-                : "";
+                : '';
             const likesChange =
               index > 0
                 ? calculateChange(entry.likes, dailyData[index - 1].likes)
-                : "";
+                : '';
             const commentsChange =
               index > 0
                 ? calculateChange(entry.comments, dailyData[index - 1].comments)
-                : "";
+                : '';
 
             const viewsClass =
               index > 1
@@ -1413,14 +1413,14 @@
                     entry.views - dailyData[index - 1].views,
                     dailyData[index - 1].views - dailyData[index - 2].views
                   )
-                : "";
+                : '';
             const likesClass =
               index > 1
                 ? determineClass(
                     entry.likes - dailyData[index - 1].likes,
                     dailyData[index - 1].likes - dailyData[index - 2].likes
                   )
-                : "";
+                : '';
             const commentsClass =
               index > 1
                 ? determineClass(
@@ -1428,7 +1428,7 @@
                     dailyData[index - 1].comments -
                       dailyData[index - 2].comments
                   )
-                : "";
+                : '';
 
             row.innerHTML = `
       <td>${dateString}</td>
@@ -1449,22 +1449,22 @@
 
         function fetchVideoStats(videoId) {
           function addCommasToTitle(title) {
-            return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
           }
 
           currentVideoId = videoId;
           const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
-          window.history.pushState({ path: newUrl }, "", newUrl);
+          window.history.pushState({ path: newUrl }, '', newUrl);
 
-          document.getElementById("uploadCountCard").style.display = "none";
-          document.querySelector("header h1").textContent = "Video Analytics";
+          document.getElementById('uploadCountCard').style.display = 'none';
+          document.querySelector('header h1').textContent = 'Video Analytics';
 
           if (selectedSeriesIndex === 3) {
             selectedSeriesIndex = 0;
           }
 
           const existingProfileImage = document.querySelector(
-            "header img.profile-image"
+            'header img.profile-image'
           );
           if (existingProfileImage) {
             existingProfileImage.remove();
@@ -1473,14 +1473,14 @@
           const videoStatsEndpoint = `https://api.communitrics.com/videostats/${videoId}`;
 
           fetch(videoStatsEndpoint)
-            .then((response) => response.json())
-            .then((video) => {
-              const videoInfoCard = document.getElementById("videoInfoCard");
+            .then(response => response.json())
+            .then(video => {
+              const videoInfoCard = document.getElementById('videoInfoCard');
               const thumbnailElement =
-                document.getElementById("videoThumbnail");
-              const videoLinkElement = document.getElementById("videoLink");
-              const uploadDateElement = document.getElementById("uploadDate");
-              const durationElement = document.getElementById("videoDuration");
+                document.getElementById('videoThumbnail');
+              const videoLinkElement = document.getElementById('videoLink');
+              const uploadDateElement = document.getElementById('uploadDate');
+              const durationElement = document.getElementById('videoDuration');
 
               thumbnailElement.src = video.thumbnail;
               videoLinkElement.href = `https://www.youtube.com/watch?v=${video.videoId}`;
@@ -1490,20 +1490,20 @@
               uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
 
               const lastUpdatedDate = new Date(video.lastUpdated);
-              const lastUpdatedSpan = document.createElement("span");
-              lastUpdatedSpan.classList.add("last-updated");
+              const lastUpdatedSpan = document.createElement('span');
+              lastUpdatedSpan.classList.add('last-updated');
               lastUpdatedSpan.textContent = `(Stats last updated: ${lastUpdatedDate.toLocaleDateString()} at ${lastUpdatedDate.toLocaleTimeString()})`;
               uploadDateElement.appendChild(lastUpdatedSpan);
 
               durationElement.textContent = `Duration: ${video.stats[0].duration}`;
-              const videoIdSpan = document.createElement("span");
-              videoIdSpan.classList.add("video-id");
+              const videoIdSpan = document.createElement('span');
+              videoIdSpan.classList.add('video-id');
               videoIdSpan.textContent = `(Video ID: ${video.videoId})`;
               durationElement.appendChild(videoIdSpan);
 
-              videoInfoCard.style.display = "flex";
+              videoInfoCard.style.display = 'flex';
               const filteredStats = video.stats.filter(
-                (stat) =>
+                stat =>
                   stat.views != null &&
                   stat.views !== 0 &&
                   stat.likes != null &&
@@ -1513,11 +1513,11 @@
               );
 
               const timestamps = filteredStats.map(
-                (stat) => new Date(stat.timestamp)
+                stat => new Date(stat.timestamp)
               );
-              const views = filteredStats.map((stat) => Math.round(stat.views));
-              const likes = filteredStats.map((stat) => Math.round(stat.likes));
-              const comments = filteredStats.map((stat) =>
+              const views = filteredStats.map(stat => Math.round(stat.views));
+              const likes = filteredStats.map(stat => Math.round(stat.likes));
+              const comments = filteredStats.map(stat =>
                 Math.round(stat.comments)
               );
 
@@ -1529,8 +1529,8 @@
               const currentDayData = filteredStats[filteredStats.length - 1];
 
               createDailyTableForVideo(dailyData, currentDayData);
-              document.getElementById("dailyStatsTable").style.display =
-                "block";
+              document.getElementById('dailyStatsTable').style.display =
+                'block';
             });
         }
         function drawChart() {
@@ -1541,7 +1541,7 @@
             !allData.timestamps ||
             allData.timestamps.length === 0
           ) {
-            console.error("No data available to draw the chart.");
+            console.error('No data available to draw the chart.');
             return;
           }
 
@@ -1571,7 +1571,7 @@
 
           const seriesData = [
             {
-              name: "Views",
+              name: 'Views',
               data: downsampleData(allData.timestamps, allData.views),
               color: {
                 linearGradient: {
@@ -1581,8 +1581,8 @@
                   y2: 1,
                 },
                 stops: [
-                  [0, "#ef4444"],
-                  [1, "rgba(239, 68, 68, 0.3)"],
+                  [0, '#ef4444'],
+                  [1, 'rgba(239, 68, 68, 0.3)'],
                 ],
               },
               visible: selectedSeriesIndex === 0,
@@ -1592,7 +1592,7 @@
               lineWidth: 3,
             },
             {
-              name: "Likes",
+              name: 'Likes',
               data: downsampleData(allData.timestamps, allData.likes),
               color: {
                 linearGradient: {
@@ -1602,8 +1602,8 @@
                   y2: 1,
                 },
                 stops: [
-                  [0, "#1976d2"],
-                  [1, "rgba(25, 118, 210, 0.3)"],
+                  [0, '#1976d2'],
+                  [1, 'rgba(25, 118, 210, 0.3)'],
                 ],
               },
               visible: selectedSeriesIndex === 1,
@@ -1613,7 +1613,7 @@
               lineWidth: 3,
             },
             {
-              name: "Comments",
+              name: 'Comments',
               data: downsampleData(allData.timestamps, allData.comments),
               color: {
                 linearGradient: {
@@ -1623,8 +1623,8 @@
                   y2: 1,
                 },
                 stops: [
-                  [0, "#0d9488"],
-                  [1, "rgba(13, 148, 136, 0.3)"],
+                  [0, '#0d9488'],
+                  [1, 'rgba(13, 148, 136, 0.3)'],
                 ],
               },
               visible: selectedSeriesIndex === 2,
@@ -1637,7 +1637,7 @@
 
           if (allData.uploads) {
             seriesData.push({
-              name: "Uploads",
+              name: 'Uploads',
               data: downsampleData(allData.timestamps, allData.uploads),
               color: {
                 linearGradient: {
@@ -1647,8 +1647,8 @@
                   y2: 1,
                 },
                 stops: [
-                  [0, "#8e44ad"],
-                  [1, "rgba(142, 68, 173, 0.3)"],
+                  [0, '#8e44ad'],
+                  [1, 'rgba(142, 68, 173, 0.3)'],
                 ],
               },
               visible: selectedSeriesIndex === 3,
@@ -1664,31 +1664,31 @@
           }
 
           const minValue = Math.min(
-            ...seriesData[selectedSeriesIndex].data.map((d) => d[1])
+            ...seriesData[selectedSeriesIndex].data.map(d => d[1])
           );
 
-          videoChart = Highcharts.chart("videoChart", {
+          videoChart = Highcharts.chart('videoChart', {
             chart: {
-              type: "area",
-              backgroundColor: "var(--card-background-color)",
+              type: 'area',
+              backgroundColor: 'var(--card-background-color)',
               style: {
                 fontFamily: "'Poppins', 'Roboto', sans-serif",
               },
-              plotBorderColor: "var(--border-color)",
+              plotBorderColor: 'var(--border-color)',
             },
             title: {
               text:
                 selectedSeriesIndex === 0
-                  ? "Views"
+                  ? 'Views'
                   : selectedSeriesIndex === 1
-                  ? "Likes"
+                  ? 'Likes'
                   : selectedSeriesIndex === 2
-                  ? "Comments"
-                  : "Uploads",
+                  ? 'Comments'
+                  : 'Uploads',
               style: {
-                color: "var(--text-color)",
-                fontWeight: "bold",
-                fontSize: "20px",
+                color: 'var(--text-color)',
+                fontWeight: 'bold',
+                fontSize: '20px',
               },
             },
             credits: {
@@ -1696,23 +1696,23 @@
             },
             xAxis: {
               title: {
-                text: "Time (EST)",
+                text: 'Time (EST)',
                 style: {
-                  color: "var(--text-color)",
-                  fontSize: "14px",
+                  color: 'var(--text-color)',
+                  fontSize: '14px',
                 },
               },
-              type: "datetime",
+              type: 'datetime',
               labels: {
                 formatter: function () {
-                  return Highcharts.dateFormat("%Y-%m-%d<br>%H:%M", this.value);
+                  return Highcharts.dateFormat('%Y-%m-%d<br>%H:%M', this.value);
                 },
                 style: {
-                  color: "var(--text-color)",
-                  fontSize: "12px",
+                  color: 'var(--text-color)',
+                  fontSize: '12px',
                 },
               },
-              gridLineColor: "var(--border-color)",
+              gridLineColor: 'var(--border-color)',
               gridLineWidth: 1,
               tickPositioner: function () {
                 const positions = [];
@@ -1723,13 +1723,17 @@
                 const isMobile = this.chart.chartWidth <= 600;
                 const maxPoints = isMobile ? 6 : 14;
 
+                const roundingInterval = isMobile
+                  ? 30 * 60 * 1000
+                  : 15 * 60 * 1000;
+
                 const interval = range / (maxPoints - 1);
 
                 for (let i = 0; i < maxPoints; i++) {
                   const rawPosition = min + i * interval;
                   const roundedPosition =
-                    Math.round(rawPosition / (15 * 60 * 1000)) *
-                    (15 * 60 * 1000);
+                    Math.round(rawPosition / roundingInterval) *
+                    roundingInterval;
                   positions.push(roundedPosition);
                 }
 
@@ -1738,19 +1742,19 @@
             },
             yAxis: {
               title: {
-                text: "Count",
+                text: 'Count',
                 style: {
-                  color: "var(--text-color)",
-                  fontSize: "14px",
+                  color: 'var(--text-color)',
+                  fontSize: '14px',
                 },
               },
               labels: {
                 style: {
-                  color: "var(--text-color)",
-                  fontSize: "12px",
+                  color: 'var(--text-color)',
+                  fontSize: '12px',
                 },
               },
-              gridLineColor: "var(--border-color)",
+              gridLineColor: 'var(--border-color)',
               gridLineWidth: 1,
               min: minValue,
             },
@@ -1759,20 +1763,20 @@
               enabled: false,
             },
             tooltip: {
-              backgroundColor: "var(--card-background-color)",
-              borderColor: "var(--border-color)",
+              backgroundColor: 'var(--card-background-color)',
+              borderColor: 'var(--border-color)',
               style: {
-                color: "var(--text-color)",
-                fontSize: "14px",
+                color: 'var(--text-color)',
+                fontSize: '14px',
               },
               formatter: function () {
-                let formattedDate = Highcharts.dateFormat("%Y-%m-%d", this.x);
+                let formattedDate = Highcharts.dateFormat('%Y-%m-%d', this.x);
                 let formattedTime =
-                  Highcharts.dateFormat("%H:%M", this.x) + ":00";
+                  Highcharts.dateFormat('%H:%M', this.x) + ':00';
 
                 let tooltipText = `<b>${formattedDate} ${formattedTime}</b><br>`;
 
-                this.points.forEach((point) => {
+                this.points.forEach(point => {
                   let label = point.series.name;
                   tooltipText += `${label}: ${point.y.toLocaleString()}<br>`;
                 });
@@ -1787,7 +1791,7 @@
             plotOptions: {
               series: {
                 marker: {
-                  symbol: "circle",
+                  symbol: 'circle',
                 },
                 events: {
                   hide: function () {
@@ -1821,9 +1825,9 @@
           const totalLikes = likes[likes.length - 1] || 0;
           const totalComments = comments[comments.length - 1] || 0;
 
-          const viewsElement = document.getElementById("totalViews");
-          const likesElement = document.getElementById("totalLikes");
-          const commentsElement = document.getElementById("totalComments");
+          const viewsElement = document.getElementById('totalViews');
+          const likesElement = document.getElementById('totalLikes');
+          const commentsElement = document.getElementById('totalComments');
 
           new Odometer({
             el: viewsElement,
@@ -1842,7 +1846,7 @@
 
           if (uploads) {
             const totalUploads = uploads[uploads.length - 1] || 0;
-            const uploadsElement = document.getElementById("totalUploads");
+            const uploadsElement = document.getElementById('totalUploads');
 
             new Odometer({
               el: uploadsElement,
@@ -1853,7 +1857,7 @@
 
         function updateSelectedSeriesIndex() {
           selectedSeriesIndex = videoChart.series.findIndex(
-            (series) => series.visible
+            series => series.visible
           );
         }
 
@@ -1862,22 +1866,22 @@
           drawChart();
         }
 
-        document.querySelectorAll(".stat-card").forEach((card, index) => {
-          card.addEventListener("click", () => {
+        document.querySelectorAll('.stat-card').forEach((card, index) => {
+          card.addEventListener('click', () => {
             selectedSeriesIndex = index;
             drawChart();
           });
         });
 
-        exportButton.addEventListener("click", () => {
+        exportButton.addEventListener('click', () => {
           if (!allData || !allData.timestamps) {
-            console.error("No data available to export.");
+            console.error('No data available to export.');
             return;
           }
 
           const csvContent =
-            "data:text/csv;charset=utf-8," +
-            "Timestamp,Views,Likes,Comments\n" +
+            'data:text/csv;charset=utf-8,' +
+            'Timestamp,Views,Likes,Comments\n' +
             allData.timestamps
               .map((t, i) => {
                 return `${t.toISOString()},${Math.round(
@@ -1886,12 +1890,12 @@
                   allData.comments[i]
                 )}`;
               })
-              .join("\n");
+              .join('\n');
 
           const encodedUri = encodeURI(csvContent);
-          const link = document.createElement("a");
-          link.setAttribute("href", encodedUri);
-          link.setAttribute("download", `${currentVideoId}.csv`);
+          const link = document.createElement('a');
+          link.setAttribute('href', encodedUri);
+          link.setAttribute('download', `${currentVideoId}.csv`);
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -1912,7 +1916,7 @@
             }
             return Math.round(value);
           })
-          .filter((value) => value != null);
+          .filter(value => value != null);
       }
     </script>
   </body>
