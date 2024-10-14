@@ -1,1923 +1,1872 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Analytics</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <link
-      rel="icon"
-      href="https://yt3.ggpht.com/eg_5N8cvTJjQMnu4wvVoUy4ES2t0HbuFitpQBJJk24M4CQLfV5aps1qy9BCvhNUGUea5i4Vk=s800-c-k-c0x00ffffff-no-rj"
-      type="image/png"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="https://yt3.ggpht.com/eg_5N8cvTJjQMnu4wvVoUy4ES2t0HbuFitpQBJJk24M4CQLfV5aps1qy9BCvhNUGUea5i4Vk=s800-c-k-c0x00ffffff-no-rj"
-    />
-    <link rel="canonical" href="https://mbvideostats.communitrics.com/" />
-    <meta
-      name="description"
-      content="See 5-minutely data of any MrBeast video, updated in real-time."
-    />
-    <meta name="theme-color" content="#d32f2f" />
-    <meta property="og:title" content="MrBeast Video Statistics" />
-    <meta
-      property="og:description"
-      content="See 5-minutely data of any MrBeast video, updated in real-time."
-    />
-    <meta
-      property="og:image"
-      content="https://mbvideostats.communitrics.com/embed.png"
-    />
-    <meta property="og:url" content="https://mbvideostats.communitrics.com" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MrBeast Video Statistics" />
-    <meta
-      name="twitter:description"
-      content="See 5-minutely data of any MrBeast video, updated in real-time."
-    />
-    <meta
-      name="twitter:image"
-      content="https://mbvideostats.communitrics.com/embed.png"
-    />
-    <meta name="twitter:url" content="https://mbvideostats.communitrics.com" />
 
-    <style>
-      :root {
-        --primary-color: #d32f2f;
-        --accent-color: #1976d2;
-        --background-color: #f9f9f9;
-        --card-background-color: #ffffff;
-        --text-color: #212121;
-        --muted-text-color: #757575;
-        --border-color: #e0e0e0;
-        --hover-background-color: #e3f2fd;
-        --hover-card-background: #f7f7f7;
-        --hover-text-color: #d32f2f;
-        --button-hover-color: #ff7043;
-        --hover-shadow-color: rgba(0, 0, 0, 0.2);
-        --hover-border-color: #d32f2f;
-        --active-button-color: #d32f2f;
-        --highlight-border-color: #1976d2;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Analytics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <link rel="icon"
+    href="https://yt3.ggpht.com/eg_5N8cvTJjQMnu4wvVoUy4ES2t0HbuFitpQBJJk24M4CQLfV5aps1qy9BCvhNUGUea5i4Vk=s800-c-k-c0x00ffffff-no-rj"
+    type="image/png" />
+  <link rel="apple-touch-icon"
+    href="https://yt3.ggpht.com/eg_5N8cvTJjQMnu4wvVoUy4ES2t0HbuFitpQBJJk24M4CQLfV5aps1qy9BCvhNUGUea5i4Vk=s800-c-k-c0x00ffffff-no-rj" />
+  <link rel="canonical" href="https://mbvideostats.communitrics.com/" />
+  <meta name="description" content="See 5-minutely data of any MrBeast video, updated in real-time." />
+  <meta name="theme-color" content="#d32f2f" />
+  <meta property="og:title" content="MrBeast Video Statistics" />
+  <meta property="og:description" content="See 5-minutely data of any MrBeast video, updated in real-time." />
+  <meta property="og:image" content="https://mbvideostats.communitrics.com/embed.png" />
+  <meta property="og:url" content="https://mbvideostats.communitrics.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MrBeast Video Statistics" />
+  <meta name="twitter:description" content="See 5-minutely data of any MrBeast video, updated in real-time." />
+  <meta name="twitter:image" content="https://mbvideostats.communitrics.com/embed.png" />
+  <meta name="twitter:url" content="https://mbvideostats.communitrics.com" />
+
+  <style>
+    :root {
+      --primary-color: #d32f2f;
+      --accent-color: #1976d2;
+      --background-color: #f9f9f9;
+      --card-background-color: #ffffff;
+      --text-color: #212121;
+      --muted-text-color: #757575;
+      --border-color: #e0e0e0;
+      --hover-background-color: #e3f2fd;
+      --hover-card-background: #f7f7f7;
+      --hover-text-color: #d32f2f;
+      --button-hover-color: #ff7043;
+      --hover-shadow-color: rgba(0, 0, 0, 0.2);
+      --hover-border-color: #d32f2f;
+      --active-button-color: #d32f2f;
+      --highlight-border-color: #1976d2;
+    }
+
+    [data-theme='dark'] {
+      --background-color: #121212;
+      --card-background-color: #1e1e1e;
+      --text-color: #e0e0e0;
+      --muted-text-color: #bdbdbd;
+      --border-color: #333333;
+      --hover-background-color: #333366;
+      --hover-card-background: #2c2c2c;
+      --hover-text-color: #ffab91;
+      --button-hover-color: #ffab91;
+      --hover-shadow-color: rgba(255, 255, 255, 0.2);
+      --hover-border-color: #ffab91;
+      --active-button-color: #ff6f00;
+      --highlight-border-color: #ffab91;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1250px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 1rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      transition: color 0.3s;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .search-bar {
+      flex-grow: 1;
+      max-width: none;
+      margin-right: 1rem;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 30px;
+      background-color: var(--card-background-color);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      color: var(--text-color);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-bar input::placeholder {
+      color: var(--muted-text-color);
+    }
+
+    .dropdown-list {
+      width: 100%;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      background-color: var(--card-background-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dropdown-list.show {
+      display: flex;
+      transform: scaleY(1);
+    }
+
+    .dropdown-list-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dropdown-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-list-item:hover {
+      background-color: var(--hover-card-background);
+      color: var(--hover-text-color);
+    }
+
+    .theme-toggle,
+    .export-button {
+      background-color: var(--accent-color);
+      border: none;
+      margin-left: 1rem;
+      padding: 0.75rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px var(--hover-shadow-color);
+      width: 48px;
+      height: 48px;
+    }
+
+    .theme-toggle img,
+    .export-button img {
+      width: 24px;
+      height: 24px;
+      transition: filter 0.3s;
+    }
+
+    body[data-theme='dark'] .theme-toggle,
+    body[data-theme='dark'] .export-button {
+      background-color: var(--card-background-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .theme-toggle:hover,
+    .export-button:hover {
+      background-color: var(--button-hover-color);
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px var(--hover-shadow-color);
+    }
+
+    .theme-toggle:active,
+    .export-button:active {
+      background-color: var(--active-button-color);
+    }
+
+    .video-info-card {
+      display: flex;
+      align-items: center;
+      background-color: var(--card-background-color);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: -1.5rem auto 1.5rem auto;
+      border: 1px solid var(--highlight-border-color);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1250px;
+    }
+
+    .video-thumbnail {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      margin-right: 1rem;
+    }
+
+    .video-details {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .video-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .video-title a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s, text-decoration 0.3s;
+    }
+
+    .video-title a:hover {
+      color: var(--hover-text-color);
+      text-decoration: underline;
+    }
+
+    .video-duration {
+      font-size: 1rem;
+      color: var(--muted-text-color);
+    }
+
+    .video-upload-date .last-updated {
+      font-size: 0.85rem !important;
+      color: var(--muted-text-color) !important;
+      margin-left: 10px !important;
+    }
+
+    .video-id {
+      font-size: 0.85rem !important;
+      color: var(--muted-text-color) !important;
+      margin-left: 10px !important;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 1250px;
+      background-color: var(--card-background-color);
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid var(--highlight-border-color);
+      height: 450px;
+    }
+
+    .stats-grid {
+      width: 100%;
+      max-width: 1250px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background-color: var(--card-background-color);
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid var(--highlight-border-color);
+      text-align: center;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s,
+        border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .stat-card:hover {
+      background-color: var(--hover-card-background);
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      border-color: var(--hover-border-color);
+    }
+
+    .stat-card h3 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .stat-card h3 i {
+      margin-right: 0.5rem;
+      color: var(--primary-color);
+      font-size: 1.4rem;
+    }
+
+    .stat-card .odometer {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-color);
+      line-height: 1.2;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropdown-list {
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--card-background-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dropdown-list.show {
+      display: flex;
+      transform: scaleY(1);
+    }
+
+    .dropdown-list-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 100;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dropdown-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-list-item.bold {
+      font-weight: 900;
+    }
+
+    .dropdown-list-item:hover {
+      background-color: var(--hover-card-background);
+      color: var(--hover-text-color);
+    }
+
+    .table-responsive {
+      max-height: 525px;
+      overflow-y: auto;
+    }
+
+    #dailyStatsTable {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 1250px;
+      background-color: var(--card-background-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #dailyStatsTable h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #dailyStatsTable table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    #dailyStatsTable th,
+    #dailyStatsTable td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-color);
+      text-align: left;
+    }
+
+    #dailyStatsTable th {
+      background-color: var(--accent-color);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: none;
+    }
+
+    #dailyStatsTable tr {
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    #dailyStatsTable tr:nth-child(even) {
+      background-color: var(--hover-card-background);
+    }
+
+    #dailyStatsTable tr:hover {
+      background-color: var(--hover-background-color);
+      transform: scale(1.01);
+    }
+
+    #dailyStatsTable .change {
+      font-size: 0.95rem;
+      color: var(--muted-text-color);
+      margin-left: 0.5rem;
+    }
+
+    #dailyStatsTable .change.positive {
+      color: #4caf50;
+      font-weight: 700;
+    }
+
+    #dailyStatsTable .change.negative {
+      color: #f44336;
+      font-weight: 700;
+    }
+
+    @media (max-width: 800px) {
+      #dailyStatsTable {
+        font-size: 0.85rem;
       }
 
-      [data-theme='dark'] {
-        --background-color: #121212;
-        --card-background-color: #1e1e1e;
-        --text-color: #e0e0e0;
-        --muted-text-color: #bdbdbd;
-        --border-color: #333333;
-        --hover-background-color: #333366;
-        --hover-card-background: #2c2c2c;
-        --hover-text-color: #ffab91;
-        --button-hover-color: #ffab91;
-        --hover-shadow-color: rgba(255, 255, 255, 0.2);
-        --hover-border-color: #ffab91;
-        --active-button-color: #ff6f00;
-        --highlight-border-color: #ffab91;
+      .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 600px;
+        overflow-y: auto;
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      #dailyStatsTable th,
+      #dailyStatsTable td {
+        padding: 0.75rem;
       }
 
-      body {
-        font-family: 'Poppins', 'Roboto', sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        line-height: 1.5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        padding: 1rem;
+      #dailyStatsTable .change {
+        display: block;
+        margin-left: 0;
+        margin-top: 0.25rem;
       }
 
       header {
-        width: 100%;
-        max-width: 1250px;
-        display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-        padding: 1rem;
-      }
-
-      header h1 {
-        font-size: 2rem;
-        color: var(--primary-color);
-        font-weight: 700;
-        font-family: 'Poppins', sans-serif;
-        transition: color 0.3s;
+        padding: 1rem 0;
       }
 
       .header-controls {
-        display: flex;
-        align-items: center;
+        gap: 1rem;
+        flex-direction: column;
         width: 100%;
-        justify-content: space-between;
-        position: relative;
       }
 
       .search-bar {
-        flex-grow: 1;
-        max-width: none;
-        margin-right: 1rem;
-        position: relative;
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 1rem;
       }
 
       .search-bar input {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: none;
-        border-radius: 30px;
-        background-color: var(--card-background-color);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        color: var(--text-color);
-        font-size: 1rem;
-        outline: none;
-      }
-
-      .search-bar input::placeholder {
-        color: var(--muted-text-color);
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
       }
 
       .dropdown-list {
-        width: 100%;
-        position: absolute;
-        top: calc(100% + 0.5rem);
+        max-width: 100%;
+        overflow-x: hidden;
         left: 0;
-        background-color: var(--card-background-color);
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        max-height: 400px;
-        overflow-y: auto;
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        transition: transform 0.3s ease-in-out;
-      }
-
-      .dropdown-list.show {
-        display: flex;
-        transform: scaleY(1);
-      }
-
-      .dropdown-list-item {
-        padding: 0.75rem;
-        border-bottom: 1px solid var(--border-color);
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-      }
-
-      .dropdown-list-item:last-child {
-        border-bottom: none;
-      }
-
-      .dropdown-list-item:hover {
-        background-color: var(--hover-card-background);
-        color: var(--hover-text-color);
+        transform-origin: top;
       }
 
       .theme-toggle,
       .export-button {
-        background-color: var(--accent-color);
-        border: none;
-        margin-left: 1rem;
-        padding: 0.75rem;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 8px var(--hover-shadow-color);
         width: 48px;
         height: 48px;
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        margin-left: 0;
+        margin-bottom: 0;
+        z-index: 1000;
+      }
+
+      .theme-toggle {
+        right: 1rem;
+      }
+
+      .export-button {
+        right: 4.5rem;
       }
 
       .theme-toggle img,
       .export-button img {
         width: 24px;
         height: 24px;
-        transition: filter 0.3s;
       }
 
-      body[data-theme='dark'] .theme-toggle,
-      body[data-theme='dark'] .export-button {
-        background-color: var(--card-background-color);
-        border: 1px solid var(--border-color);
-      }
-
-      .theme-toggle:hover,
-      .export-button:hover {
-        background-color: var(--button-hover-color);
-        transform: scale(1.1);
-        box-shadow: 0 8px 16px var(--hover-shadow-color);
-      }
-
-      .theme-toggle:active,
-      .export-button:active {
-        background-color: var(--active-button-color);
-      }
-
-      .video-info-card {
-        display: flex;
-        align-items: center;
-        background-color: var(--card-background-color);
-        border-radius: 12px;
-        padding: 1rem;
-        margin: -1.5rem auto 1.5rem auto;
-        border: 1px solid var(--highlight-border-color);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 1250px;
-      }
-
-      .video-thumbnail {
-        width: 150px;
-        height: auto;
-        border-radius: 8px;
-        margin-right: 1rem;
-      }
-
-      .video-details {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-      }
-
-      .video-title {
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: 0.5rem;
-      }
-
-      .video-title a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.3s, text-decoration 0.3s;
-      }
-
-      .video-title a:hover {
-        color: var(--hover-text-color);
-        text-decoration: underline;
-      }
-
-      .video-duration {
-        font-size: 1rem;
-        color: var(--muted-text-color);
-      }
-
-      .video-upload-date .last-updated {
-        font-size: 0.85rem !important;
-        color: var(--muted-text-color) !important;
-        margin-left: 10px !important;
-      }
-
-      .video-id {
-        font-size: 0.85rem !important;
-        color: var(--muted-text-color) !important;
-        margin-left: 10px !important;
-      }
-
-      .chart-container {
-        width: 100%;
-        max-width: 1250px;
-        background-color: var(--card-background-color);
-        border-radius: 12px;
-        padding: 1rem;
-        border: 1px solid var(--highlight-border-color);
-        height: 450px;
-      }
-
-      .stats-grid {
-        width: 100%;
-        max-width: 1250px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.2rem;
-        margin-bottom: 3rem;
-      }
-
-      .stat-card {
-        background-color: var(--card-background-color);
-        border-radius: 12px;
-        padding: 1rem;
-        border: 1px solid var(--highlight-border-color);
-        text-align: center;
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s,
-          border-color 0.3s;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        box-sizing: border-box;
-        overflow: hidden;
-      }
-
-      .stat-card:hover {
-        background-color: var(--hover-card-background);
-        transform: translateY(-5px) scale(1.03);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        border-color: var(--hover-border-color);
-      }
-
-      .stat-card h3 {
-        font-size: 1.2rem;
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-      }
-
-      .stat-card h3 i {
-        margin-right: 0.5rem;
-        color: var(--primary-color);
-        font-size: 1.4rem;
-      }
-
-      .stat-card .odometer {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--text-color);
-        line-height: 1.2;
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .dropdown-list {
-        width: 100%;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: var(--card-background-color);
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        max-height: 400px;
-        overflow-y: auto;
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        transition: transform 0.3s ease-in-out;
-      }
-
-      .dropdown-list.show {
-        display: flex;
-        transform: scaleY(1);
-      }
-
-      .dropdown-list-item {
-        padding: 0.75rem;
-        border-bottom: 1px solid var(--border-color);
-        font-weight: 100;
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-      }
-
-      .dropdown-list-item:last-child {
-        border-bottom: none;
-      }
-
-      .dropdown-list-item.bold {
-        font-weight: 900;
-      }
-
-      .dropdown-list-item:hover {
-        background-color: var(--hover-card-background);
-        color: var(--hover-text-color);
-      }
-
-      .table-responsive {
-        max-height: 525px;
-        overflow-y: auto;
-      }
-
-      #dailyStatsTable {
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 1250px;
-        background-color: var(--card-background-color);
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      #dailyStatsTable h3 {
-        text-align: center;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        background-color: var(--primary-color);
-        color: white;
+      header h1 {
         font-size: 1.5rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
       }
+    }
+  </style>
+</head>
 
-      #dailyStatsTable table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-      }
-
-      #dailyStatsTable th,
-      #dailyStatsTable td {
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--text-color);
-        text-align: left;
-      }
-
-      #dailyStatsTable th {
-        background-color: var(--accent-color);
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        transition: none;
-      }
-
-      #dailyStatsTable tr {
-        transition: background-color 0.3s, transform 0.3s;
-      }
-
-      #dailyStatsTable tr:nth-child(even) {
-        background-color: var(--hover-card-background);
-      }
-
-      #dailyStatsTable tr:hover {
-        background-color: var(--hover-background-color);
-        transform: scale(1.01);
-      }
-
-      #dailyStatsTable .change {
-        font-size: 0.95rem;
-        color: var(--muted-text-color);
-        margin-left: 0.5rem;
-      }
-
-      #dailyStatsTable .change.positive {
-        color: #4caf50;
-        font-weight: 700;
-      }
-
-      #dailyStatsTable .change.negative {
-        color: #f44336;
-        font-weight: 700;
-      }
-
-      @media (max-width: 800px) {
-        #dailyStatsTable {
-          font-size: 0.85rem;
-        }
-
-        .table-responsive {
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          max-height: 600px;
-          overflow-y: auto;
-        }
-
-        #dailyStatsTable th,
-        #dailyStatsTable td {
-          padding: 0.75rem;
-        }
-
-        #dailyStatsTable .change {
-          display: block;
-          margin-left: 0;
-          margin-top: 0.25rem;
-        }
-
-        header {
-          flex-direction: column;
-          align-items: center;
-          padding: 1rem 0;
-        }
-
-        .header-controls {
-          gap: 1rem;
-          flex-direction: column;
-          width: 100%;
-        }
-
-        .search-bar {
-          max-width: 100%;
-          width: 100%;
-          margin-bottom: 1rem;
-        }
-
-        .search-bar input {
-          padding: 0.6rem 1rem;
-          font-size: 0.9rem;
-        }
-
-        .dropdown-list {
-          max-width: 100%;
-          overflow-x: hidden;
-          left: 0;
-          transform-origin: top;
-        }
-
-        .theme-toggle,
-        .export-button {
-          width: 48px;
-          height: 48px;
-          position: fixed;
-          bottom: 1rem;
-          right: 1rem;
-          margin-left: 0;
-          margin-bottom: 0;
-          z-index: 1000;
-        }
-
-        .theme-toggle {
-          right: 1rem;
-        }
-
-        .export-button {
-          right: 4.5rem;
-        }
-
-        .theme-toggle img,
-        .export-button img {
-          width: 24px;
-          height: 24px;
-        }
-
-        header h1 {
-          font-size: 1.5rem;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>Video Analytics</h1>
-      <div class="header-controls">
-        <div class="search-bar">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search and select a video..."
-            autocomplete="off"
-            autocorrect="off"
-          />
-          <div class="dropdown-list" id="dropdownList"></div>
-        </div>
-        <button class="theme-toggle" id="themeToggle">
-          <img
-            src="https://img.icons8.com/material-outlined/24/ffffff/contrast.png"
-            alt="Toggle Dark Mode"
-            id="themeIcon"
-          />
-        </button>
-        <button class="export-button" id="exportButton">
-          <img
-            src="https://img.icons8.com/material-outlined/24/ffffff/download.png"
-            alt="Export Data"
-            id="exportIcon"
-          />
-        </button>
+<body>
+  <header>
+    <h1>Video Analytics</h1>
+    <div class="header-controls">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search and select a video..." autocomplete="off"
+          autocorrect="off" />
+        <div class="dropdown-list" id="dropdownList"></div>
       </div>
-    </header>
-
-    <div id="videoInfoCard" class="video-info-card" style="display: none">
-      <img
-        id="videoThumbnail"
-        class="video-thumbnail"
-        src=""
-        alt="Video Thumbnail"
-      />
-      <div class="video-details">
-        <h2 id="videoTitle" class="video-title">
-          <a id="videoLink" href="#" target="_blank"></a>
-        </h2>
-        <p id="uploadDate" class="video-upload-date"></p>
-        <p id="videoDuration" class="video-duration"></p>
-        <p id="lastUpdated" class="video-last-updated"></p>
-      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <img src="https://img.icons8.com/material-outlined/24/ffffff/contrast.png" alt="Toggle Dark Mode"
+          id="themeIcon" />
+      </button>
+      <button class="export-button" id="exportButton">
+        <img src="https://img.icons8.com/material-outlined/24/ffffff/download.png" alt="Export Data" id="exportIcon" />
+      </button>
     </div>
+  </header>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h3><i class="fas fa-eye"></i> Views</h3>
-        <div id="totalViews" class="odometer">0</div>
-      </div>
-      <div class="stat-card">
-        <h3><i class="fas fa-thumbs-up"></i> Likes</h3>
-        <div id="totalLikes" class="odometer">0</div>
-      </div>
-      <div class="stat-card">
-        <h3><i class="fas fa-comments"></i> Comments</h3>
-        <div id="totalComments" class="odometer">0</div>
-      </div>
-      <div class="stat-card" id="uploadCountCard" style="display: none">
-        <h3><i class="fas fa-upload"></i> Uploads</h3>
-        <div id="totalUploads" class="odometer">0</div>
-      </div>
+  <div id="videoInfoCard" class="video-info-card" style="display: none">
+    <img id="videoThumbnail" class="video-thumbnail" src="" alt="Video Thumbnail" />
+    <div class="video-details">
+      <h2 id="videoTitle" class="video-title">
+        <a id="videoLink" href="#" target="_blank"></a>
+      </h2>
+      <p id="uploadDate" class="video-upload-date"></p>
+      <p id="videoDuration" class="video-duration"></p>
+      <p id="lastUpdated" class="video-last-updated"></p>
     </div>
+  </div>
 
-    <div class="chart-container">
-      <div id="videoChart" style="width: 100%; height: 100%"></div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3><i class="fas fa-eye"></i> Views</h3>
+      <div id="totalViews" class="odometer">0</div>
     </div>
-
-    <div
-      id="dailyStatsTable"
-      style="display: none; margin-top: 2rem; width: 100%; max-width: 1250px"
-    >
-      <h3 style="text-align: center; margin-bottom: 1rem">Daily Statistics</h3>
-      <div class="table-responsive">
-        <table style="width: 100%; border-collapse: collapse">
-          <thead>
-            <tr>
-              <th
-                style="border: 1px solid var(--border-color); padding: 0.5rem"
-              >
-                Date (EST)
-              </th>
-              <th
-                style="border: 1px solid var(--border-color); padding: 0.5rem"
-              >
-                Views
-              </th>
-              <th
-                style="border: 1px solid var(--border-color); padding: 0.5rem"
-              >
-                Likes
-              </th>
-              <th
-                style="border: 1px solid var(--border-color); padding: 0.5rem"
-              >
-                Comments
-              </th>
-            </tr>
-          </thead>
-          <tbody id="dailyStatsBody"></tbody>
-        </table>
-      </div>
+    <div class="stat-card">
+      <h3><i class="fas fa-thumbs-up"></i> Likes</h3>
+      <div id="totalLikes" class="odometer">0</div>
     </div>
+    <div class="stat-card">
+      <h3><i class="fas fa-comments"></i> Comments</h3>
+      <div id="totalComments" class="odometer">0</div>
+    </div>
+    <div class="stat-card" id="uploadCountCard" style="display: none">
+      <h3><i class="fas fa-upload"></i> Uploads</h3>
+      <div id="totalUploads" class="odometer">0</div>
+    </div>
+  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const apiEndpoint = 'https://api.communitrics.com/videos/all';
-        const combinedEndpoint =
-          'https://api.communitrics.com/combined-history';
-        const mrbeast2Endpoint =
-          'https://api.communitrics.com/combined-history-mb2';
-        const mrbeastphilanthropyEndpoint =
-          'https://api.communitrics.com/combined-history-mbphilanthropy';
-        const mrbeastGamingEndpoint =
-          'https://api.communitrics.com/combined-history-mbgaming';
-        const mrbeastReactsEndpoint =
-          'https://api.communitrics.com/combined-history-mbreacts';
-        const cocomelonEndpoint =
-          'https://api.communitrics.com/combined-history-cocomelon';
-        const ronaldoEndpoint =
-          'https://api.communitrics.com/combined-history-ronaldo';
-        const searchInput = document.getElementById('searchInput');
-        const dropdownList = document.getElementById('dropdownList');
-        const exportButton = document.getElementById('exportButton');
-        const tableContainer = document.querySelector('.table-responsive');
-        let videoChart;
-        let allData = {};
-        let currentVideoId = 'combined';
-        let selectedSeriesIndex = 0;
+  <div class="chart-container">
+    <div id="videoChart" style="width: 100%; height: 100%"></div>
+  </div>
 
-        const storedTheme = localStorage.getItem('theme') || 'dark';
-        document.body.setAttribute('data-theme', storedTheme);
+  <div id="dailyStatsTable" style="display: none; margin-top: 2rem; width: 100%; max-width: 1250px">
+    <h3 style="text-align: center; margin-bottom: 1rem">Daily Statistics</h3>
+    <div class="table-responsive">
+      <table style="width: 100%; border-collapse: collapse">
+        <thead>
+          <tr>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Date (EST)
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Views
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Likes
+            </th>
+            <th style="border: 1px solid var(--border-color); padding: 0.5rem">
+              Comments
+            </th>
+          </tr>
+        </thead>
+        <tbody id="dailyStatsBody"></tbody>
+      </table>
+    </div>
+  </div>
 
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => {
-          const body = document.body;
-          const currentTheme = body.getAttribute('data-theme');
-          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-          body.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const apiEndpoint = 'https://api.communitrics.com/videos/all';
+      const combinedEndpoint =
+        'https://api.communitrics.com/combined-history';
+      const mrbeast2Endpoint =
+        'https://api.communitrics.com/combined-history-mb2';
+      const mrbeastphilanthropyEndpoint =
+        'https://api.communitrics.com/combined-history-mbphilanthropy';
+      const mrbeastGamingEndpoint =
+        'https://api.communitrics.com/combined-history-mbgaming';
+      const mrbeastReactsEndpoint =
+        'https://api.communitrics.com/combined-history-mbreacts';
+      const cocomelonEndpoint =
+        'https://api.communitrics.com/combined-history-cocomelon';
+      const ronaldoEndpoint =
+        'https://api.communitrics.com/combined-history-ronaldo';
+      const searchInput = document.getElementById('searchInput');
+      const dropdownList = document.getElementById('dropdownList');
+      const exportButton = document.getElementById('exportButton');
+      const tableContainer = document.querySelector('.table-responsive');
+      let videoChart;
+      let allData = {};
+      let currentVideoId = 'mrbeast';
+      let selectedSeriesIndex = 0;
+
+      const storedTheme = localStorage.getItem('theme') || 'dark';
+      document.body.setAttribute('data-theme', storedTheme);
+
+      const themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+
+      searchInput.addEventListener('focus', () => {
+        dropdownList.classList.add('show');
+      });
+
+      searchInput.addEventListener('input', e => {
+        const searchTerm = e.target.value.toLowerCase();
+        document.querySelectorAll('.dropdown-list-item').forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(searchTerm) ? '' : 'none';
         });
+      });
 
-        searchInput.addEventListener('focus', () => {
-          dropdownList.classList.add('show');
-        });
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.search-bar')) {
+          dropdownList.classList.remove('show');
+        }
+      });
 
-        searchInput.addEventListener('input', e => {
-          const searchTerm = e.target.value.toLowerCase();
-          document.querySelectorAll('.dropdown-list-item').forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchTerm) ? '' : 'none';
-          });
-        });
+      tableContainer.addEventListener('wheel', function (e) {
+        if (tableContainer.scrollHeight > tableContainer.clientHeight) {
+          e.preventDefault();
+          tableContainer.scrollTop += e.deltaY;
+        }
+      });
 
-        document.addEventListener('click', e => {
-          if (!e.target.closest('.search-bar')) {
-            dropdownList.classList.remove('show');
-          }
-        });
-
-        tableContainer.addEventListener('wheel', function (e) {
-          if (tableContainer.scrollHeight > tableContainer.clientHeight) {
-            e.preventDefault();
-            tableContainer.scrollTop += e.deltaY;
-          }
-        });
-
-        const combinedOption = document.createElement('div');
-        combinedOption.classList.add('dropdown-list-item', 'bold');
-        combinedOption.innerHTML = `
+      const combinedOption = document.createElement('div');
+      combinedOption.classList.add('dropdown-list-item', 'bold');
+      combinedOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast" alt="Combined" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      Combined
+      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast" alt="MrBeast" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      MrBeast Combined
     </div>
   `;
-        dropdownList.appendChild(combinedOption);
+      dropdownList.appendChild(combinedOption);
 
-        combinedOption.addEventListener('click', () => {
-          searchInput.value = 'Combined';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            combinedEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=mrbeast',
-            'combined'
-          );
-        });
+      combinedOption.addEventListener('click', () => {
+        searchInput.value = 'MrBeast Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          combinedEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=mrbeast',
+          'combined'
+        );
+      });
 
-        const mrbeast2Option = document.createElement('div');
-        mrbeast2Option.classList.add('dropdown-list-item', 'bold');
-        mrbeast2Option.innerHTML = `
+      const mrbeast2Option = document.createElement('div');
+      mrbeast2Option.classList.add('dropdown-list-item', 'bold');
+      mrbeast2Option.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast2" alt="MrBeast 2" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       MrBeast 2 Combined
     </div>
   `;
-        dropdownList.appendChild(mrbeast2Option);
+      dropdownList.appendChild(mrbeast2Option);
 
-        mrbeast2Option.addEventListener('click', () => {
-          searchInput.value = 'MrBeast 2';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            mrbeast2Endpoint,
-            'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
-            'mb2_combined'
-          );
-        });
+      mrbeast2Option.addEventListener('click', () => {
+        searchInput.value = 'MrBeast 2 Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          mrbeast2Endpoint,
+          'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
+          'mb2_combined'
+        );
+      });
 
-        const mrbeastphilanthropyOption = document.createElement('div');
-        mrbeastphilanthropyOption.classList.add('dropdown-list-item', 'bold');
-        mrbeastphilanthropyOption.innerHTML = `
+      const mrbeastphilanthropyOption = document.createElement('div');
+      mrbeastphilanthropyOption.classList.add('dropdown-list-item', 'bold');
+      mrbeastphilanthropyOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy" alt="MrBeast Philanthropy" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      MrBeast Philanthropy Combined
+      <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy" alt="Beast Philanthropy" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      Beast Philanthropy Combined
     </div>
   `;
-        dropdownList.appendChild(mrbeastphilanthropyOption);
+      dropdownList.appendChild(mrbeastphilanthropyOption);
 
-        mrbeastphilanthropyOption.addEventListener('click', () => {
-          searchInput.value = 'MrBeast Philanthropy';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            mrbeastphilanthropyEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
-            'mbphilanthropy_combined'
-          );
-        });
+      mrbeastphilanthropyOption.addEventListener('click', () => {
+        searchInput.value = 'Beast Philanthropy Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          mrbeastphilanthropyEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
+          'mbphilanthropy_combined'
+        );
+      });
 
-        const mrbeastGamingOption = document.createElement('div');
-        mrbeastGamingOption.classList.add('dropdown-list-item', 'bold');
-        mrbeastGamingOption.innerHTML = `
+      const mrbeastGamingOption = document.createElement('div');
+      mrbeastGamingOption.classList.add('dropdown-list-item', 'bold');
+      mrbeastGamingOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastgaming" alt="MrBeast Gaming" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       MrBeast Gaming Combined
     </div>
   `;
-        dropdownList.appendChild(mrbeastGamingOption);
+      dropdownList.appendChild(mrbeastGamingOption);
 
-        mrbeastGamingOption.addEventListener('click', () => {
-          searchInput.value = 'MrBeast Gaming';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            mrbeastGamingEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
-            'mbgaming_combined'
-          );
-        });
+      mrbeastGamingOption.addEventListener('click', () => {
+        searchInput.value = 'MrBeast Gaming Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          mrbeastGamingEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
+          'mbgaming_combined'
+        );
+      });
 
-        const mrbeastReactsOption = document.createElement('div');
-        mrbeastReactsOption.classList.add('dropdown-list-item', 'bold');
-        mrbeastReactsOption.innerHTML = `
+      const mrbeastReactsOption = document.createElement('div');
+      mrbeastReactsOption.classList.add('dropdown-list-item', 'bold');
+      mrbeastReactsOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastreacts" alt="Beast Reacts" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Beast Reacts Combined
     </div>
   `;
-        dropdownList.appendChild(mrbeastReactsOption);
+      dropdownList.appendChild(mrbeastReactsOption);
 
-        mrbeastReactsOption.addEventListener('click', () => {
-          searchInput.value = 'Beast Reacts';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            mrbeastReactsEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
-            'mbreacts_combined'
-          );
-        });
+      mrbeastReactsOption.addEventListener('click', () => {
+        searchInput.value = 'Beast Reacts Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          mrbeastReactsEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
+          'mbreacts_combined'
+        );
+      });
 
-        const cocomelonOption = document.createElement('div');
-        cocomelonOption.classList.add('dropdown-list-item', 'bold');
-        cocomelonOption.innerHTML = `
+      const cocomelonOption = document.createElement('div');
+      cocomelonOption.classList.add('dropdown-list-item', 'bold');
+      cocomelonOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=cocomelon" alt="Cocomelon" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Cocomelon Combined
     </div>
   `;
-        dropdownList.appendChild(cocomelonOption);
+      dropdownList.appendChild(cocomelonOption);
 
-        cocomelonOption.addEventListener('click', () => {
-          searchInput.value = 'Cocomelon Combined';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            cocomelonEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=cocomelon',
-            'cocomelon_combined'
-          );
-        });
+      cocomelonOption.addEventListener('click', () => {
+        searchInput.value = 'Cocomelon Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          cocomelonEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=cocomelon',
+          'cocomelon_combined'
+        );
+      });
 
-        const ronaldoOption = document.createElement('div');
-        ronaldoOption.classList.add('dropdown-list-item', 'bold');
-        ronaldoOption.innerHTML = `
+      const ronaldoOption = document.createElement('div');
+      ronaldoOption.classList.add('dropdown-list-item', 'bold');
+      ronaldoOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
       Ronaldo Combined
     </div>
   `;
-        dropdownList.appendChild(ronaldoOption);
+      dropdownList.appendChild(ronaldoOption);
 
-        ronaldoOption.addEventListener('click', () => {
-          searchInput.value = 'Ronaldo Combined';
-          dropdownList.classList.remove('show');
-          fetchCombinedStats(
-            ronaldoEndpoint,
-            'https://api.communitrics.com/youtube/profile?channel=cristiano',
-            'ronaldo_combined'
-          );
-        });
+      ronaldoOption.addEventListener('click', () => {
+        searchInput.value = 'Ronaldo Combined';
+        dropdownList.classList.remove('show');
+        fetchCombinedStats(
+          ronaldoEndpoint,
+          'https://api.communitrics.com/youtube/profile?channel=cristiano',
+          'ronaldo_combined'
+        );
+      });
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const videoIdFromUrl = urlParams.get('video');
+      const urlParams = new URLSearchParams(window.location.search);
+      const videoIdFromUrl = urlParams.get('video');
 
-        fetch(apiEndpoint)
-          .then(response => response.json())
-          .then(data => {
-            const videos = data.videos;
+      fetch(apiEndpoint)
+        .then(response => response.json())
+        .then(data => {
+          const videos = data.videos;
 
-            function addCommasToTitle(title) {
-              return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-            }
-
-            videos.forEach(video => {
-              const item = document.createElement('div');
-              item.classList.add('dropdown-list-item');
-              item.textContent = addCommasToTitle(video.title);
-              item.dataset.videoId = video.videoId;
-              dropdownList.appendChild(item);
-
-              item.addEventListener('click', e => {
-                const selectedVideoId = e.currentTarget.dataset.videoId;
-                searchInput.value = e.currentTarget.textContent;
-                dropdownList.classList.remove('show');
-                fetchVideoStats(selectedVideoId);
-              });
-            });
-
-            if (videoIdFromUrl === 'combined') {
-              searchInput.value = 'Combined';
-              fetchCombinedStats(
-                combinedEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=mrbeast',
-                'combined'
-              );
-            } else if (videoIdFromUrl === 'mb2_combined') {
-              searchInput.value = 'MrBeast 2';
-              fetchCombinedStats(
-                mrbeast2Endpoint,
-                'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
-                'mb2_combined'
-              );
-            } else if (videoIdFromUrl === 'mbgaming_combined') {
-              searchInput.value = 'MrBeast Gaming';
-              fetchCombinedStats(
-                mrbeastGamingEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
-                'mbgaming_combined'
-              );
-            } else if (videoIdFromUrl === 'mbreacts_combined') {
-              searchInput.value = 'Beast Reacts';
-              fetchCombinedStats(
-                mrbeastReactsEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
-                'mbreacts_combined'
-              );
-            } else if (videoIdFromUrl === 'mbphilanthropy_combined') {
-              searchInput.value = 'MrBeast Philanthropy';
-              fetchCombinedStats(
-                mrbeastphilanthropyEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
-                'mbphilanthropy_combined'
-              );
-            } else if (videoIdFromUrl === 'cocomelon_combined') {
-              searchInput.value = 'Cocomelon Combined';
-              fetchCombinedStats(
-                cocomelonEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=cocomelon',
-                'cocomelon_combined'
-              );
-            } else if (videoIdFromUrl === 'ronaldo_combined') {
-              searchInput.value = 'Ronaldo Combined';
-              fetchCombinedStats(
-                ronaldoEndpoint,
-                'https://api.communitrics.com/youtube/profile?channel=cristiano',
-                'ronaldo_combined'
-              );
-            } else if (videoIdFromUrl) {
-              const matchingVideo = videos.find(
-                video => video.videoId === videoIdFromUrl
-              );
-              if (matchingVideo) {
-                searchInput.value = addCommasToTitle(matchingVideo.title);
-                fetchVideoStats(matchingVideo.videoId);
-              } else {
-                console.error(
-                  'Video ID from URL not found in the list of videos.'
-                );
-              }
-            } else if (videos.length > 0) {
-              const mostRecentVideo = videos.sort(
-                (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
-              )[0];
-              searchInput.value = mostRecentVideo.title;
-              fetchVideoStats(mostRecentVideo.videoId);
-            }
-          });
-
-        function fetchCombinedStats(endpoint, profileImageUrl, urlPath) {
-          currentVideoId = urlPath;
-          document.getElementById('videoInfoCard').style.display = 'none';
-          document.querySelector('header h1').textContent = 'Channel Analytics';
-
-          const existingProfileImage = document.querySelector(
-            'header img.profile-image'
-          );
-          if (existingProfileImage) {
-            existingProfileImage.remove();
-          }
-
-          const combinedProfileImage = document.createElement('img');
-          combinedProfileImage.src = profileImageUrl;
-          combinedProfileImage.alt = 'Profile Image';
-          combinedProfileImage.style.width = '60px';
-          combinedProfileImage.style.height = '60px';
-          combinedProfileImage.style.borderRadius = '50%';
-          combinedProfileImage.style.marginRight = '10px';
-          combinedProfileImage.classList.add('profile-image');
-
-          const header = document.querySelector('header');
-          header.insertBefore(combinedProfileImage, header.firstChild);
-
-          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${urlPath}`;
-          window.history.pushState({ path: newUrl }, '', newUrl);
-
-          document.getElementById('uploadCountCard').style.display = 'flex';
-
-          fetch(endpoint)
-            .then(response => response.json())
-            .then(combinedData => {
-              const timestamps = combinedData.map(
-                entry => new Date(entry.time)
-              );
-              const views = filterSpikes(
-                combinedData.map(entry => Math.round(entry.views))
-              );
-              const likes = filterSpikes(
-                combinedData.map(entry => Math.round(entry.likes))
-              );
-              const comments = filterSpikes(
-                combinedData.map(entry => Math.round(entry.comments))
-              );
-              const uploads = combinedData.map(entry => entry.uploadCount);
-
-              allData = { timestamps, views, likes, comments, uploads };
-
-              drawChart();
-              updateStats(
-                allData.views,
-                allData.likes,
-                allData.comments,
-                allData.uploads
-              );
-
-              const dailyData = processDailyData(combinedData);
-              const currentDayData = combinedData[combinedData.length - 1];
-
-              createDailyTable(dailyData, currentDayData);
-
-              document.getElementById('dailyStatsTable').style.display =
-                'block';
-            });
-        }
-
-        function processDailyData(data) {
-          const dailyData = [];
-          let currentDate = null;
-          let closestTo4am = null;
-
-          data.forEach((entry, index) => {
-            const entryDate = new Date(entry.time);
-            const entryDateString = entryDate.toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            if (entryDateString !== currentDate) {
-              if (closestTo4am || index === 0) {
-                dailyData.push(closestTo4am || entry);
-              }
-              currentDate = entryDateString;
-              closestTo4am = entry;
-            } else {
-              const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
-              const closest4amDiff = Math.abs(
-                new Date(closestTo4am.time).getUTCHours() - 4
-              );
-
-              if (current4amDiff < closest4amDiff) {
-                closestTo4am = entry;
-              }
-            }
-          });
-
-          if (
-            closestTo4am &&
-            closestTo4am !== dailyData[dailyData.length - 1]
-          ) {
-            dailyData.push(closestTo4am);
-          }
-
-          return dailyData;
-        }
-        function processDailyDataForVideo(data) {
-          const dailyData = [];
-          let currentDate = null;
-          let closestTo4am = null;
-          let firstEntryOfDay = null;
-
-          data.forEach(entry => {
-            const entryDate = new Date(entry.timestamp);
-            const entryDateString = entryDate.toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            if (entryDateString !== currentDate) {
-              if (firstEntryOfDay) {
-                if (firstEntryOfDay.views < 1000) {
-                  dailyData.push(firstEntryOfDay);
-                } else if (closestTo4am) {
-                  dailyData.push(closestTo4am);
-                }
-              }
-              currentDate = entryDateString;
-              firstEntryOfDay = entry;
-              closestTo4am = entry;
-            } else {
-              const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
-              const closest4amDiff = Math.abs(
-                new Date(closestTo4am.timestamp).getUTCHours() - 4
-              );
-
-              if (current4amDiff < closest4amDiff) {
-                closestTo4am = entry;
-              }
-            }
-          });
-
-          if (firstEntryOfDay) {
-            if (firstEntryOfDay.views < 1000) {
-              dailyData.push(firstEntryOfDay);
-            } else if (closestTo4am) {
-              dailyData.push(closestTo4am);
-            }
-          }
-
-          return dailyData;
-        }
-
-        function createDailyTableForVideo(dailyData, currentDayData) {
-          const tableBody = document.getElementById('dailyStatsBody');
-          tableBody.innerHTML = '';
-
-          const calculateChange = (current, previous) => {
-            const change = current - previous;
-            const arrow = change < 0 ? '↓' : '';
-            const changeString =
-              change >= 0
-                ? `+${change.toLocaleString()}`
-                : change.toLocaleString();
-            return `${changeString} ${arrow}`.trim();
-          };
-
-          const determineClass = (currentChange, previousChange) => {
-            return currentChange > previousChange ? 'positive' : 'negative';
-          };
-
-          if (currentDayData) {
-            const currentRow = document.createElement('tr');
-            const currentDate = new Date(currentDayData.timestamp);
-
-            const timeString = currentDate.toLocaleTimeString('en-US', {
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false,
-              timeZone: 'America/New_York',
-            });
-
-            const dateString = currentDate.toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            const previousDayData = dailyData[dailyData.length - 1];
-            const viewsChange = calculateChange(
-              currentDayData.views,
-              previousDayData.views
-            );
-            const likesChange = calculateChange(
-              currentDayData.likes,
-              previousDayData.likes
-            );
-            const commentsChange = calculateChange(
-              currentDayData.comments,
-              previousDayData.comments
-            );
-
-            const viewsClass = determineClass(
-              currentDayData.views - previousDayData.views,
-              previousDayData.views -
-                (dailyData[dailyData.length - 2]?.views || 0)
-            );
-            const likesClass = determineClass(
-              currentDayData.likes - previousDayData.likes,
-              previousDayData.likes -
-                (dailyData[dailyData.length - 2]?.likes || 0)
-            );
-            const commentsClass = determineClass(
-              currentDayData.comments - previousDayData.comments,
-              previousDayData.comments -
-                (dailyData[dailyData.length - 2]?.comments || 0)
-            );
-
-            currentRow.innerHTML = `
-      <td>${dateString}, ${timeString}</td>
-      <td>${Math.round(
-        currentDayData.views
-      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
-      <td>${Math.round(
-        currentDayData.likes
-      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        currentDayData.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
-    `;
-
-            tableBody.insertBefore(currentRow, tableBody.firstChild);
-          }
-
-          for (let index = dailyData.length - 1; index >= 0; index--) {
-            const entry = dailyData[index];
-            const row = document.createElement('tr');
-            const date = new Date(entry.timestamp);
-
-            date.setDate(date.getDate() - 1);
-            const dateString = date.toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            const viewsChange =
-              index > 0
-                ? calculateChange(entry.views, dailyData[index - 1].views)
-                : '';
-            const likesChange =
-              index > 0
-                ? calculateChange(entry.likes, dailyData[index - 1].likes)
-                : '';
-            const commentsChange =
-              index > 0
-                ? calculateChange(entry.comments, dailyData[index - 1].comments)
-                : '';
-
-            const viewsClass =
-              index > 1
-                ? determineClass(
-                    entry.views - dailyData[index - 1].views,
-                    dailyData[index - 1].views - dailyData[index - 2].views
-                  )
-                : '';
-            const likesClass =
-              index > 1
-                ? determineClass(
-                    entry.likes - dailyData[index - 1].likes,
-                    dailyData[index - 1].likes - dailyData[index - 2].likes
-                  )
-                : '';
-            const commentsClass =
-              index > 1
-                ? determineClass(
-                    entry.comments - dailyData[index - 1].comments,
-                    dailyData[index - 1].comments -
-                      dailyData[index - 2].comments
-                  )
-                : '';
-
-            row.innerHTML = `
-      <td>${dateString}</td>
-      <td>${Math.round(
-        entry.views
-      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
-      <td>${Math.round(
-        entry.likes
-      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        entry.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
-    `;
-
-            tableBody.appendChild(row);
-          }
-        }
-
-        function createDailyTable(dailyData, currentDayData) {
-          const tableBody = document.getElementById('dailyStatsBody');
-          tableBody.innerHTML = '';
-
-          const calculateChange = (current, previous) => {
-            const change = current - previous;
-            const arrow = change < 0 ? '↓' : '';
-            const changeString =
-              change >= 0
-                ? `+${change.toLocaleString()}`
-                : change.toLocaleString();
-            return `${changeString} ${arrow}`.trim();
-          };
-
-          const determineClass = (currentChange, previousChange) => {
-            return currentChange > previousChange ? 'positive' : 'negative';
-          };
-
-          if (currentDayData) {
-            const currentRow = document.createElement('tr');
-            const currentDate = new Date(currentDayData.time);
-
-            const timeString = currentDate.toLocaleTimeString('en-US', {
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false,
-              timeZone: 'America/New_York',
-            });
-
-            const dateString = currentDate.toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            const previousDayData = dailyData[dailyData.length - 1];
-            const viewsChange = calculateChange(
-              currentDayData.views,
-              previousDayData.views
-            );
-            const likesChange = calculateChange(
-              currentDayData.likes,
-              previousDayData.likes
-            );
-            const commentsChange = calculateChange(
-              currentDayData.comments,
-              previousDayData.comments
-            );
-
-            const viewsClass = determineClass(
-              currentDayData.views - previousDayData.views,
-              previousDayData.views -
-                (dailyData[dailyData.length - 2]?.views || 0)
-            );
-            const likesClass = determineClass(
-              currentDayData.likes - previousDayData.likes,
-              previousDayData.likes -
-                (dailyData[dailyData.length - 2]?.likes || 0)
-            );
-            const commentsClass = determineClass(
-              currentDayData.comments - previousDayData.comments,
-              previousDayData.comments -
-                (dailyData[dailyData.length - 2]?.comments || 0)
-            );
-
-            currentRow.innerHTML = `
-      <td>${dateString}, ${timeString}</td>
-      <td>${Math.round(
-        currentDayData.views
-      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
-      <td>${Math.round(
-        currentDayData.likes
-      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        currentDayData.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
-    `;
-
-            tableBody.insertBefore(currentRow, tableBody.firstChild);
-          }
-
-          for (let index = dailyData.length - 1; index >= 0; index--) {
-            const entry = dailyData[index];
-            const row = document.createElement('tr');
-            const date = new Date(entry.time);
-
-            date.setDate(date.getDate() - 1);
-            const dateString = date.toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'America/New_York',
-            });
-
-            const viewsChange =
-              index > 0
-                ? calculateChange(entry.views, dailyData[index - 1].views)
-                : '';
-            const likesChange =
-              index > 0
-                ? calculateChange(entry.likes, dailyData[index - 1].likes)
-                : '';
-            const commentsChange =
-              index > 0
-                ? calculateChange(entry.comments, dailyData[index - 1].comments)
-                : '';
-
-            const viewsClass =
-              index > 1
-                ? determineClass(
-                    entry.views - dailyData[index - 1].views,
-                    dailyData[index - 1].views - dailyData[index - 2].views
-                  )
-                : '';
-            const likesClass =
-              index > 1
-                ? determineClass(
-                    entry.likes - dailyData[index - 1].likes,
-                    dailyData[index - 1].likes - dailyData[index - 2].likes
-                  )
-                : '';
-            const commentsClass =
-              index > 1
-                ? determineClass(
-                    entry.comments - dailyData[index - 1].comments,
-                    dailyData[index - 1].comments -
-                      dailyData[index - 2].comments
-                  )
-                : '';
-
-            row.innerHTML = `
-      <td>${dateString}</td>
-      <td>${Math.round(
-        entry.views
-      ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
-      <td>${Math.round(
-        entry.likes
-      ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
-      <td>${Math.round(
-        entry.comments
-      ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
-    `;
-
-            tableBody.appendChild(row);
-          }
-        }
-
-        function fetchVideoStats(videoId) {
           function addCommasToTitle(title) {
             return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
           }
 
-          currentVideoId = videoId;
-          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
-          window.history.pushState({ path: newUrl }, '', newUrl);
+          videos.forEach(video => {
+            const item = document.createElement('div');
+            item.classList.add('dropdown-list-item');
+            item.textContent = addCommasToTitle(video.title);
+            item.dataset.videoId = video.videoId;
+            dropdownList.appendChild(item);
 
-          document.getElementById('uploadCountCard').style.display = 'none';
-          document.querySelector('header h1').textContent = 'Video Analytics';
-
-          if (selectedSeriesIndex === 3) {
-            selectedSeriesIndex = 0;
-          }
-
-          const existingProfileImage = document.querySelector(
-            'header img.profile-image'
-          );
-          if (existingProfileImage) {
-            existingProfileImage.remove();
-          }
-
-          const videoStatsEndpoint = `https://api.communitrics.com/videostats/${videoId}`;
-
-          fetch(videoStatsEndpoint)
-            .then(response => response.json())
-            .then(video => {
-              const videoInfoCard = document.getElementById('videoInfoCard');
-              const thumbnailElement =
-                document.getElementById('videoThumbnail');
-              const videoLinkElement = document.getElementById('videoLink');
-              const uploadDateElement = document.getElementById('uploadDate');
-              const durationElement = document.getElementById('videoDuration');
-
-              thumbnailElement.src = video.thumbnail;
-              videoLinkElement.href = `https://www.youtube.com/watch?v=${video.videoId}`;
-              videoLinkElement.textContent = addCommasToTitle(video.title);
-
-              const uploadDate = new Date(video.uploadTime);
-              uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
-
-              const lastUpdatedDate = new Date(video.lastUpdated);
-              const lastUpdatedSpan = document.createElement('span');
-              lastUpdatedSpan.classList.add('last-updated');
-              lastUpdatedSpan.textContent = `(Stats last updated: ${lastUpdatedDate.toLocaleDateString()} at ${lastUpdatedDate.toLocaleTimeString()})`;
-              uploadDateElement.appendChild(lastUpdatedSpan);
-
-              durationElement.textContent = `Duration: ${video.stats[0].duration}`;
-              const videoIdSpan = document.createElement('span');
-              videoIdSpan.classList.add('video-id');
-              videoIdSpan.textContent = `(Video ID: ${video.videoId})`;
-              durationElement.appendChild(videoIdSpan);
-
-              videoInfoCard.style.display = 'flex';
-              const filteredStats = video.stats.filter(
-                stat =>
-                  stat.views != null &&
-                  stat.views !== 0 &&
-                  stat.likes != null &&
-                  stat.likes !== 0 &&
-                  stat.comments != null &&
-                  stat.comments !== 0
-              );
-
-              const timestamps = filteredStats.map(
-                stat => new Date(stat.timestamp)
-              );
-              const views = filteredStats.map(stat => Math.round(stat.views));
-              const likes = filteredStats.map(stat => Math.round(stat.likes));
-              const comments = filteredStats.map(stat =>
-                Math.round(stat.comments)
-              );
-
-              allData = { timestamps, views, likes, comments };
-              drawChart();
-              updateStats(views, likes, comments);
-
-              const dailyData = processDailyDataForVideo(filteredStats);
-              const currentDayData = filteredStats[filteredStats.length - 1];
-
-              createDailyTableForVideo(dailyData, currentDayData);
-              document.getElementById('dailyStatsTable').style.display =
-                'block';
+            item.addEventListener('click', e => {
+              const selectedVideoId = e.currentTarget.dataset.videoId;
+              searchInput.value = e.currentTarget.textContent;
+              dropdownList.classList.remove('show');
+              fetchVideoStats(selectedVideoId);
             });
+          });
+
+          if (videoIdFromUrl === 'combined') {
+            searchInput.value = 'MrBeast Combined';
+            fetchCombinedStats(
+              combinedEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=mrbeast',
+              'combined'
+            );
+          } else if (videoIdFromUrl === 'mb2_combined') {
+            searchInput.value = 'MrBeast 2 Combined';
+            fetchCombinedStats(
+              mrbeast2Endpoint,
+              'https://api.communitrics.com/youtube/profile?channel=mrbeast2',
+              'mb2_combined'
+            );
+          } else if (videoIdFromUrl === 'mbgaming_combined') {
+            searchInput.value = 'MrBeast Gaming Combined';
+            fetchCombinedStats(
+              mrbeastGamingEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=mrbeastgaming',
+              'mbgaming_combined'
+            );
+          } else if (videoIdFromUrl === 'mbreacts_combined') {
+            searchInput.value = 'Beast Reacts Combined';
+            fetchCombinedStats(
+              mrbeastReactsEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=mrbeastreacts',
+              'mbreacts_combined'
+            );
+          } else if (videoIdFromUrl === 'mbphilanthropy_combined') {
+            searchInput.value = 'Beast Philanthropy Combined';
+            fetchCombinedStats(
+              mrbeastphilanthropyEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy',
+              'mbphilanthropy_combined'
+            );
+          } else if (videoIdFromUrl === 'cocomelon_combined') {
+            searchInput.value = 'Cocomelon Combined';
+            fetchCombinedStats(
+              cocomelonEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=cocomelon',
+              'cocomelon_combined'
+            );
+          } else if (videoIdFromUrl === 'ronaldo_combined') {
+            searchInput.value = 'Ronaldo Combined';
+            fetchCombinedStats(
+              ronaldoEndpoint,
+              'https://api.communitrics.com/youtube/profile?channel=cristiano',
+              'ronaldo_combined'
+            );
+          } else if (videoIdFromUrl) {
+            const matchingVideo = videos.find(
+              video => video.videoId === videoIdFromUrl
+            );
+            if (matchingVideo) {
+              searchInput.value = addCommasToTitle(matchingVideo.title);
+              fetchVideoStats(matchingVideo.videoId);
+            } else {
+              console.error(
+                'Video ID from URL not found in the list of videos.'
+              );
+            }
+          } else if (videos.length > 0) {
+            const mostRecentVideo = videos.sort(
+              (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
+            )[0];
+            searchInput.value = mostRecentVideo.title;
+            fetchVideoStats(mostRecentVideo.videoId);
+          }
+        });
+
+      function fetchCombinedStats(endpoint, profileImageUrl, urlPath) {
+        currentVideoId = urlPath;
+        document.getElementById('videoInfoCard').style.display = 'none';
+        document.querySelector('header h1').textContent = 'Channel Analytics';
+
+        const existingProfileImage = document.querySelector(
+          'header img.profile-image'
+        );
+        if (existingProfileImage) {
+          existingProfileImage.remove();
         }
-        function drawChart() {
-          const MAX_POINTS = 1000;
 
-          if (
-            !allData ||
-            !allData.timestamps ||
-            allData.timestamps.length === 0
-          ) {
-            console.error('No data available to draw the chart.');
-            return;
-          }
+        const combinedProfileImage = document.createElement('img');
+        combinedProfileImage.src = profileImageUrl;
+        combinedProfileImage.alt = 'Profile Image';
+        combinedProfileImage.style.width = '60px';
+        combinedProfileImage.style.height = '60px';
+        combinedProfileImage.style.borderRadius = '50%';
+        combinedProfileImage.style.marginRight = '10px';
+        combinedProfileImage.classList.add('profile-image');
 
-          if (videoChart) {
-            videoChart.destroy();
-          }
+        const header = document.querySelector('header');
+        header.insertBefore(combinedProfileImage, header.firstChild);
 
-          function downsampleData(timestamps, data) {
-            const length = timestamps.length;
-            if (length <= MAX_POINTS) {
-              return timestamps.map((t, i) => [
-                t.getTime() - 4 * 3600 * 1000,
-                data[i],
-              ]);
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${urlPath}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        document.getElementById('uploadCountCard').style.display = 'flex';
+
+        fetch(endpoint)
+          .then(response => response.json())
+          .then(combinedData => {
+            const timestamps = combinedData.map(
+              entry => new Date(entry.time)
+            );
+            const views = filterSpikes(
+              combinedData.map(entry => Math.round(entry.views))
+            );
+            const likes = filterSpikes(
+              combinedData.map(entry => Math.round(entry.likes))
+            );
+            const comments = filterSpikes(
+              combinedData.map(entry => Math.round(entry.comments))
+            );
+            const uploads = combinedData.map(entry => entry.uploadCount);
+
+            allData = { timestamps, views, likes, comments, uploads };
+
+            drawChart();
+            updateStats(
+              allData.views,
+              allData.likes,
+              allData.comments,
+              allData.uploads
+            );
+
+            const dailyData = processDailyData(combinedData);
+            const currentDayData = combinedData[combinedData.length - 1];
+
+            createDailyTable(dailyData, currentDayData);
+
+            document.getElementById('dailyStatsTable').style.display =
+              'block';
+          });
+      }
+
+      function processDailyData(data) {
+        const dailyData = [];
+        let currentDate = null;
+        let closestTo4am = null;
+
+        data.forEach((entry, index) => {
+          const entryDate = new Date(entry.time);
+          const entryDateString = entryDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          if (entryDateString !== currentDate) {
+            if (closestTo4am || index === 0) {
+              dailyData.push(closestTo4am || entry);
             }
+            currentDate = entryDateString;
+            closestTo4am = entry;
+          } else {
+            const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+            const closest4amDiff = Math.abs(
+              new Date(closestTo4am.time).getUTCHours() - 4
+            );
 
-            const step = Math.floor(length / MAX_POINTS);
-            const sampledData = [];
-            for (let i = 0; i < length; i += step) {
-              sampledData.push([
-                timestamps[i].getTime() - 4 * 3600 * 1000,
-                data[i],
-              ]);
+            if (current4amDiff < closest4amDiff) {
+              closestTo4am = entry;
             }
-            return sampledData;
           }
+        });
 
-          const seriesData = [
-            {
-              name: 'Views',
-              data: downsampleData(allData.timestamps, allData.views),
-              color: {
-                linearGradient: {
-                  x1: 0,
-                  x2: 0,
-                  y1: 0,
-                  y2: 1,
-                },
-                stops: [
-                  [0, '#ef4444'],
-                  [1, 'rgba(239, 68, 68, 0.3)'],
-                ],
-              },
-              visible: selectedSeriesIndex === 0,
-              marker: {
-                enabled: false,
-              },
-              lineWidth: 3,
-            },
-            {
-              name: 'Likes',
-              data: downsampleData(allData.timestamps, allData.likes),
-              color: {
-                linearGradient: {
-                  x1: 0,
-                  x2: 0,
-                  y1: 0,
-                  y2: 1,
-                },
-                stops: [
-                  [0, '#1976d2'],
-                  [1, 'rgba(25, 118, 210, 0.3)'],
-                ],
-              },
-              visible: selectedSeriesIndex === 1,
-              marker: {
-                enabled: false,
-              },
-              lineWidth: 3,
-            },
-            {
-              name: 'Comments',
-              data: downsampleData(allData.timestamps, allData.comments),
-              color: {
-                linearGradient: {
-                  x1: 0,
-                  x2: 0,
-                  y1: 0,
-                  y2: 1,
-                },
-                stops: [
-                  [0, '#0d9488'],
-                  [1, 'rgba(13, 148, 136, 0.3)'],
-                ],
-              },
-              visible: selectedSeriesIndex === 2,
-              marker: {
-                enabled: false,
-              },
-              lineWidth: 3,
-            },
-          ];
+        if (
+          closestTo4am &&
+          closestTo4am !== dailyData[dailyData.length - 1]
+        ) {
+          dailyData.push(closestTo4am);
+        }
 
-          if (allData.uploads) {
-            seriesData.push({
-              name: 'Uploads',
-              data: downsampleData(allData.timestamps, allData.uploads),
-              color: {
-                linearGradient: {
-                  x1: 0,
-                  x2: 0,
-                  y1: 0,
-                  y2: 1,
-                },
-                stops: [
-                  [0, '#8e44ad'],
-                  [1, 'rgba(142, 68, 173, 0.3)'],
-                ],
-              },
-              visible: selectedSeriesIndex === 3,
-              marker: {
-                enabled: false,
-              },
-              lineWidth: 3,
-            });
+        return dailyData;
+      }
+      function processDailyDataForVideo(data) {
+        const dailyData = [];
+        let currentDate = null;
+        let closestTo4am = null;
+        let firstEntryOfDay = null;
+
+        data.forEach(entry => {
+          const entryDate = new Date(entry.timestamp);
+          const entryDateString = entryDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          if (entryDateString !== currentDate) {
+            if (firstEntryOfDay) {
+              if (firstEntryOfDay.views < 1000) {
+                dailyData.push(firstEntryOfDay);
+              } else if (closestTo4am) {
+                dailyData.push(closestTo4am);
+              }
+            }
+            currentDate = entryDateString;
+            firstEntryOfDay = entry;
+            closestTo4am = entry;
+          } else {
+            const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+            const closest4amDiff = Math.abs(
+              new Date(closestTo4am.timestamp).getUTCHours() - 4
+            );
+
+            if (current4amDiff < closest4amDiff) {
+              closestTo4am = entry;
+            }
           }
+        });
 
-          if (selectedSeriesIndex >= seriesData.length) {
-            selectedSeriesIndex = 0;
+        if (firstEntryOfDay) {
+          if (firstEntryOfDay.views < 1000) {
+            dailyData.push(firstEntryOfDay);
+          } else if (closestTo4am) {
+            dailyData.push(closestTo4am);
           }
+        }
 
-          const minValue = Math.min(
-            ...seriesData[selectedSeriesIndex].data.map(d => d[1])
+        return dailyData;
+      }
+
+      function createDailyTableForVideo(dailyData, currentDayData) {
+        const tableBody = document.getElementById('dailyStatsBody');
+        tableBody.innerHTML = '';
+
+        const calculateChange = (current, previous) => {
+          const change = current - previous;
+          const arrow = change < 0 ? '↓' : '';
+          const changeString =
+            change >= 0
+              ? `+${change.toLocaleString()}`
+              : change.toLocaleString();
+          return `${changeString} ${arrow}`.trim();
+        };
+
+        const determineClass = (currentChange, previousChange) => {
+          return currentChange > previousChange ? 'positive' : 'negative';
+        };
+
+        if (currentDayData) {
+          const currentRow = document.createElement('tr');
+          const currentDate = new Date(currentDayData.timestamp);
+
+          const timeString = currentDate.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            timeZone: 'America/New_York',
+          });
+
+          const dateString = currentDate.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          const previousDayData = dailyData[dailyData.length - 1];
+          const viewsChange = calculateChange(
+            currentDayData.views,
+            previousDayData.views
+          );
+          const likesChange = calculateChange(
+            currentDayData.likes,
+            previousDayData.likes
+          );
+          const commentsChange = calculateChange(
+            currentDayData.comments,
+            previousDayData.comments
           );
 
-          videoChart = Highcharts.chart('videoChart', {
-            chart: {
-              type: 'area',
-              backgroundColor: 'var(--card-background-color)',
-              style: {
-                fontFamily: "'Poppins', 'Roboto', sans-serif",
+          const viewsClass = determineClass(
+            currentDayData.views - previousDayData.views,
+            previousDayData.views -
+            (dailyData[dailyData.length - 2]?.views || 0)
+          );
+          const likesClass = determineClass(
+            currentDayData.likes - previousDayData.likes,
+            previousDayData.likes -
+            (dailyData[dailyData.length - 2]?.likes || 0)
+          );
+          const commentsClass = determineClass(
+            currentDayData.comments - previousDayData.comments,
+            previousDayData.comments -
+            (dailyData[dailyData.length - 2]?.comments || 0)
+          );
+
+          currentRow.innerHTML = `
+      <td>${dateString}, ${timeString}</td>
+      <td>${Math.round(
+            currentDayData.views
+          ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+            currentDayData.likes
+          ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+            currentDayData.comments
+          ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+          tableBody.insertBefore(currentRow, tableBody.firstChild);
+        }
+
+        for (let index = dailyData.length - 1; index >= 0; index--) {
+          const entry = dailyData[index];
+          const row = document.createElement('tr');
+          const date = new Date(entry.timestamp);
+
+          date.setDate(date.getDate() - 1);
+          const dateString = date.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          const viewsChange =
+            index > 0
+              ? calculateChange(entry.views, dailyData[index - 1].views)
+              : '';
+          const likesChange =
+            index > 0
+              ? calculateChange(entry.likes, dailyData[index - 1].likes)
+              : '';
+          const commentsChange =
+            index > 0
+              ? calculateChange(entry.comments, dailyData[index - 1].comments)
+              : '';
+
+          const viewsClass =
+            index > 1
+              ? determineClass(
+                entry.views - dailyData[index - 1].views,
+                dailyData[index - 1].views - dailyData[index - 2].views
+              )
+              : '';
+          const likesClass =
+            index > 1
+              ? determineClass(
+                entry.likes - dailyData[index - 1].likes,
+                dailyData[index - 1].likes - dailyData[index - 2].likes
+              )
+              : '';
+          const commentsClass =
+            index > 1
+              ? determineClass(
+                entry.comments - dailyData[index - 1].comments,
+                dailyData[index - 1].comments -
+                dailyData[index - 2].comments
+              )
+              : '';
+
+          row.innerHTML = `
+      <td>${dateString}</td>
+      <td>${Math.round(
+            entry.views
+          ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+            entry.likes
+          ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+            entry.comments
+          ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+          tableBody.appendChild(row);
+        }
+      }
+
+      function createDailyTable(dailyData, currentDayData) {
+        const tableBody = document.getElementById('dailyStatsBody');
+        tableBody.innerHTML = '';
+
+        const calculateChange = (current, previous) => {
+          const change = current - previous;
+          const arrow = change < 0 ? '↓' : '';
+          const changeString =
+            change >= 0
+              ? `+${change.toLocaleString()}`
+              : change.toLocaleString();
+          return `${changeString} ${arrow}`.trim();
+        };
+
+        const determineClass = (currentChange, previousChange) => {
+          return currentChange > previousChange ? 'positive' : 'negative';
+        };
+
+        if (currentDayData) {
+          const currentRow = document.createElement('tr');
+          const currentDate = new Date(currentDayData.time);
+
+          const timeString = currentDate.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            timeZone: 'America/New_York',
+          });
+
+          const dateString = currentDate.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          const previousDayData = dailyData[dailyData.length - 1];
+          const viewsChange = calculateChange(
+            currentDayData.views,
+            previousDayData.views
+          );
+          const likesChange = calculateChange(
+            currentDayData.likes,
+            previousDayData.likes
+          );
+          const commentsChange = calculateChange(
+            currentDayData.comments,
+            previousDayData.comments
+          );
+
+          const viewsClass = determineClass(
+            currentDayData.views - previousDayData.views,
+            previousDayData.views -
+            (dailyData[dailyData.length - 2]?.views || 0)
+          );
+          const likesClass = determineClass(
+            currentDayData.likes - previousDayData.likes,
+            previousDayData.likes -
+            (dailyData[dailyData.length - 2]?.likes || 0)
+          );
+          const commentsClass = determineClass(
+            currentDayData.comments - previousDayData.comments,
+            previousDayData.comments -
+            (dailyData[dailyData.length - 2]?.comments || 0)
+          );
+
+          currentRow.innerHTML = `
+      <td>${dateString}, ${timeString}</td>
+      <td>${Math.round(
+            currentDayData.views
+          ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+            currentDayData.likes
+          ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+            currentDayData.comments
+          ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+          tableBody.insertBefore(currentRow, tableBody.firstChild);
+        }
+
+        for (let index = dailyData.length - 1; index >= 0; index--) {
+          const entry = dailyData[index];
+          const row = document.createElement('tr');
+          const date = new Date(entry.time);
+
+          date.setDate(date.getDate() - 1);
+          const dateString = date.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            timeZone: 'America/New_York',
+          });
+
+          const viewsChange =
+            index > 0
+              ? calculateChange(entry.views, dailyData[index - 1].views)
+              : '';
+          const likesChange =
+            index > 0
+              ? calculateChange(entry.likes, dailyData[index - 1].likes)
+              : '';
+          const commentsChange =
+            index > 0
+              ? calculateChange(entry.comments, dailyData[index - 1].comments)
+              : '';
+
+          const viewsClass =
+            index > 1
+              ? determineClass(
+                entry.views - dailyData[index - 1].views,
+                dailyData[index - 1].views - dailyData[index - 2].views
+              )
+              : '';
+          const likesClass =
+            index > 1
+              ? determineClass(
+                entry.likes - dailyData[index - 1].likes,
+                dailyData[index - 1].likes - dailyData[index - 2].likes
+              )
+              : '';
+          const commentsClass =
+            index > 1
+              ? determineClass(
+                entry.comments - dailyData[index - 1].comments,
+                dailyData[index - 1].comments -
+                dailyData[index - 2].comments
+              )
+              : '';
+
+          row.innerHTML = `
+      <td>${dateString}</td>
+      <td>${Math.round(
+            entry.views
+          ).toLocaleString()} <span class="change ${viewsClass}" data-change="${viewsChange}">(${viewsChange})</span></td>
+      <td>${Math.round(
+            entry.likes
+          ).toLocaleString()} <span class="change ${likesClass}" data-change="${likesChange}">(${likesChange})</span></td>
+      <td>${Math.round(
+            entry.comments
+          ).toLocaleString()} <span class="change ${commentsClass}" data-change="${commentsChange}">(${commentsChange})</span></td>
+    `;
+
+          tableBody.appendChild(row);
+        }
+      }
+
+      function fetchVideoStats(videoId) {
+        function addCommasToTitle(title) {
+          return title.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        }
+
+        currentVideoId = videoId;
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        document.getElementById('uploadCountCard').style.display = 'none';
+        document.querySelector('header h1').textContent = 'Video Analytics';
+
+        if (selectedSeriesIndex === 3) {
+          selectedSeriesIndex = 0;
+        }
+
+        const existingProfileImage = document.querySelector(
+          'header img.profile-image'
+        );
+        if (existingProfileImage) {
+          existingProfileImage.remove();
+        }
+
+        const videoStatsEndpoint = `https://api.communitrics.com/videostats/${videoId}`;
+
+        fetch(videoStatsEndpoint)
+          .then(response => response.json())
+          .then(video => {
+            const videoInfoCard = document.getElementById('videoInfoCard');
+            const thumbnailElement =
+              document.getElementById('videoThumbnail');
+            const videoLinkElement = document.getElementById('videoLink');
+            const uploadDateElement = document.getElementById('uploadDate');
+            const durationElement = document.getElementById('videoDuration');
+
+            thumbnailElement.src = video.thumbnail;
+            videoLinkElement.href = `https://www.youtube.com/watch?v=${video.videoId}`;
+            videoLinkElement.textContent = addCommasToTitle(video.title);
+
+            const uploadDate = new Date(video.uploadTime);
+            uploadDateElement.textContent = `Uploaded on: ${uploadDate.toLocaleDateString()} at ${uploadDate.toLocaleTimeString()}`;
+
+            const lastUpdatedDate = new Date(video.lastUpdated);
+            const lastUpdatedSpan = document.createElement('span');
+            lastUpdatedSpan.classList.add('last-updated');
+            lastUpdatedSpan.textContent = `(Stats last updated: ${lastUpdatedDate.toLocaleDateString()} at ${lastUpdatedDate.toLocaleTimeString()})`;
+            uploadDateElement.appendChild(lastUpdatedSpan);
+
+            durationElement.textContent = `Duration: ${video.stats[0].duration}`;
+            const videoIdSpan = document.createElement('span');
+            videoIdSpan.classList.add('video-id');
+            videoIdSpan.textContent = `(Video ID: ${video.videoId})`;
+            durationElement.appendChild(videoIdSpan);
+
+            videoInfoCard.style.display = 'flex';
+            const filteredStats = video.stats.filter(
+              stat =>
+                stat.views != null &&
+                stat.views !== 0 &&
+                stat.likes != null &&
+                stat.likes !== 0 &&
+                stat.comments != null &&
+                stat.comments !== 0
+            );
+
+            const timestamps = filteredStats.map(
+              stat => new Date(stat.timestamp)
+            );
+            const views = filteredStats.map(stat => Math.round(stat.views));
+            const likes = filteredStats.map(stat => Math.round(stat.likes));
+            const comments = filteredStats.map(stat =>
+              Math.round(stat.comments)
+            );
+
+            allData = { timestamps, views, likes, comments };
+            drawChart();
+            updateStats(views, likes, comments);
+
+            const dailyData = processDailyDataForVideo(filteredStats);
+            const currentDayData = filteredStats[filteredStats.length - 1];
+
+            createDailyTableForVideo(dailyData, currentDayData);
+            document.getElementById('dailyStatsTable').style.display =
+              'block';
+          });
+      }
+      function drawChart() {
+        const MAX_POINTS = 1000;
+
+        if (
+          !allData ||
+          !allData.timestamps ||
+          allData.timestamps.length === 0
+        ) {
+          console.error('No data available to draw the chart.');
+          return;
+        }
+
+        if (videoChart) {
+          videoChart.destroy();
+        }
+
+        function downsampleData(timestamps, data) {
+          const length = timestamps.length;
+          if (length <= MAX_POINTS) {
+            return timestamps.map((t, i) => [
+              t.getTime() - 4 * 3600 * 1000,
+              data[i],
+            ]);
+          }
+
+          const step = Math.floor(length / MAX_POINTS);
+          const sampledData = [];
+          for (let i = 0; i < length; i += step) {
+            sampledData.push([
+              timestamps[i].getTime() - 4 * 3600 * 1000,
+              data[i],
+            ]);
+          }
+          return sampledData;
+        }
+
+        const seriesData = [
+          {
+            name: 'Views',
+            data: downsampleData(allData.timestamps, allData.views),
+            color: {
+              linearGradient: {
+                x1: 0,
+                x2: 0,
+                y1: 0,
+                y2: 1,
               },
-              plotBorderColor: 'var(--border-color)',
+              stops: [
+                [0, '#ef4444'],
+                [1, 'rgba(239, 68, 68, 0.3)'],
+              ],
             },
-            title: {
-              text:
-                selectedSeriesIndex === 0
-                  ? 'Views'
-                  : selectedSeriesIndex === 1
+            visible: selectedSeriesIndex === 0,
+            marker: {
+              enabled: false,
+            },
+            lineWidth: 3,
+          },
+          {
+            name: 'Likes',
+            data: downsampleData(allData.timestamps, allData.likes),
+            color: {
+              linearGradient: {
+                x1: 0,
+                x2: 0,
+                y1: 0,
+                y2: 1,
+              },
+              stops: [
+                [0, '#1976d2'],
+                [1, 'rgba(25, 118, 210, 0.3)'],
+              ],
+            },
+            visible: selectedSeriesIndex === 1,
+            marker: {
+              enabled: false,
+            },
+            lineWidth: 3,
+          },
+          {
+            name: 'Comments',
+            data: downsampleData(allData.timestamps, allData.comments),
+            color: {
+              linearGradient: {
+                x1: 0,
+                x2: 0,
+                y1: 0,
+                y2: 1,
+              },
+              stops: [
+                [0, '#0d9488'],
+                [1, 'rgba(13, 148, 136, 0.3)'],
+              ],
+            },
+            visible: selectedSeriesIndex === 2,
+            marker: {
+              enabled: false,
+            },
+            lineWidth: 3,
+          },
+        ];
+
+        if (allData.uploads) {
+          seriesData.push({
+            name: 'Uploads',
+            data: downsampleData(allData.timestamps, allData.uploads),
+            color: {
+              linearGradient: {
+                x1: 0,
+                x2: 0,
+                y1: 0,
+                y2: 1,
+              },
+              stops: [
+                [0, '#8e44ad'],
+                [1, 'rgba(142, 68, 173, 0.3)'],
+              ],
+            },
+            visible: selectedSeriesIndex === 3,
+            marker: {
+              enabled: false,
+            },
+            lineWidth: 3,
+          });
+        }
+
+        if (selectedSeriesIndex >= seriesData.length) {
+          selectedSeriesIndex = 0;
+        }
+
+        const minValue = Math.min(
+          ...seriesData[selectedSeriesIndex].data.map(d => d[1])
+        );
+
+        videoChart = Highcharts.chart('videoChart', {
+          chart: {
+            type: 'area',
+            backgroundColor: 'var(--card-background-color)',
+            style: {
+              fontFamily: "'Poppins', 'Roboto', sans-serif",
+            },
+            plotBorderColor: 'var(--border-color)',
+          },
+          title: {
+            text:
+              selectedSeriesIndex === 0
+                ? 'Views'
+                : selectedSeriesIndex === 1
                   ? 'Likes'
                   : selectedSeriesIndex === 2
-                  ? 'Comments'
-                  : 'Uploads',
-              style: {
-                color: 'var(--text-color)',
-                fontWeight: 'bold',
-                fontSize: '20px',
-              },
+                    ? 'Comments'
+                    : 'Uploads',
+            style: {
+              color: 'var(--text-color)',
+              fontWeight: 'bold',
+              fontSize: '20px',
             },
-            credits: {
-              enabled: false,
-            },
-            xAxis: {
-              title: {
-                text: 'Time (EST)',
-                style: {
-                  color: 'var(--text-color)',
-                  fontSize: '14px',
-                },
-              },
-              type: 'datetime',
-              labels: {
-                formatter: function () {
-                  return Highcharts.dateFormat('%Y-%m-%d<br>%H:%M', this.value);
-                },
-                style: {
-                  color: 'var(--text-color)',
-                  fontSize: '12px',
-                },
-              },
-              gridLineColor: 'var(--border-color)',
-              gridLineWidth: 1,
-              tickPositioner: function () {
-                const positions = [];
-                const min = this.dataMin;
-                const max = this.dataMax;
-                const range = max - min;
-
-                const isMobile = this.chart.chartWidth <= 600;
-                const maxPoints = isMobile ? 6 : 14;
-
-                const roundingInterval = isMobile
-                  ? 30 * 60 * 1000
-                  : 15 * 60 * 1000;
-
-                const interval = range / (maxPoints - 1);
-
-                for (let i = 0; i < maxPoints; i++) {
-                  const rawPosition = min + i * interval;
-                  const roundedPosition =
-                    Math.round(rawPosition / roundingInterval) *
-                    roundingInterval;
-                  positions.push(roundedPosition);
-                }
-
-                return positions;
-              },
-            },
-            yAxis: {
-              title: {
-                text: 'Count',
-                style: {
-                  color: 'var(--text-color)',
-                  fontSize: '14px',
-                },
-              },
-              labels: {
-                style: {
-                  color: 'var(--text-color)',
-                  fontSize: '12px',
-                },
-              },
-              gridLineColor: 'var(--border-color)',
-              gridLineWidth: 1,
-              min: minValue,
-            },
-            series: seriesData,
-            legend: {
-              enabled: false,
-            },
-            tooltip: {
-              backgroundColor: 'var(--card-background-color)',
-              borderColor: 'var(--border-color)',
+          },
+          credits: {
+            enabled: false,
+          },
+          xAxis: {
+            title: {
+              text: 'Time (EST)',
               style: {
                 color: 'var(--text-color)',
                 fontSize: '14px',
               },
+            },
+            type: 'datetime',
+            labels: {
               formatter: function () {
-                let formattedDate = Highcharts.dateFormat('%Y-%m-%d', this.x);
-                let formattedTime =
-                  Highcharts.dateFormat('%H:%M', this.x) + ':00';
-
-                let tooltipText = `<b>${formattedDate} ${formattedTime}</b><br>`;
-
-                this.points.forEach(point => {
-                  let label = point.series.name;
-                  tooltipText += `${label}: ${point.y.toLocaleString()}<br>`;
-                });
-
-                return tooltipText;
+                return Highcharts.dateFormat('%Y-%m-%d<br>%H:%M', this.value);
               },
-              shared: true,
-              useHTML: true,
-              borderRadius: 10,
-              shadow: true,
-            },
-            plotOptions: {
-              series: {
-                marker: {
-                  symbol: 'circle',
-                },
-                events: {
-                  hide: function () {
-                    updateSelectedSeriesIndex();
-                  },
-                  show: function () {
-                    updateSelectedSeriesIndex();
-                  },
-                },
-                states: {
-                  hover: {
-                    lineWidthPlus: 0,
-                  },
-                },
+              style: {
+                color: 'var(--text-color)',
+                fontSize: '12px',
               },
             },
-            responsive: {
-              rules: [
-                {
-                  condition: {
-                    maxWidth: 600,
-                  },
-                },
-              ],
+            gridLineColor: 'var(--border-color)',
+            gridLineWidth: 1,
+            tickPositioner: function () {
+              const positions = [];
+              const min = this.dataMin;
+              const max = this.dataMax;
+              const range = max - min;
+
+              const isMobile = this.chart.chartWidth <= 600;
+              const maxPoints = isMobile ? 6 : 14;
+
+              const roundingInterval = isMobile
+                ? 30 * 60 * 1000
+                : 15 * 60 * 1000;
+
+              const interval = range / (maxPoints - 1);
+
+              for (let i = 0; i < maxPoints; i++) {
+                const rawPosition = min + i * interval;
+                const roundedPosition =
+                  Math.round(rawPosition / roundingInterval) *
+                  roundingInterval;
+                positions.push(roundedPosition);
+              }
+
+              return positions;
             },
-          });
-        }
+          },
+          yAxis: {
+            title: {
+              text: 'Count',
+              style: {
+                color: 'var(--text-color)',
+                fontSize: '14px',
+              },
+            },
+            labels: {
+              style: {
+                color: 'var(--text-color)',
+                fontSize: '12px',
+              },
+            },
+            gridLineColor: 'var(--border-color)',
+            gridLineWidth: 1,
+            min: minValue,
+          },
+          series: seriesData,
+          legend: {
+            enabled: false,
+          },
+          tooltip: {
+            backgroundColor: 'var(--card-background-color)',
+            borderColor: 'var(--border-color)',
+            style: {
+              color: 'var(--text-color)',
+              fontSize: '14px',
+            },
+            formatter: function () {
+              let formattedDate = Highcharts.dateFormat('%Y-%m-%d', this.x);
+              let formattedTime =
+                Highcharts.dateFormat('%H:%M', this.x) + ':00';
 
-        function updateStats(views, likes, comments, uploads) {
-          const totalViews = views[views.length - 1] || 0;
-          const totalLikes = likes[likes.length - 1] || 0;
-          const totalComments = comments[comments.length - 1] || 0;
+              let tooltipText = `<b>${formattedDate} ${formattedTime}</b><br>`;
 
-          const viewsElement = document.getElementById('totalViews');
-          const likesElement = document.getElementById('totalLikes');
-          const commentsElement = document.getElementById('totalComments');
+              this.points.forEach(point => {
+                let label = point.series.name;
+                tooltipText += `${label}: ${point.y.toLocaleString()}<br>`;
+              });
+
+              return tooltipText;
+            },
+            shared: true,
+            useHTML: true,
+            borderRadius: 10,
+            shadow: true,
+          },
+          plotOptions: {
+            series: {
+              marker: {
+                symbol: 'circle',
+              },
+              events: {
+                hide: function () {
+                  updateSelectedSeriesIndex();
+                },
+                show: function () {
+                  updateSelectedSeriesIndex();
+                },
+              },
+              states: {
+                hover: {
+                  lineWidthPlus: 0,
+                },
+              },
+            },
+          },
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 600,
+                },
+              },
+            ],
+          },
+        });
+      }
+
+      function updateStats(views, likes, comments, uploads) {
+        const totalViews = views[views.length - 1] || 0;
+        const totalLikes = likes[likes.length - 1] || 0;
+        const totalComments = comments[comments.length - 1] || 0;
+
+        const viewsElement = document.getElementById('totalViews');
+        const likesElement = document.getElementById('totalLikes');
+        const commentsElement = document.getElementById('totalComments');
+
+        new Odometer({
+          el: viewsElement,
+          value: totalViews,
+        }).update(totalViews);
+
+        new Odometer({
+          el: likesElement,
+          value: totalLikes,
+        }).update(totalLikes);
+
+        new Odometer({
+          el: commentsElement,
+          value: totalComments,
+        }).update(totalComments);
+
+        if (uploads) {
+          const totalUploads = uploads[uploads.length - 1] || 0;
+          const uploadsElement = document.getElementById('totalUploads');
 
           new Odometer({
-            el: viewsElement,
-            value: totalViews,
-          }).update(totalViews);
-
-          new Odometer({
-            el: likesElement,
-            value: totalLikes,
-          }).update(totalLikes);
-
-          new Odometer({
-            el: commentsElement,
-            value: totalComments,
-          }).update(totalComments);
-
-          if (uploads) {
-            const totalUploads = uploads[uploads.length - 1] || 0;
-            const uploadsElement = document.getElementById('totalUploads');
-
-            new Odometer({
-              el: uploadsElement,
-              value: totalUploads,
-            }).update(totalUploads);
-          }
+            el: uploadsElement,
+            value: totalUploads,
+          }).update(totalUploads);
         }
+      }
 
-        function updateSelectedSeriesIndex() {
-          selectedSeriesIndex = videoChart.series.findIndex(
-            series => series.visible
-          );
-        }
+      function updateSelectedSeriesIndex() {
+        selectedSeriesIndex = videoChart.series.findIndex(
+          series => series.visible
+        );
+      }
 
-        function showOnlySelectedSeries(index) {
+      function showOnlySelectedSeries(index) {
+        selectedSeriesIndex = index;
+        drawChart();
+      }
+
+      document.querySelectorAll('.stat-card').forEach((card, index) => {
+        card.addEventListener('click', () => {
           selectedSeriesIndex = index;
           drawChart();
-        }
-
-        document.querySelectorAll('.stat-card').forEach((card, index) => {
-          card.addEventListener('click', () => {
-            selectedSeriesIndex = index;
-            drawChart();
-          });
-        });
-
-        exportButton.addEventListener('click', () => {
-          if (!allData || !allData.timestamps) {
-            console.error('No data available to export.');
-            return;
-          }
-
-          const csvContent =
-            'data:text/csv;charset=utf-8,' +
-            'Timestamp,Views,Likes,Comments\n' +
-            allData.timestamps
-              .map((t, i) => {
-                return `${t.toISOString()},${Math.round(
-                  allData.views[i]
-                )},${Math.round(allData.likes[i])},${Math.round(
-                  allData.comments[i]
-                )}`;
-              })
-              .join('\n');
-
-          const encodedUri = encodeURI(csvContent);
-          const link = document.createElement('a');
-          link.setAttribute('href', encodedUri);
-          link.setAttribute('download', `${currentVideoId}.csv`);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
         });
       });
 
-      function filterSpikes(data) {
-        return data
-          .map((value, index, array) => {
-            if (
-              value == null ||
-              (index > 0 &&
-                index < array.length - 1 &&
-                value < array[index - 1] &&
-                value < array[index + 1])
-            ) {
-              return Math.round((array[index - 1] + array[index + 1]) / 2);
-            }
-            return Math.round(value);
-          })
-          .filter(value => value != null);
-      }
-    </script>
-  </body>
+      exportButton.addEventListener('click', () => {
+        if (!allData || !allData.timestamps) {
+          console.error('No data available to export.');
+          return;
+        }
+
+        const csvContent =
+          'data:text/csv;charset=utf-8,' +
+          'Timestamp,Views,Likes,Comments\n' +
+          allData.timestamps
+            .map((t, i) => {
+              return `${t.toISOString()},${Math.round(
+                allData.views[i]
+              )},${Math.round(allData.likes[i])},${Math.round(
+                allData.comments[i]
+              )}`;
+            })
+            .join('\n');
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `${currentVideoId}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    });
+
+    function filterSpikes(data) {
+      return data
+        .map((value, index, array) => {
+          if (
+            value == null ||
+            (index > 0 &&
+              index < array.length - 1 &&
+              value < array[index - 1] &&
+              value < array[index + 1])
+          ) {
+            return Math.round((array[index - 1] + array[index + 1]) / 2);
+          }
+          return Math.round(value);
+        })
+        .filter(value => value != null);
+    }
+  </script>
+</body>
+
 </html>
