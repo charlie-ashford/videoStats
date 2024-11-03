@@ -1026,9 +1026,9 @@
             currentDate = entryDateString;
             closestTo4am = entry;
           } else {
-            const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+            const current4amDiff = Math.abs(entryDate.getUTCHours() - 5);
             const closest4amDiff = Math.abs(
-              new Date(closestTo4am.time).getUTCHours() - 4
+              new Date(closestTo4am.time).getUTCHours() - 5
             );
 
             if (current4amDiff < closest4amDiff) {
@@ -1073,9 +1073,9 @@
             firstEntryOfDay = entry;
             closestTo4am = entry;
           } else {
-            const current4amDiff = Math.abs(entryDate.getUTCHours() - 4);
+            const current4amDiff = Math.abs(entryDate.getUTCHours() - 5);
             const closest4amDiff = Math.abs(
-              new Date(closestTo4am.timestamp).getUTCHours() - 4
+              new Date(closestTo4am.timestamp).getUTCHours() - 5
             );
 
             if (current4amDiff < closest4amDiff) {
@@ -1498,7 +1498,7 @@
           const length = timestamps.length;
           if (length <= MAX_POINTS) {
             return timestamps.map((t, i) => [
-              t.getTime() - 4 * 3600 * 1000,
+              t.getTime() - 5 * 3600 * 1000,
               data[i],
             ]);
           }
@@ -1507,7 +1507,7 @@
           const sampledData = [];
           for (let i = 0; i < length; i += step) {
             sampledData.push([
-              timestamps[i].getTime() - 4 * 3600 * 1000,
+              timestamps[i].getTime() - 5 * 3600 * 1000,
               data[i],
             ]);
           }
