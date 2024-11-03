@@ -1481,14 +1481,11 @@
               'block';
           });
       }
-      function drawChart() {
-        const MAX_POINTS = 1000;
 
-        if (
-          !allData ||
-          !allData.timestamps ||
-          allData.timestamps.length === 0
-        ) {
+      function drawChart() {
+        const MAX_POINTS = 3000;
+
+        if (!allData || !allData.timestamps || allData.timestamps.length === 0) {
           console.error('No data available to draw the chart.');
           return;
         }
@@ -1515,6 +1512,37 @@
             ]);
           }
           return sampledData;
+        }
+
+        function getVisibleDataRange(series, min, max) {
+          const visiblePoints = series.data.filter(point => {
+            const x = point[0];
+            return x >= min && x <= max;
+          });
+
+          if (visiblePoints.length === 0) {
+            return { min: series.dataMin, max: series.dataMax };
+          }
+
+          const yValues = visiblePoints.map(point => point[1]);
+          const visibleMin = Math.min(...yValues);
+          const visibleMax = Math.max(...yValues);
+          const padding = (visibleMax - visibleMin) * 0.1;
+          return {
+            min: visibleMin - padding,
+            max: visibleMax + padding
+          };
+        }
+
+        function getInitialDataRange(data) {
+          const yValues = data.map(point => point[1]);
+          const min = Math.min(...yValues);
+          const max = Math.max(...yValues);
+          const padding = (max - min) * 0.1;
+          return {
+            min: min - padding,
+            max: max + padding
+          };
         }
 
         const seriesData = [
@@ -1611,9 +1639,7 @@
           selectedSeriesIndex = 0;
         }
 
-        const minValue = Math.min(
-          ...seriesData[selectedSeriesIndex].data.map(d => d[1])
-        );
+        const initialRange = getInitialDataRange(seriesData[selectedSeriesIndex].data);
 
         videoChart = Highcharts.chart('videoChart', {
           chart: {
@@ -1623,6 +1649,49 @@
               fontFamily: "'Poppins', 'Roboto', sans-serif",
             },
             plotBorderColor: 'var(--border-color)',
+            zoomType: 'x',
+            panning: true,
+            panKey: 'shift',
+            events: {
+              load: function () {
+                const activeSeries = this.series[selectedSeriesIndex];
+                const range = getInitialDataRange(activeSeries.data);
+                this.yAxis[0].setExtremes(range.min, range.max);
+              }
+            },
+            resetZoomButton: {
+              position: {
+                align: 'right',
+                x: -10,
+                y: 10,
+                verticalAlign: 'top'
+              },
+              theme: {
+                fill: '#3b82f6',
+                stroke: '#2563eb',
+                strokeWidth: 1,
+                r: 4,
+                states: {
+                  hover: {
+                    fill: '#2563eb',
+                    stroke: '#1d4ed8',
+                    style: {
+                      color: '#ffffff'
+                    }
+                  }
+                },
+                style: {
+                  color: '#ffffff',
+                  fontWeight: '500',
+                  fontSize: '13px',
+                  fontFamily: "'Poppins', 'Roboto', sans-serif",
+                  textTransform: 'uppercase',
+                  padding: '8px 12px'
+                },
+                zIndex: 20
+              },
+              relativeTo: 'plot'
+            },
           },
           title: {
             text:
@@ -1664,16 +1733,23 @@
             gridLineWidth: 1,
             tickPositioner: function () {
               const positions = [];
-              const min = this.dataMin;
-              const max = this.dataMax;
+              const min = this.min || this.dataMin;
+              const max = this.max || this.dataMax;
               const range = max - min;
 
               const isMobile = this.chart.chartWidth <= 600;
-              const maxPoints = isMobile ? 6 : 14;
+              const maxPoints = isMobile ? 6 : 10;
 
-              const roundingInterval = isMobile
-                ? 30 * 60 * 1000
-                : 15 * 60 * 1000;
+              let roundingInterval;
+              if (range <= 3600000) {
+                roundingInterval = 5 * 60 * 1000;
+              } else if (range <= 86400000) {
+                roundingInterval = 30 * 60 * 1000;
+              } else if (range <= 604800000) {
+                roundingInterval = 4 * 3600 * 1000;
+              } else {
+                roundingInterval = 24 * 3600 * 1000;
+              }
 
               const interval = range / (maxPoints - 1);
 
@@ -1687,6 +1763,28 @@
 
               return positions;
             },
+            events: {
+              afterSetExtremes: function (e) {
+                if (this.chart) {
+                  const activeSeries = this.chart.series[selectedSeriesIndex];
+                  const range = getVisibleDataRange(
+                    activeSeries,
+                    e.min || this.dataMin,
+                    e.max || this.dataMax
+                  );
+
+                  this.chart.yAxis[0].setExtremes(
+                    range.min,
+                    range.max,
+                    true,
+                    {
+                      duration: 500,
+                      easing: 'easeOutCubic'
+                    }
+                  );
+                }
+              }
+            }
           },
           yAxis: {
             title: {
@@ -1704,7 +1802,32 @@
             },
             gridLineColor: 'var(--border-color)',
             gridLineWidth: 1,
-            min: minValue,
+            startOnTick: false,
+            endOnTick: false,
+            tickAmount: 8,
+            softThreshold: true,
+            minPadding: 0.1,
+            maxPadding: 0.1,
+            min: initialRange.min,
+            max: initialRange.max,
+            events: {
+              afterSetExtremes: function (e) {
+                if (!e.userMin && !e.userMax) {
+                  const activeSeries = this.chart.series[selectedSeriesIndex];
+                  const range = getVisibleDataRange(
+                    activeSeries,
+                    this.chart.xAxis[0].min,
+                    this.chart.xAxis[0].max
+                  );
+                  if (range.min !== range.max) {
+                    this.update({
+                      min: range.min,
+                      max: range.max
+                    }, false);
+                  }
+                }
+              }
+            }
           },
           series: seriesData,
           legend: {
@@ -1738,8 +1861,15 @@
           },
           plotOptions: {
             series: {
+              animaton: false,
               marker: {
-                symbol: 'circle',
+                enabled: false,
+                states: {
+                  hover: {
+                    enabled: true,
+                    radius: 4
+                  }
+                }
               },
               events: {
                 hide: function () {
@@ -1756,6 +1886,11 @@
               },
             },
           },
+          boost: {
+            enabled: true,
+            useGPUTranslations: true,
+            usePreallocated: true
+          },
           responsive: {
             rules: [
               {
@@ -1765,6 +1900,38 @@
               },
             ],
           },
+          rangeSelector: {
+            enabled: false
+          },
+          navigator: {
+            enabled: false
+          },
+          scrollbar: {
+            enabled: false
+          },
+          resetZoomButton: {
+            theme: {
+              fill: 'var(--card-background-color)',
+              stroke: 'var(--border-color)',
+              style: {
+                color: 'var(--text-color)'
+              },
+              states: {
+                hover: {
+                  fill: 'var(--border-color)',
+                  style: {
+                    color: 'var(--card-background-color)'
+                  }
+                }
+              },
+              r: 4
+            },
+            position: {
+              align: 'right',
+              x: -10,
+              y: 10
+            }
+          }
         });
       }
 
