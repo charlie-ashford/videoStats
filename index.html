@@ -1013,7 +1013,6 @@
         data.forEach((entry, index) => {
           const entryDate = new Date(entry.time);
 
-          // Get the date string in Eastern Time
           const entryDateString = entryDate.toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -1021,12 +1020,10 @@
             timeZone: 'America/New_York',
           });
 
-          // Get the entry time in Eastern Time
           const entryEasternTime = new Date(entryDate.toLocaleString('en-US', {
             timeZone: 'America/New_York'
           }));
 
-          // Calculate milliseconds from midnight
           const millisecondsFromMidnight =
             (entryEasternTime.getHours() * 3600000) +
             (entryEasternTime.getMinutes() * 60000) +
@@ -1082,7 +1079,6 @@
             timeZone: 'America/New_York',
           });
 
-          // Get the entry time in Eastern Time
           const entryEasternTime = new Date(entryDate.toLocaleString('en-US', {
             timeZone: 'America/New_York'
           }));
