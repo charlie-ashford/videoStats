@@ -1008,10 +1008,12 @@
       function processDailyData(data) {
         const dailyData = [];
         let currentDate = null;
-        let closestTo4am = null;
+        let closestToMidnight = null;
 
         data.forEach((entry, index) => {
           const entryDate = new Date(entry.time);
+
+          // Get the date string in Eastern Time
           const entryDateString = entryDate.toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -1019,37 +1021,56 @@
             timeZone: 'America/New_York',
           });
 
+          // Get the entry time in Eastern Time
+          const entryEasternTime = new Date(entryDate.toLocaleString('en-US', {
+            timeZone: 'America/New_York'
+          }));
+
+          // Calculate milliseconds from midnight
+          const millisecondsFromMidnight =
+            (entryEasternTime.getHours() * 3600000) +
+            (entryEasternTime.getMinutes() * 60000) +
+            (entryEasternTime.getSeconds() * 1000) +
+            entryEasternTime.getMilliseconds();
+
           if (entryDateString !== currentDate) {
-            if (closestTo4am || index === 0) {
-              dailyData.push(closestTo4am || entry);
+            if (closestToMidnight || index === 0) {
+              dailyData.push(closestToMidnight || entry);
             }
             currentDate = entryDateString;
-            closestTo4am = entry;
+            closestToMidnight = entry;
           } else {
-            const current4amDiff = Math.abs(entryDate.getUTCHours() - 5);
-            const closest4amDiff = Math.abs(
-              new Date(closestTo4am.time).getUTCHours() - 5
-            );
+            const closestDate = new Date(closestToMidnight.time);
+            const closestEasternTime = new Date(closestDate.toLocaleString('en-US', {
+              timeZone: 'America/New_York'
+            }));
 
-            if (current4amDiff < closest4amDiff) {
-              closestTo4am = entry;
+            const closestMillisecondsFromMidnight =
+              (closestEasternTime.getHours() * 3600000) +
+              (closestEasternTime.getMinutes() * 60000) +
+              (closestEasternTime.getSeconds() * 1000) +
+              closestEasternTime.getMilliseconds();
+
+            if (millisecondsFromMidnight < closestMillisecondsFromMidnight) {
+              closestToMidnight = entry;
             }
           }
         });
 
         if (
-          closestTo4am &&
-          closestTo4am !== dailyData[dailyData.length - 1]
+          closestToMidnight &&
+          closestToMidnight !== dailyData[dailyData.length - 1]
         ) {
-          dailyData.push(closestTo4am);
+          dailyData.push(closestToMidnight);
         }
 
         return dailyData;
       }
+
       function processDailyDataForVideo(data) {
         const dailyData = [];
         let currentDate = null;
-        let closestTo4am = null;
+        let closestToMidnight = null;
         let firstEntryOfDay = null;
 
         data.forEach(entry => {
@@ -1061,25 +1082,42 @@
             timeZone: 'America/New_York',
           });
 
+          // Get the entry time in Eastern Time
+          const entryEasternTime = new Date(entryDate.toLocaleString('en-US', {
+            timeZone: 'America/New_York'
+          }));
+
+          const millisecondsFromMidnight =
+            (entryEasternTime.getHours() * 3600000) +
+            (entryEasternTime.getMinutes() * 60000) +
+            (entryEasternTime.getSeconds() * 1000) +
+            entryEasternTime.getMilliseconds();
+
           if (entryDateString !== currentDate) {
             if (firstEntryOfDay) {
               if (firstEntryOfDay.views < 1000) {
                 dailyData.push(firstEntryOfDay);
-              } else if (closestTo4am) {
-                dailyData.push(closestTo4am);
+              } else if (closestToMidnight) {
+                dailyData.push(closestToMidnight);
               }
             }
             currentDate = entryDateString;
             firstEntryOfDay = entry;
-            closestTo4am = entry;
+            closestToMidnight = entry;
           } else {
-            const current4amDiff = Math.abs(entryDate.getUTCHours() - 5);
-            const closest4amDiff = Math.abs(
-              new Date(closestTo4am.timestamp).getUTCHours() - 5
-            );
+            const closestDate = new Date(closestToMidnight.timestamp);
+            const closestEasternTime = new Date(closestDate.toLocaleString('en-US', {
+              timeZone: 'America/New_York'
+            }));
 
-            if (current4amDiff < closest4amDiff) {
-              closestTo4am = entry;
+            const closestMillisecondsFromMidnight =
+              (closestEasternTime.getHours() * 3600000) +
+              (closestEasternTime.getMinutes() * 60000) +
+              (closestEasternTime.getSeconds() * 1000) +
+              closestEasternTime.getMilliseconds();
+
+            if (millisecondsFromMidnight < closestMillisecondsFromMidnight) {
+              closestToMidnight = entry;
             }
           }
         });
@@ -1087,8 +1125,8 @@
         if (firstEntryOfDay) {
           if (firstEntryOfDay.views < 1000) {
             dailyData.push(firstEntryOfDay);
-          } else if (closestTo4am) {
-            dailyData.push(closestTo4am);
+          } else if (closestToMidnight) {
+            dailyData.push(closestToMidnight);
           }
         }
 
@@ -1496,9 +1534,17 @@
 
         function downsampleData(timestamps, data) {
           const length = timestamps.length;
+
+          function convertToEasternTime(timestamp) {
+            const date = new Date(timestamp);
+            return new Date(date.toLocaleString('en-US', {
+              timeZone: 'America/New_York'
+            })).getTime();
+          }
+
           if (length <= MAX_POINTS) {
             return timestamps.map((t, i) => [
-              t.getTime() - 5 * 3600 * 1000,
+              convertToEasternTime(t),
               data[i],
             ]);
           }
@@ -1507,7 +1553,7 @@
           const sampledData = [];
           for (let i = 0; i < length; i += step) {
             sampledData.push([
-              timestamps[i].getTime() - 5 * 3600 * 1000,
+              convertToEasternTime(timestamps[i]),
               data[i],
             ]);
           }
