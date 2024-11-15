@@ -1532,8 +1532,8 @@
           const length = timestamps.length;
 
           function convertToEasternTime(timestamp) {
-            const date = new Date(timestamp);
-            return new Date(date.toLocaleString('en-US', {
+            const utcDate = new Date(Date.parse(timestamp + 'Z'));
+            return new Date(utcDate.toLocaleString('en-US', {
               timeZone: 'America/New_York'
             })).getTime();
           }
@@ -2060,20 +2060,19 @@
     });
 
     function filterSpikes(data) {
-      return data
-        .map((value, index, array) => {
-          if (
-            value == null ||
-            (index > 0 &&
-              index < array.length - 1 &&
-              value < array[index - 1] &&
-              value < array[index + 1])
-          ) {
-            return Math.round((array[index - 1] + array[index + 1]) / 2);
-          }
-          return Math.round(value);
-        })
-        .filter(value => value != null);
+      const spikeIndices = [];
+
+      // Find the indices of the spike values
+      for (let i = 1; i < data.length - 1; i++) {
+        if (
+          Math.abs(data[i] - data[i - 1]) > 100000 &&
+          Math.abs(data[i] - data[i + 1]) > 100000
+        ) {
+          spikeIndices.push(i);
+        }
+      }
+
+      return data.filter((_, index) => !spikeIndices.includes(index));
     }
   </script>
 </body>
