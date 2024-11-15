@@ -974,15 +974,9 @@
             const timestamps = combinedData.map(
               entry => new Date(entry.time)
             );
-            const views = filterSpikes(
-              combinedData.map(entry => Math.round(entry.views))
-            );
-            const likes = filterSpikes(
-              combinedData.map(entry => Math.round(entry.likes))
-            );
-            const comments = filterSpikes(
-              combinedData.map(entry => Math.round(entry.comments))
-            );
+            const views = combinedData.map(entry => entry.views);
+            const likes = combinedData.map(entry => entry.likes);
+            const comments = combinedData.map(entry => entry.comments);
             const uploads = combinedData.map(entry => entry.uploadCount);
 
             allData = { timestamps, views, likes, comments, uploads };
@@ -2059,21 +2053,6 @@
       });
     });
 
-    function filterSpikes(data) {
-      const spikeIndices = [];
-
-      // Find the indices of the spike values
-      for (let i = 1; i < data.length - 1; i++) {
-        if (
-          Math.abs(data[i] - data[i - 1]) > 100000 &&
-          Math.abs(data[i] - data[i + 1]) > 100000
-        ) {
-          spikeIndices.push(i);
-        }
-      }
-
-      return data.filter((_, index) => !spikeIndices.includes(index));
-    }
   </script>
 </body>
 
