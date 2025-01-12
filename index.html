@@ -86,7 +86,7 @@
         --font-family: "Inter", "Poppins", sans-serif;
         --font-size-base: 16px;
         --font-size-lg: 1.25rem;
-        --font-size-sm: 0.9rem;
+        --font-size-sm: 0.85rem;
         --font-weight-normal: 400;
         --font-weight-medium: 500;
         --font-weight-bold: 700;
@@ -361,9 +361,14 @@
       }
 
       .video-duration,
-      .video-upload-date,
-      .video-id {
-        font-size: var(--font-size-sm);
+      .video-upload-date {
+        font-size: var(--font-size-base); 
+        color: var(--muted-text-color);
+      }
+
+      .video-id,
+      .last-updated {
+        font-size: var(--font-size-sm); 
         color: var(--muted-text-color);
       }
 
@@ -689,7 +694,7 @@
           <input
             type="text"
             id="searchInput"
-            placeholder="Search and select a video..."
+            placeholder="Search and select a video or channel..."
             autocomplete="off"
             autocorrect="off"
           />
@@ -861,13 +866,13 @@
         combinedOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast" alt="MrBeast" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      MrBeast Combined
+      MrBeast
     </div>
   `;
         dropdownList.appendChild(combinedOption);
 
         combinedOption.addEventListener("click", () => {
-          searchInput.value = "MrBeast Combined";
+          searchInput.value = "MrBeast";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             combinedEndpoint,
@@ -881,13 +886,13 @@
         mrbeast2Option.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeast2" alt="MrBeast 2" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      MrBeast 2 Combined
+      MrBeast 2
     </div>
   `;
         dropdownList.appendChild(mrbeast2Option);
 
         mrbeast2Option.addEventListener("click", () => {
-          searchInput.value = "MrBeast 2 Combined";
+          searchInput.value = "MrBeast 2";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             mrbeast2Endpoint,
@@ -901,13 +906,13 @@
         mrbeastphilanthropyOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy" alt="Beast Philanthropy" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      Beast Philanthropy Combined
+      Beast Philanthropy
     </div>
   `;
         dropdownList.appendChild(mrbeastphilanthropyOption);
 
         mrbeastphilanthropyOption.addEventListener("click", () => {
-          searchInput.value = "Beast Philanthropy Combined";
+          searchInput.value = "Beast Philanthropy";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             mrbeastphilanthropyEndpoint,
@@ -921,13 +926,13 @@
         mrbeastGamingOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastgaming" alt="MrBeast Gaming" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      MrBeast Gaming Combined
+      MrBeast Gaming
     </div>
   `;
         dropdownList.appendChild(mrbeastGamingOption);
 
         mrbeastGamingOption.addEventListener("click", () => {
-          searchInput.value = "MrBeast Gaming Combined";
+          searchInput.value = "MrBeast Gaming";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             mrbeastGamingEndpoint,
@@ -941,13 +946,13 @@
         mrbeastReactsOption.innerHTML = `
     <div style="display: flex; align-items: center;">
       <img src="https://api.communitrics.com/youtube/profile?channel=mrbeastreacts" alt="Beast Reacts" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      Beast Reacts Combined
+      Beast Reacts
     </div>
   `;
         dropdownList.appendChild(mrbeastReactsOption);
 
         mrbeastReactsOption.addEventListener("click", () => {
-          searchInput.value = "Beast Reacts Combined";
+          searchInput.value = "Beast Reacts";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             mrbeastReactsEndpoint,
@@ -960,14 +965,14 @@
         cocomelonOption.classList.add("dropdown-list-item", "bold");
         cocomelonOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=cocomelon" alt="Cocomelon" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      Cocomelon Combined
+      <img src="https://api.communitrics.com/youtube/profile?channel=cocomelon" alt="Cocomelon - Nursery Rhymes" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      Cocomelon - Nursery Rhymes
     </div>
   `;
         dropdownList.appendChild(cocomelonOption);
 
         cocomelonOption.addEventListener("click", () => {
-          searchInput.value = "Cocomelon Combined";
+          searchInput.value = "Cocomelon - Nursery Rhymes";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             cocomelonEndpoint,
@@ -980,14 +985,14 @@
         ronaldoOption.classList.add("dropdown-list-item", "bold");
         ronaldoOption.innerHTML = `
     <div style="display: flex; align-items: center;">
-      <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="Cristiano Ronaldo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
-      Ronaldo Combined
+      <img src="https://api.communitrics.com/youtube/profile?channel=cristiano" alt="UR · Cristiano" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+      UR · Cristiano
     </div>
   `;
         dropdownList.appendChild(ronaldoOption);
 
         ronaldoOption.addEventListener("click", () => {
-          searchInput.value = "Ronaldo Combined";
+          searchInput.value = "UR · Cristiano";
           dropdownList.classList.remove("show");
           fetchCombinedStats(
             ronaldoEndpoint,
@@ -1024,49 +1029,49 @@
             });
 
             if (videoIdFromUrl === "combined") {
-              searchInput.value = "MrBeast Combined";
+              searchInput.value = "MrBeast";
               fetchCombinedStats(
                 combinedEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast",
                 "combined"
               );
             } else if (videoIdFromUrl === "mb2_combined") {
-              searchInput.value = "MrBeast 2 Combined";
+              searchInput.value = "MrBeast 2";
               fetchCombinedStats(
                 mrbeast2Endpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
                 "mb2_combined"
               );
             } else if (videoIdFromUrl === "mbgaming_combined") {
-              searchInput.value = "MrBeast Gaming Combined";
+              searchInput.value = "MrBeast Gaming";
               fetchCombinedStats(
                 mrbeastGamingEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
                 "mbgaming_combined"
               );
             } else if (videoIdFromUrl === "mbreacts_combined") {
-              searchInput.value = "Beast Reacts Combined";
+              searchInput.value = "Beast Reacts";
               fetchCombinedStats(
                 mrbeastReactsEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
                 "mbreacts_combined"
               );
             } else if (videoIdFromUrl === "mbphilanthropy_combined") {
-              searchInput.value = "Beast Philanthropy Combined";
+              searchInput.value = "Beast Philanthropy";
               fetchCombinedStats(
                 mrbeastphilanthropyEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
                 "mbphilanthropy_combined"
               );
             } else if (videoIdFromUrl === "cocomelon_combined") {
-              searchInput.value = "Cocomelon Combined";
+              searchInput.value = "Cocomelon - Nursery Rhymes";
               fetchCombinedStats(
                 cocomelonEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cocomelon",
                 "cocomelon_combined"
               );
             } else if (videoIdFromUrl === "ronaldo_combined") {
-              searchInput.value = "Ronaldo Combined";
+              searchInput.value = "UR · Cristiano";
               fetchCombinedStats(
                 ronaldoEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cristiano",
