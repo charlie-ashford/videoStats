@@ -994,7 +994,7 @@
         });
 
         const urlParams = new URLSearchParams(window.location.search);
-        const videoIdFromUrl = urlParams.get("video");
+        const videoIdFromUrl = urlParams.get("data");
 
         fetch(apiEndpoint)
           .then((response) => response.json())
@@ -1020,49 +1020,49 @@
               });
             });
 
-            if (videoIdFromUrl === "combined") {
+            if (videoIdFromUrl === "mrbeast") {
               searchInput.value = "MrBeast";
               fetchCombinedStats(
                 combinedEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast",
                 "combined"
               );
-            } else if (videoIdFromUrl === "mb2_combined") {
+            } else if (videoIdFromUrl === "mrbeast2") {
               searchInput.value = "MrBeast 2";
               fetchCombinedStats(
                 mrbeast2Endpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
                 "mb2_combined"
               );
-            } else if (videoIdFromUrl === "mbgaming_combined") {
+            } else if (videoIdFromUrl === "mrbeastgaming") {
               searchInput.value = "MrBeast Gaming";
               fetchCombinedStats(
                 mrbeastGamingEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
                 "mbgaming_combined"
               );
-            } else if (videoIdFromUrl === "mbreacts_combined") {
+            } else if (videoIdFromUrl === "mrbeastreacts") {
               searchInput.value = "Beast Reacts";
               fetchCombinedStats(
                 mrbeastReactsEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
                 "mbreacts_combined"
               );
-            } else if (videoIdFromUrl === "mbphilanthropy_combined") {
+            } else if (videoIdFromUrl === "mrbeastphilanthropy") {
               searchInput.value = "Beast Philanthropy";
               fetchCombinedStats(
                 mrbeastphilanthropyEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
                 "mbphilanthropy_combined"
               );
-            } else if (videoIdFromUrl === "cocomelon_combined") {
+            } else if (videoIdFromUrl === "cocomelon") {
               searchInput.value = "Cocomelon - Nursery Rhymes";
               fetchCombinedStats(
                 cocomelonEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cocomelon",
                 "cocomelon_combined"
               );
-            } else if (videoIdFromUrl === "ronaldo_combined") {
+            } else if (videoIdFromUrl === "ronaldo") {
               searchInput.value = "UR · Cristiano";
               fetchCombinedStats(
                 ronaldoEndpoint,
