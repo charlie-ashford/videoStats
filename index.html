@@ -869,7 +869,7 @@
           fetchCombinedStats(
             combinedEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=mrbeast",
-            "combined"
+            "mrbeast"
           );
         });
 
@@ -889,7 +889,7 @@
           fetchCombinedStats(
             mrbeast2Endpoint,
             "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
-            "mb2_combined"
+            "mrbeast2"
           );
         });
 
@@ -909,7 +909,7 @@
           fetchCombinedStats(
             mrbeastphilanthropyEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
-            "mbphilanthropy_combined"
+            "mrbeastphilanthropy"
           );
         });
 
@@ -929,7 +929,7 @@
           fetchCombinedStats(
             mrbeastGamingEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
-            "mbgaming_combined"
+            "mrbeastgaming"
           );
         });
 
@@ -949,7 +949,7 @@
           fetchCombinedStats(
             mrbeastReactsEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
-            "mbreacts_combined"
+            "mrbeastreacts"
           );
         });
 
@@ -969,7 +969,7 @@
           fetchCombinedStats(
             cocomelonEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=cocomelon",
-            "cocomelon_combined"
+            "cocomelon"
           );
         });
 
@@ -989,7 +989,7 @@
           fetchCombinedStats(
             ronaldoEndpoint,
             "https://api.communitrics.com/youtube/profile?channel=cristiano",
-            "ronaldo_combined"
+            "ronaldo"
           );
         });
 
@@ -1025,49 +1025,49 @@
               fetchCombinedStats(
                 combinedEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast",
-                "combined"
+                "mrbeast"
               );
             } else if (videoIdFromUrl === "mrbeast2") {
               searchInput.value = "MrBeast 2";
               fetchCombinedStats(
                 mrbeast2Endpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeast2",
-                "mb2_combined"
+                "mrbeast2"
               );
             } else if (videoIdFromUrl === "mrbeastgaming") {
               searchInput.value = "MrBeast Gaming";
               fetchCombinedStats(
                 mrbeastGamingEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastgaming",
-                "mbgaming_combined"
+                "mrbeastgaming"
               );
             } else if (videoIdFromUrl === "mrbeastreacts") {
               searchInput.value = "Beast Reacts";
               fetchCombinedStats(
                 mrbeastReactsEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastreacts",
-                "mbreacts_combined"
+                "mrbeastreacts"
               );
             } else if (videoIdFromUrl === "mrbeastphilanthropy") {
               searchInput.value = "Beast Philanthropy";
               fetchCombinedStats(
                 mrbeastphilanthropyEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=mrbeastphilanthropy",
-                "mbphilanthropy_combined"
+                "mrbeastphilanthropy"
               );
             } else if (videoIdFromUrl === "cocomelon") {
               searchInput.value = "Cocomelon - Nursery Rhymes";
               fetchCombinedStats(
                 cocomelonEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cocomelon",
-                "cocomelon_combined"
+                "cocomelon"
               );
             } else if (videoIdFromUrl === "ronaldo") {
               searchInput.value = "UR · Cristiano";
               fetchCombinedStats(
                 ronaldoEndpoint,
                 "https://api.communitrics.com/youtube/profile?channel=cristiano",
-                "ronaldo_combined"
+                "ronaldo"
               );
             } else if (videoIdFromUrl) {
               const matchingVideo = videos.find(
@@ -1588,7 +1588,7 @@
           }
 
           currentVideoId = videoId;
-          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?video=${videoId}`;
+          const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?data=${videoId}`;
           window.history.pushState({ path: newUrl }, "", newUrl);
 
           document.getElementById("uploadCountCard").style.display = "none";
